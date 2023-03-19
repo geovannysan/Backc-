@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using  Microsoft.EntityFrameworkCore.Metadata;
 using Backrest.Data.Models;
 
 namespace Backrest.Data
@@ -18,14 +19,13 @@ namespace Backrest.Data
         {
 
         }
-        public virtual DbSet<Docentes> Docentes { get; set; } = null;
+        public virtual DbSet<Empleado> Empleado { get; set; } = null;
+        public virtual DbSet<Cargos> Cargos {get;set;}=null;
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseSqlServer("");
-            }
+           
         }
+        
     }
 
 }

@@ -2,16 +2,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Backrest.Models;
 
 namespace Backrest.Data.Models
 {
-    public class Alumnos
+    public class Cargos
     {
+        public Cargos(){
+            Empleados = new HashSet<Empleado>();
+        }
         public int Id { get; set; }
         public string? Nombre { get; set; }
-        public string? Apellido { get; set; }
-        public decimal Sueldo { get; set; }
-        public DateTime Fecha { get; set; }
-        public int edad { get; set; }
+        public virtual ICollection <Empleado> Empleados {get;set;} =null;
     }
 }

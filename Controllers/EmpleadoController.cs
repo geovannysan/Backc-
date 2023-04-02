@@ -187,7 +187,7 @@ namespace Backrest.Controllers
                     //  MyObj routes_list = json_serializer.Deserialize<MyObj>("{ \"test\":\"some data\" }");
 
 
-                    return StatusCode(StatusCodes.Status200OK, new { mensaje = result });
+                    return StatusCode(StatusCodes.Status200OK, new {  result });
                 }
                 return StatusCode(StatusCodes.Status200OK, new { mensaje = "No se completo la consulta" });
             }

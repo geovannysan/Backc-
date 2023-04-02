@@ -1,4 +1,5 @@
 using System;
+using System.Net;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -10,6 +11,7 @@ using Backrest.Data;
 using Backrest.Models;
 using Backrest.Data.Models;
 using Microsoft.AspNetCore.Cors;
+using Newtonsoft.Json;
 
 namespace Backrest.Controllers
 {
@@ -18,10 +20,16 @@ namespace Backrest.Controllers
     public class EmpleadoController : Controller
     {
         private readonly Data.DataContext _dbcontext;
+        private readonly HttpClient _httpcliente;
 
-        public EmpleadoController(Data.DataContext logger)
+        public EmpleadoController(Data.DataContext logger, HttpClient httpClient)
         {
             _dbcontext = logger;
+            _httpcliente = httpClient;
+        }
+        private List<T> Deserializar<T>(string jsonStr)
+        {
+            return JsonConvert.DeserializeObject<List<T>>(jsonStr);
         }
 
         [HttpGet]
@@ -142,6 +150,56 @@ namespace Backrest.Controllers
 
 
         }
+        public class Results
+        {
+            public string name { get; set; }
+            public string url { get; set; }
+
+        }
+        public class Pokemo
+        {
+            public int count { get; set; }
+            public string next { get; set; }
+            public string previous { get; set; }
+            public List<Results> results { get; set; }
+
+
+        }
+
+
+
+        [HttpGet]
+        [Route("Apiload")]
+        public async Task<ActionResult> Get()
+        {
+            try
+            {
+                // Object moreNumbers = new Dictionary<int, string>;
+                // List<moreNumbers> pke = new List<moreNumbers>();
+                string url = "https://pokeapi.co/api/v2/pokemon";
+                HttpResponseMessage response = await _httpcliente.GetAsync(url);
+                if (response.IsSuccessStatusCode)
+                {
+                    string res = await response.Content.ReadAsStringAsync();
+                    var result = JsonConvert.DeserializeObject<Pokemo>(res);
+                //    var lista = JsonConvert.DeserializeObject<string[]>((string)result.results);
+                    //  var json_serializer = new JavaScriptSerializer();
+                    //  MyObj routes_list = json_serializer.Deserialize<MyObj>("{ \"test\":\"some data\" }");
+
+
+                    return StatusCode(StatusCodes.Status200OK, new { mensaje = result });
+                }
+                return StatusCode(StatusCodes.Status200OK, new { mensaje = "No se completo la consulta" });
+            }
+            catch (Exception ex)
+            {
+
+                return StatusCode(StatusCodes.Status200OK, new { mensaje = ex.Message });
+            }
+
+
+        }
+
     }
 
 }

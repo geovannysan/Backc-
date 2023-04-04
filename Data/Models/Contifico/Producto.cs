@@ -7,6 +7,8 @@ namespace Backrest.Data.Models.Contifico
 {
     public class Producto
     {
-        
+        public string pvp1 {get;set;}
+        public string  nombre {get;set;}
+        public string codigo {get;set;}
     }
 }

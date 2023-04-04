@@ -3960,11 +3960,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\Pc-Tickets\\Backc-\\Backrest.csproj",
+      "projectUniqueName": "C:\\Users\\Pc-Tickets\\Backrest\\Backrest.csproj",
       "projectName": "Backrest",
-      "projectPath": "c:\\Users\\Pc-Tickets\\Backc-\\Backrest.csproj",
+      "projectPath": "C:\\Users\\Pc-Tickets\\Backrest\\Backrest.csproj",
       "packagesPath": "C:\\Users\\Pc-Tickets\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\Pc-Tickets\\Backc-\\obj\\",
+      "outputPath": "C:\\Users\\Pc-Tickets\\Backrest\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Pc-Tickets\\AppData\\Roaming\\NuGet\\NuGet.Config",

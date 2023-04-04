@@ -21,6 +21,9 @@ namespace Backrest.Data.Models
         public string formapago{get;set;}
         public string subtotal{get;set;}
         public string subtotal2 {get;set;}
+        public string saldo {get;set;}
+        public string moneda {get;set;}
+        public string impuesto{get;set;}
         
 
 

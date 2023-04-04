@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Pc-Tickets\\Backc-\\Backrest.csproj": {}
+    "C:\\Users\\Pc-Tickets\\Backrest\\Backrest.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Pc-Tickets\\Backc-\\Backrest.csproj": {
+    "C:\\Users\\Pc-Tickets\\Backrest\\Backrest.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Pc-Tickets\\Backc-\\Backrest.csproj",
+        "projectUniqueName": "C:\\Users\\Pc-Tickets\\Backrest\\Backrest.csproj",
         "projectName": "Backrest",
-        "projectPath": "C:\\Users\\Pc-Tickets\\Backc-\\Backrest.csproj",
+        "projectPath": "C:\\Users\\Pc-Tickets\\Backrest\\Backrest.csproj",
         "packagesPath": "C:\\Users\\Pc-Tickets\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Pc-Tickets\\Backc-\\obj\\",
+        "outputPath": "C:\\Users\\Pc-Tickets\\Backrest\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Pc-Tickets\\AppData\\Roaming\\NuGet\\NuGet.Config",

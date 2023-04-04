@@ -34,6 +34,7 @@ namespace Backrest.Data.Models
         public string ID_Ap_Asociado { get; set; }
         public string mantenimiento { get; set; }
         public string fecha_suspendido { get; set; }
+        
         public List<Servicios> servicios { get; set; }
         public Facturacion facturacion {get;set;} 
        

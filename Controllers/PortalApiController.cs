@@ -47,7 +47,7 @@ namespace Backrest.Controllers
                 {
                     string res = await response.Content.ReadAsStringAsync();
                     var result = JsonConvert.DeserializeObject<Clienteportal>(res);
-                    return StatusCode(StatusCodes.Status200OK, new { result });
+                    return StatusCode(StatusCodes.Status200OK, result );
                 }
                 return StatusCode(
                     StatusCodes.Status200OK,
@@ -72,7 +72,7 @@ namespace Backrest.Controllers
                 var request = new HttpRequestMessage(HttpMethod.Get, url + "GetInvoices");
 
                 var contents = new StringContent(
-                    "{\r\n  \"token\": \"SzFpNm04STlFNkhDRE9mcFBaZWlEdz09\",\r\n  \"idcliente\": \""
+                    "{\r\n  \"token\": \""+newproces.Obtenertoken(operador)+"\",\r\n  \"idcliente\": \""
                         + idcliente
                         + "\",\r\n  \"estado\": \"1\"\r\n}",
                     null,
@@ -107,7 +107,7 @@ namespace Backrest.Controllers
 
                 var request = new HttpRequestMessage(HttpMethod.Get, url + "GetInvoice");
                 var contents = new StringContent(
-                    "{\r\n  \"token\": \"SzFpNm04STlFNkhDRE9mcFBaZWlEdz09\",\r\n  \"idfactura\": \""
+                    "{\r\n  \"token\": \""+newproces.Obtenertoken(operador)+"\",\r\n  \"idfactura\": \""
                         + idfactura
                         + "\"\r\n}",
                     null,

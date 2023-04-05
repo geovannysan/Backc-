@@ -18,5 +18,6 @@ namespace Backrest.Data.Models.Pagos
         [BindRequired]
         public string idtransaccion { get; set; }
         public string nota{get;set;}
+        public string token{get;set;}
     }
 }

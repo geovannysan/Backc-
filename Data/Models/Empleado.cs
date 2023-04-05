@@ -15,8 +15,13 @@ namespace Backrest.Data.Models
         public string? Apellido { get; set; }
         public decimal? Sueldo { get; set; }
         public DateTime? Fecha { get; set; }
-        public int? edad { get; set; }    
+        public int? edad { get; set; }  
+         public string Obtenertoken (int opera){
+        return"";
+       }
+          
     }
     //[JsonIgnore]
     //public virtual ICollection <Cargos> Cargos {get;set;} =null;
+    
 }

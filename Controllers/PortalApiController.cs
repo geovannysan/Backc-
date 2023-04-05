@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Backrest.Data;
 using Backrest.Data.Models;
 using System.Text.Json.Serialization;
 using Backrest.Data.Models.Pagos;
@@ -17,6 +18,7 @@ namespace Backrest.Controllers
     {
         private readonly HttpClient _httpcliente;
         public string url = "https://portal.comnet.ec/api/v1/";
+        Procesos newproces = new Procesos();
 
         public PortalApiController(HttpClient httpClient)
         {
@@ -24,8 +26,8 @@ namespace Backrest.Controllers
         }
 
         [HttpGet]
-        [Route("GetClientsDetails/{cedula:int}")]
-        public async Task<ActionResult> Get(string cedula)
+        [Route("GetClientsDetails/{cedula:int}/{operador:int}")]
+        public async Task<ActionResult> Get(string cedula,string operador)
         {
             try
             {
@@ -33,7 +35,7 @@ namespace Backrest.Controllers
 
                 var request = new HttpRequestMessage(HttpMethod.Post, url + "GetClientsDetails");
                 var contents = new StringContent(
-                    "{\r\n  \"token\": \"SzFpNm04STlFNkhDRE9mcFBaZWlEdz09\",\r\n  \"cedula\": \""
+                    "{\r\n  \"token\": \""+newproces.Obtenertoken(operador)+"\",\r\n  \"cedula\": \""
                         + cedula
                         + "\"\r\n}",
                     null,
@@ -60,8 +62,8 @@ namespace Backrest.Controllers
 
         //,\r\n \"estado\":1,
         [HttpGet]
-        [Route("GetInvoices/{idcliente:int}")]
-        public async Task<ActionResult> Index(string idcliente)
+        [Route("GetInvoices/{idcliente:int}/{operador:int}")]
+        public async Task<ActionResult> Index(string idcliente,string operador)
         {
             try
             {
@@ -96,8 +98,8 @@ namespace Backrest.Controllers
         }
 
         [HttpGet]
-        [Route("GetInvoice/{idfactura:int}")]
-        public async Task<ActionResult> Obtener(int idfactura)
+        [Route("GetInvoice/{idfactura:int}/{operador:int}")]
+        public async Task<ActionResult> Obtener(int idfactura,string operador)
         {
             try
             {
@@ -131,15 +133,15 @@ namespace Backrest.Controllers
         }
 
         [HttpPost]
-        [Route("PagoFactura")]
-        public async Task<ActionResult> PaidInvoice([FromBody] Datos datos)
+        [Route("PagoFactura/{operador:int}")]
+        public async Task<ActionResult> PaidInvoice(string operador,[FromBody] Datos datos)
         {
             try
             {
                 var client = new HttpClient();
                 var request = new HttpRequestMessage(HttpMethod.Post, url + "PaidInvoice");
                 var contents = new StringContent(
-                    "{\r\n  \"token\": \"SzFpNm04STlFNkhDRE9mcFBaZWlEdz09\",\r\n  \"idfactura\": \""
+                    "{\r\n  \"token\": \""+newproces.Obtenertoken(operador)+"\",\r\n  \"idfactura\": \""
                         + datos.idfactura
                         + "\",\r\n"
                         + "  \"pasarela\": \""

@@ -16,9 +16,7 @@ namespace Backrest.Data.Models
         public decimal? Sueldo { get; set; }
         public DateTime? Fecha { get; set; }
         public int? edad { get; set; }  
-         public string Obtenertoken (int opera){
-        return"";
-       }
+        
           
     }
     //[JsonIgnore]

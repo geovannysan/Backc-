@@ -13,6 +13,6 @@ namespace Backrest.Data.Models
         }
         public int Id { get; set; }
         public string? Nombre { get; set; }
-        public virtual ICollection <Empleado> Empleados {get;set;} =null;
+        public virtual ICollection <Empleado> Empleados {get;set;}
     }
 }

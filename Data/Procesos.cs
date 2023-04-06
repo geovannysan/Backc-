@@ -9,18 +9,23 @@ namespace Backrest.Data
     {
         public string Obtenertoken(string operador)
         {
-
             switch (operador)
             {
-                case "1314780774":
+                case "0941089492":
 
-                    return "SzFpNm04STlFNkhDRE9mcFBaZWlEdz09";
-                case "2":
+                    return "NXJzUzNRNGljN0JOOWRpK252QXFzdz09";
+                case "0930570395":
 
-                    return "";
-                case "3":
+                    return "UThDZ05vd2NkQzV1STVhV0lyeitpUT09";
+                case "2400090532":
 
-                    return "";
+                    return "T1lQWkh0MW8rTkwyUm9PeU03N2UzUT09";
+                case "0926653197":
+
+                    return "Q3QzcXd2NDRCUVRWRzZKL1RoaFFkZz09";
+                case "0925474942":
+
+                    return "SHUvNnI3RlVDQXhBamFMMVloaXpyUT09";
                 default:
 
                     return "";

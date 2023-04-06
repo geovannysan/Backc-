@@ -19,8 +19,8 @@ namespace Backrest.Data
         {
 
         }
-        public virtual DbSet<Empleado> Empleado { get; set; } = null;
-        public virtual DbSet<Cargos> Cargos {get;set;}=null;
+        public virtual DbSet<Empleado>? Empleado { get; set; } = null;
+        public virtual DbSet<Cargos>? Cargos {get;set;}=null;
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
            

@@ -12,6 +12,7 @@ namespace Backrest.Data.Models
          public Facturacion? factura {get;set;}
          public List<Items>? items {get;set;}
          public List<Facturacion>? facturas {get;set;}
+         public string? mensaje{get;set;}
       
     }
 

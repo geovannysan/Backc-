@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 
 namespace Backrest.Data.Models.Contifico
 {
-    public class Producto
+    public class Error
     {
-        public string? pvp1 {get;set;}
-        public string?  nombre {get;set;}
-        public string? codigo {get;set;}
+        public string? cod_error {get;set;}
+        public string? mensaje{get;set;}
+        public string? id {get;set;}
     }
 }

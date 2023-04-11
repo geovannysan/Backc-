@@ -69,11 +69,13 @@ namespace Backrest.Controllers
             {
                 var client = new HttpClient();
 
-                var request = new HttpRequestMessage(HttpMethod.Get, url + "GetInvoices");
+                var request = new HttpRequestMessage(HttpMethod.Get,"https://portal.comnet.ec/api/v1/GetInvoices");
 
                 var contents = new StringContent(
-                    "{\r\n  \"token\": \""+newproces.Obtenertoken(operador)+"\",\r\n  \"idcliente\": \""
+                    "{\r\n  \"token\": \"NXJzUzNRNGljN0JOOWRpK252QXFzdz09\",\r\n  \"idcliente\": \""
                         + idcliente
+                        + "\",\r\n  \"limit\": \""
+                        + 2
                         + "\",\r\n  \"estado\": \"1\"\r\n}",
                     null,
                     "application/json"
@@ -84,7 +86,7 @@ namespace Backrest.Controllers
                 {
                     string res = await response.Content.ReadAsStringAsync();
                     var result = JsonConvert.DeserializeObject<Clienteportal>(res);
-                    return StatusCode(StatusCodes.Status200OK, new { result });
+                    return StatusCode(StatusCodes.Status200OK,  result);
                 }
                 return StatusCode(
                     StatusCodes.Status200OK,
@@ -119,7 +121,7 @@ namespace Backrest.Controllers
                 {
                     string res = await response.Content.ReadAsStringAsync();
                     var result = JsonConvert.DeserializeObject<Clienteportal>(res);
-                    return StatusCode(StatusCodes.Status200OK, new { result });
+                    return StatusCode(StatusCodes.Status200OK, result );
                 }
                 return StatusCode(
                     StatusCodes.Status200OK,
@@ -131,15 +133,16 @@ namespace Backrest.Controllers
                 return StatusCode(StatusCodes.Status200OK, new { mensaje = ex.Message });
             }
         }
-
+        /*
+        pagar factura ok 
+        */
         [HttpPost]
-        [Route("PagoFactura/{operador:int}")]
-        public async Task<ActionResult> PaidInvoice(string operador,[FromBody] Datos datos)
-        {
+        [Route("PagosdelPortal/{operador:int}")]
+        public async Task<ActionResult> Postpago(string operador,[FromBody] Datos datos){
             try
             {
                 var client = new HttpClient();
-                var request = new HttpRequestMessage(HttpMethod.Post, url + "PaidInvoice");
+                var request = new HttpRequestMessage(HttpMethod.Post,  "https://portal.comnet.ec/api/v1/PaidInvoice");
                 var contents = new StringContent(
                     "{\r\n  \"token\": \""+newproces.Obtenertoken(operador)+"\",\r\n  \"idfactura\": \""
                         + datos.idfactura
@@ -162,11 +165,10 @@ namespace Backrest.Controllers
                 request.Content= contents;
                 var response = await client.SendAsync(request);
                 if(response.IsSuccessStatusCode){
-                    string resp = await response.Content.ReadAsStringAsync();
-                    var result = JsonConvert.DeserializeObject(resp);
-                    return StatusCode(StatusCodes.Status102Processing, new { mensaje = result });
+                   string resp = await response.Content.ReadAsStringAsync();
+                   var result = JsonConvert.DeserializeObject<Clienteportal>(resp);
+                return StatusCode(StatusCodes.Status200OK,result);
                 }
-
                 return StatusCode(StatusCodes.Status200OK, new { mensaje = "No se completo el Pago" });
             }
             catch (Exception ex)
@@ -174,6 +176,7 @@ namespace Backrest.Controllers
                 return StatusCode(StatusCodes.Status200OK, new { mensaje = ex.Message });
             }
         }
+       
         
         //antes de esto poner las rutas
     }

@@ -13,98 +13,93 @@ namespace Backrest.Controllers
     public class FactuApiController : ControllerBase
     {
         private readonly HttpClient _httpcliente;
-        public string url = "https://0992782129001.contifico.com/sistema/api/v1/producto/";
-        public string urlcon="ttps://api.contifico.com/sistema/api/v1/persona/";
+        public string urlcon = "ttps://api.contifico.com/sistema/api/v1/persona/";
+        public string urldoc = "https://api.contifico.com/sistema/api/v1/producto/";
 
         public FactuApiController(HttpClient httpClient)
         {
             _httpcliente = httpClient;
         }
 
+        //*falta validar si funciona y como trae la informacion para crear el objeto
+        /*  [HttpPost]
+          [Route("Crearpersona")]
+          public async Task<ActionResult> Get([FromBody] Clientecontifico datos)
+          {
+              try
+              {
+                  var client = new HttpClient();
+                  var request = new HttpRequestMessage(HttpMethod.Post, urlcon);
+                  var contents = new StringContent(
+                      "{\r\n  \"tipo\": \"N\",\r\n  \"personaasociada_id\": null,\r\n  \"nombre_comercial\": \""
+                          + datos.nombre_comercial
+                          + "\",\r\n  \"telefonos\": \""
+                          + datos.telefonos
+                          + "\",\r\n  \"razon_social\": \""
+                          + datos.nombre_comercial
+                          + "\",\r\n  \"direccion\": \""
+                          + datos.direccion
+                          + "\",\r\n  \"porcentaje_descuento\": \"0\",\r\n  \"es_cliente\": true,\r\n  \"origen\": \"Panel de Facturacion\",\r\n  \"email\": \""
+                          + datos.email
+                          + "\",\r\n  \"cedula\": \""
+                          + datos.cedula
+                          + "\",\r\n  \"Provincia\": \"Guayaquil\",\r\n  \"adicional1_cliente\": \"Cliente de Internet\"\r\n}\r\n",
+                      null,
+                      "application/json"
+                  );
+                  request.Headers.Add("Authorization", "eYxkPDD5SDLv0nRB7CIKsDCL6dwHppHwHmHMXIHqH8w");
+                  request.Content = contents;
+                  var response = await client.SendAsync(request);
+                  if (response.IsSuccessStatusCode)
+                  {
+                      string resp = await response.Content.ReadAsStringAsync();
+                      var result = JsonConvert.DeserializeObject(resp);
+                      return StatusCode(StatusCodes.Status200OK, result);
+                  }
+                  else
+                  {
+                      string resp2 = await response.Content.ReadAsStringAsync();
+                      var result = JsonConvert.DeserializeObject<Error>(resp2);
+  
+                      return StatusCode(StatusCodes.Status409Conflict, result);
+                  }
+              }
+              catch (Exception ex)
+              {
+                  return StatusCode(StatusCodes.Status200OK, ex.Message);
+              }
+          }
+              */
+        /*crea producto contifico ok */
         [HttpPost]
-        [Route("Crearpersona")]
-        public async Task<ActionResult> Get([FromBody] Clientecontifico datos)
+        [Route("Crearpro")]
+        public async Task<ActionResult> Creapro([FromBody] Producto datos)
         {
             try
             {
                 var client = new HttpClient();
-                var request = new HttpRequestMessage(HttpMethod.Post, urlcon + "?pos=<TOKEN>");
+                var request = new HttpRequestMessage(HttpMethod.Post, urldoc);
                 var contents = new StringContent(
-                    "{\r\n  \"tipo\": \""
-                        + datos.tipo
+                    "{\r\n"
+                        + "  \"codigo_barra\": null,\r\n"
+                        + "  \"porcentaje_iva\": \"12\",\r\n"
+                        + "  \"categoria_id\": \"null\",\r\n"
+                        + "  \"pvp1\": "
+                        + datos.pvp1
+                        + ",\r\n"
+                        + "  \"tipo\": \"SER\",\r\n"
+                        + "  \"para_supereasy\": false,\r\n"
+                        + "  \"para_comisariato\": false,\r\n"
+                        + "  \"minimo\": \"0.0\",\r\n"
+                        + "  \"descripcion\": \"Servicio de Internet Banda ancha\",\r\n"
+                        + "  \"nombre\": \""
+                        + datos.nombre
                         + "\",\r\n"
-                        + "  \"personaasociada_id\": \""
-                        + datos.personaasociada_id
+                        + "  \"codigo\": \""
+                        + datos.codigo
                         + "\",\r\n"
-                        + "  \"nombre_comercial\": "
-                        + datos.nombre_comercial
-                        + ",\r\n"
-                        + "  \"telefonos\": \""
-                        + datos.telefonos
-                        + "\",\r\n"
-                        + "  \"ruc\": \""
-                        + datos.ruc
-                        + "\",\r\n"
-                        + "  \"razon_social\": \""
-                        + datos.razon_social
-                        + "\",\r\n"
-                        + "  \"direccion\": \""
-                        + datos.direccion
-                        + "\",\r\n"
-                        + "  \"es_extranjero\": "
-                        + datos.es_extranjero
-                        + ",\r\n"
-                        + "  \"porcentaje_descuento\": \""
-                        + datos.porcentaje_descuento
-                        + "\",\r\n"
-                        + "  \"es_cliente\": "
-                        + datos.es_cliente
-                        + ",\r\n"
-                        + "  \"id\": "
-                        + datos.id
-                        + ",\r\n"
-                        + "  \"es_empleado\": "
-                        + datos.es_empleado
-                        + ",\r\n"
-                        + "  \"email\": \""
-                        + datos.email
-                        + "\",\r\n"
-                        + "  \"cedula\": \""
-                        + datos.cedula
-                        + "\",\r\n"
-                        + "  \"placa\": \""
-                        + datos.placa
-                        + "\",\r\n"
-                        + "  \"es_vendedor\": "
-                        + datos.es_vendedor
-                        + ",\r\n"
-                        + "  \"es_proveedor\": "
-                        + datos.es_proveedor
-                        + ",\r\n"
-                        + "  \"adicional1_cliente\": "
-                        + datos.adicional1_cliente
-                        + ",\r\n"
-                        + "  \"adicional2_cliente\": "
-                        + datos.adicional2_cliente
-                        + ",\r\n"
-                        + "  \"adicional3_cliente\": "
-                        + datos.adicional3_cliente
-                        + ",\r\n"
-                        + "  \"adicional4_cliente\": "
-                        + datos.adicional4_cliente
-                        + ",\r\n"
-                        + "  \"adicional1_proveedor\": "
-                        + datos.adicional1_proveedor
-                        + ",\r\n"
-                        + "  \"adicional2_proveedor\": "
-                        + datos.adicional2_proveedor
-                        + ",\r\n"
-                        + "  \"adicional3_proveedor\": "
-                        + datos.adicional3_proveedor
-                        + ",\r\n"
-                        + "  \"adicional4_proveedor\": "
-                        + datos.adicional4_proveedor
-                        + "\r\n}",
+                        + "  \"estado\": \"A\"\r\n"
+                        + "}",
                     null,
                     "application/json"
                 );
@@ -114,14 +109,16 @@ namespace Backrest.Controllers
                 if (response.IsSuccessStatusCode)
                 {
                     string resp = await response.Content.ReadAsStringAsync();
-                    var result = JsonConvert.DeserializeObject(resp);
-                    return StatusCode(StatusCodes.Status200OK, new { result });
+                    var result = JsonConvert.DeserializeObject<ServicioInternet>(resp);
+                    return StatusCode(StatusCodes.Status200OK, result);
                 }
+                else
+                {
+                    string resp2 = await response.Content.ReadAsStringAsync();
+                    var result = JsonConvert.DeserializeObject<Error>(resp2);
 
-                return StatusCode(
-                    StatusCodes.Status200OK,
-                    new { mensaje = "No se completo el Pago" }
-                );
+                    return StatusCode(StatusCodes.Status409Conflict, result);
+                }
             }
             catch (Exception ex)
             {
@@ -129,55 +126,33 @@ namespace Backrest.Controllers
             }
         }
 
-        [HttpPost]
-        [Route("PagarPRoducto")]
-        public async Task<ActionResult> Getintro([FromBody] Producto datos)
+        /*consulta producto esta ok*/
+        [HttpGet]
+        [Route("ConsultaProducto/{id:int}")]
+        public async Task<ActionResult> Createproduc(string id)
         {
             try
             {
                 var client = new HttpClient();
                 var request = new HttpRequestMessage(
-                    HttpMethod.Post,
-                    "https://api.contifico.com/sistema/api/v1/documento"
-                );
-                var contents = new StringContent(
-                    "{\r\n  \"codigo_barra\": \"null\",\r\n  \"nombre\": \""
-                        + datos.nombre
-                        + "\",\r\n"
-                        + "  \"pvp1\": \""
-                        + datos.pvp1
-                        + "\",\r\n"
-                        + "  \"codigo\": \""
-                        + datos.codigo
-                        + "\",\r\n \"porcentaje_iva\": \"12\",\r\n  \"tipo\": \"SER\",\r\n"
-                        + "  \"para_supereasy\": \""
-                        + false
-                        + "  \"para_comisariato\": \""
-                        + false
-                        + "  \"minimo\": \""
-                        + 0.0
-                        + "  \"estado\": \""
-                        + "A"
-                        + "  \"descripcion\": \""
-                        + "Servicio de Internet Banda ancha"
-                        + "\"categoria_id\": \"91qdGvZgXhY6nbN8\"\r\n}",
-                    null,
-                    "application/json"
+                    HttpMethod.Get,
+                    "https://api.contifico.com/sistema/api/v1/producto/?codigo=" + id
                 );
                 request.Headers.Add("Authorization", "eYxkPDD5SDLv0nRB7CIKsDCL6dwHppHwHmHMXIHqH8w");
-                request.Content = contents;
                 var response = await client.SendAsync(request);
                 if (response.IsSuccessStatusCode)
                 {
                     string resp = await response.Content.ReadAsStringAsync();
-                    var result = JsonConvert.DeserializeObject(resp);
-                    return StatusCode(StatusCodes.Status200OK, new { result });
+                    var result = JsonConvert.DeserializeObject<List<ServicioInternet>>(resp);
+                    return StatusCode(StatusCodes.Status200OK, result);
                 }
+                else
+                {
+                    string resp2 = await response.Content.ReadAsStringAsync();
+                    var result = JsonConvert.DeserializeObject<Error>(resp2);
 
-                return StatusCode(
-                    StatusCodes.Status200OK,
-                    new { mensaje = "No se completo el Pago" }
-                );
+                    return StatusCode(StatusCodes.Status409Conflict, result);
+                }
             }
             catch (Exception ex)
             {

@@ -11,6 +11,7 @@ namespace Backrest.Data
 {
     public class DataContext : DbContext
     {
+        //"Dataconnetion":"Server=localhost,1433; Database=Prubatienda; User=sa; Password =mssql1Ipw;TrustServerCertificate=True"//
         public DataContext() { }
 
         public DataContext(DbContextOptions<DataContext> options)

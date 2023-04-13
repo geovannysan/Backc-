@@ -4029,23 +4029,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\kaku\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\Pc-Tickets\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\kaku\\Backrest\\Backrest.csproj",
+      "projectUniqueName": "C:\\Users\\Pc-Tickets\\Backrest\\Backrest.csproj",
       "projectName": "Backrest",
-      "projectPath": "C:\\Users\\kaku\\Backrest\\Backrest.csproj",
-      "packagesPath": "C:\\Users\\kaku\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\kaku\\Backrest\\obj\\",
+      "projectPath": "C:\\Users\\Pc-Tickets\\Backrest\\Backrest.csproj",
+      "packagesPath": "C:\\Users\\Pc-Tickets\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Pc-Tickets\\Backrest\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\kaku\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Pc-Tickets\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

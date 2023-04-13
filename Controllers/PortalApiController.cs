@@ -19,7 +19,6 @@ namespace Backrest.Controllers
         private readonly HttpClient _httpcliente;
         public string url = "https://portal.comnet.ec/api/v1/";
         Procesos newproces = new Procesos();
-
         public PortalApiController(HttpClient httpClient)
         {
             _httpcliente = httpClient;
@@ -32,7 +31,6 @@ namespace Backrest.Controllers
             try
             {
                 var client = new HttpClient();
-
                 var request = new HttpRequestMessage(HttpMethod.Post, url + "GetClientsDetails");
                 var contents = new StringContent(
                     "{\r\n  \"token\": \""+newproces.Obtenertoken(operador)+"\",\r\n  \"cedula\": \""
@@ -56,10 +54,9 @@ namespace Backrest.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status200OK, new { mensaje = ex.Message });
+                return StatusCode(StatusCodes.Status403Forbidden, new { mensaje = ex.Message });
             }
         }
-
         //,\r\n \"estado\":1,
         [HttpGet]
         [Route("GetInvoices/{idcliente:int}/{operador:int}")]
@@ -68,9 +65,7 @@ namespace Backrest.Controllers
             try
             {
                 var client = new HttpClient();
-
                 var request = new HttpRequestMessage(HttpMethod.Get,"https://portal.comnet.ec/api/v1/GetInvoices");
-
                 var contents = new StringContent(
                     "{\r\n  \"token\": \"NXJzUzNRNGljN0JOOWRpK252QXFzdz09\",\r\n  \"idcliente\": \""
                         + idcliente
@@ -93,12 +88,11 @@ namespace Backrest.Controllers
                     new { mensaje = "No se completo la consulta" }
                 );
             }
-            catch (Exception ex)
+           catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status200OK, new { mensaje = ex.Message });
+                return StatusCode(StatusCodes.Status403Forbidden, new { mensaje = ex.Message });
             }
         }
-
         [HttpGet]
         [Route("GetInvoice/{idfactura:int}/{operador:int}")]
         public async Task<ActionResult> Obtener(int idfactura,string operador)
@@ -106,7 +100,6 @@ namespace Backrest.Controllers
             try
             {
                 var client = new HttpClient();
-
                 var request = new HttpRequestMessage(HttpMethod.Get, url + "GetInvoice");
                 var contents = new StringContent(
                     "{\r\n  \"token\": \""+newproces.Obtenertoken(operador)+"\",\r\n  \"idfactura\": \""
@@ -128,9 +121,9 @@ namespace Backrest.Controllers
                     new { mensaje = "No se completo la consulta" }
                 );
             }
-            catch (Exception ex)
+           catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status200OK, new { mensaje = ex.Message });
+                return StatusCode(StatusCodes.Status403Forbidden, new { mensaje = ex.Message });
             }
         }
         /*
@@ -169,11 +162,13 @@ namespace Backrest.Controllers
                    var result = JsonConvert.DeserializeObject<Clienteportal>(resp);
                 return StatusCode(StatusCodes.Status200OK,result);
                 }
-                return StatusCode(StatusCodes.Status200OK, new { mensaje = "No se completo el Pago" });
+                  string resps = await response.Content.ReadAsStringAsync();
+                   var results = JsonConvert.DeserializeObject<Clienteportal>(resps);
+                return StatusCode(StatusCodes.Status200OK, results);
             }
-            catch (Exception ex)
+           catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status200OK, new { mensaje = ex.Message });
+                return StatusCode(StatusCodes.Status403Forbidden, new { mensaje = ex.Message });
             }
         }
        

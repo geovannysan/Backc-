@@ -11,6 +11,7 @@ namespace Backrest.Data
 {
     public class DataContext : DbContext
     {
+        //Server=portalconc.mssql.somee.com; Database=portalconc; user id=Geovannysan_SQLLogin_1; pwd=gjzx3t3vly;
         //"Dataconnetion":"Server=localhost,1433; Database=Prubatienda; User=sa; Password =mssql1Ipw;TrustServerCertificate=True"//
         public DataContext() { }
 

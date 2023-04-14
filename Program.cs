@@ -12,7 +12,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 //conecion sql
-builder.Services.AddDbContext<DataContext>(opt=>opt.UseSqlServer(builder.Configuration.GetConnectionString("Dataconnetion")));
+builder.Services.AddDbContext<DataContext>(opt=>opt.UseMySQL(builder.Configuration.GetConnectionString("Dataconnetion")));
 
 
 //eliminar referencias ciclicas

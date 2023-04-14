@@ -19,6 +19,7 @@ namespace Backrest.Data
             : base(options) { }
 
         public virtual DbSet<Empleado>? Empleado { get; set; } = null;
+        public virtual DbSet<Users>? cliente {get;set;}=null;
         public virtual DbSet<Cargos>? Cargos { get; set; } = null;
         public virtual DbSet<FilesClass>? Bancoscon { get; set; } = null;
 

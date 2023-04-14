@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Backrest.Models;
 
-public partial class Usuario
+public class Usuario
 {
     public int Id { get; set; }
 
@@ -11,15 +11,12 @@ public partial class Usuario
 
     public string Apellido { get; set; } = null!;
 
-    public DateTime? Fecha { get; set; }
+    public int MZ { get; set; }
 
-    public int? Dni { get; set; }
+    public int? Villas{ get; set; }
 
-    public string? Domicilio { get; set; }
+    public int? celular { get; set; }
 
-    public string Email { get; set; } = null!;
+    public string Correo { get; set; } = null!;
 
-    public string Passwrd { get; set; } = null!;
-
-    public string Permiso { get; set; } = null!;
 }

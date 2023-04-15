@@ -24,13 +24,13 @@ namespace Backrest.Controllers
 
         [HttpGet]
         [Route("lista")]
-        public Users Lista()
+        public string Lista()
         {
             List<Users> lista = new List<Users>();
             try
             {
               
-                return Dataconexion.Consultar();
+                return" Dataconexion.Consultar()";
             }
             catch (System.Exception )
             {

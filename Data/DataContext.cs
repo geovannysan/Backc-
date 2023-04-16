@@ -2,8 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MySql.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using  Microsoft.EntityFrameworkCore.Metadata;
+
+using Backrest.Data;
 using Backrest.Data.Models;
 
 namespace Backrest.Data
@@ -21,6 +24,7 @@ namespace Backrest.Data
         }
         public virtual DbSet<Empleado>? Empleado { get; set; } = null;
         public virtual DbSet<Cargos>? Cargos {get;set;}=null;
+        public virtual DbSet<Users>? admin {get;set;}= null;
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
            

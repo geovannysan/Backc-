@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Backrest.Models;
 using Backrest.Data;
 using System.Text.Json.Serialization;
+using MySql.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,7 +13,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 //conecion sql
-builder.Services.AddDbContext<DataContext>(opt=>opt.UseSqlServer(builder.Configuration.GetConnectionString("Dataconnetion")));
+builder.Services.AddDbContext<DataContext>(opt=>opt.UseMySQL(builder.Configuration.GetConnectionString("Dataconnetion")));
 
 
 //eliminar referencias ciclicas

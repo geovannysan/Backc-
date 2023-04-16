@@ -2,11 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+using System.ComponentModel.DataAnnotations;
 namespace Backrest.Data.Models.Files
 {
     public class Transacciones
     {
+        [Key]
+        public int id {get;set;}
      public string? cliente {get;set;}
      public string? idtranse{get;set;}
         public string? factura {get;set;}

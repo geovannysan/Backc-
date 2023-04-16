@@ -8,6 +8,7 @@ using  Microsoft.EntityFrameworkCore.Metadata;
 
 using Backrest.Data;
 using Backrest.Data.Models;
+using Backrest.Data.Models.Files;
 
 namespace Backrest.Data
 {
@@ -25,6 +26,9 @@ namespace Backrest.Data
         public virtual DbSet<Empleado>? Empleado { get; set; } = null;
         public virtual DbSet<Cargos>? Cargos {get;set;}=null;
         public virtual DbSet<Users>? admin {get;set;}= null;
+        public virtual DbSet<FilesClass>bancoscon{get;set;}
+        public virtual DbSet<Transacciones>Trnasacion  {get;set;}
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
            

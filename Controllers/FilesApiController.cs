@@ -56,10 +56,10 @@ namespace Backrest.Controllers
                         DateTime fecha = Convert.ToDateTime(row[0].ToString(), usDtfi);
                         FilesClass myObject = new FilesClass
                         {
-                            fecha = fecha,
+                            //fecha = fecha,
                             codigo = row[1].ToString(),
                             documento = (row[1]).ToString(),
-                            monto = row[4].ToString().Replace(",", ""),
+                           // monto = row[4].ToString().Replace(",", ""),
                             oficina = (row[7]).ToString(),
                             banco = model.name
                         };
@@ -103,32 +103,39 @@ namespace Backrest.Controllers
 
                     foreach (DataRow row in table.Rows)
                     {
-                        DateTime fecha = Convert.ToDateTime(row[0]);
+                        string valorconvertido = (row[6]).ToString();
+                        string fecha =(row[0]).ToString();
+                       // Decimal.Parse(valorconvertido);
+                      // DateTime fecha = Convert.ToDateTime(row[0]);
+                       //DateTime dateValue = DateTime.Parse(row[0].ToString("yyyy-MM-dd HH:mm:ss"));
                         FilesClass myObject = new FilesClass
                         {
-                            fecha = fecha,
+                           
+                            fech=Convert.ToDateTime(fecha),
                             codigo = row[2].ToString(),
                             documento = (row[4]).ToString(),
-                            monto = (row[6]).ToString(),
+                            monto = valorconvertido,
                             oficina = (row[5]).ToString(),
                             banco = model.name
                         };
-                        //_dbcontex.Bancoscon.Add(myObject);
+                        myObjects.Add(myObject);
+                       //  num = num + 1;
+                        //_dbcontex.bancoscon.Add(myObject);
                         //   _dbcontex.SaveChanges();
                         myObjects.Add(myObject);
-                       /* bool existe = _dbcontex.Bancoscon.Any(
-                            p => p.codigo == row[2].ToString() 
+                        bool existe = _dbcontex.bancoscon.Any(
+                            p => p.documento == row[4].ToString() 
                         );
                         // myObjects.Add(myObject);
 
                         if (!existe)
                         {
-                            _dbcontex.Bancoscon.Add(myObject);
+                            _dbcontex.bancoscon.Add(myObject);
                             _dbcontex.SaveChanges();
                             num = num + 1;
-                        }*/
+                        }
                     }
-                    return StatusCode(StatusCodes.Status200OK, myObjects);
+                    return StatusCode(StatusCodes.Status200OK,new{ myObjects,num});
                 }
             }
             catch (Exception ex)
@@ -160,7 +167,7 @@ namespace Backrest.Controllers
                         DateTime fecha = Convert.ToDateTime(row[0]);
                         FilesClass myObject = new FilesClass
                         {
-                            fecha = fecha,
+                            //fecha = fecha,
                             codigo = Regex
                                 .Replace(row[10].ToString(), regexPattern, "")
                                 .Substring(
@@ -168,7 +175,7 @@ namespace Backrest.Controllers
                                     Regex.Replace(row[10].ToString(), regexPattern, "").Length - 2
                                 ),
                             documento = (row[10]).ToString(),
-                            monto = row[5].ToString().Replace(",", ""),
+                           // monto = row[5].ToString().Replace(",", ""),
                             oficina = (row[4]).ToString(),
                             banco = model.name
                         };

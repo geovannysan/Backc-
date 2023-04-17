@@ -28,7 +28,7 @@ namespace Backrest.Controllers
             List<Users> lista = new List<Users>();
             try
             {
-                lista = _dbcontext.cliente.ToList();
+                lista = _dbcontext.admin.ToList();
                 //lista = _dbContext._dbcontext.Empleado.Includes(c=> c.Cargos).ToList();
                 return StatusCode(StatusCodes.Status200OK, new { mesaje = "ok", response = lista });
             }

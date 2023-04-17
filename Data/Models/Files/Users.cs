@@ -9,11 +9,11 @@ namespace Backrest.Data.Models.Files
     public class Users
     {
         [Key]
-        public string? cl_id { get; set; }
+        public string? id { get; set; }
 
-        public string cl_nombre{ get; set; } = null!;
+        public string username{ get; set; } = null!;
 
-        public string cl_apellido { get; set; } = null!;
+        public string name { get; set; } = null!;
 
 
 

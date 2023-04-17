@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Backrest.Models;
 using Backrest.Data;
 using System.Text.Json.Serialization;
-
+using MySql.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.

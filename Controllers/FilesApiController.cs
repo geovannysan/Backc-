@@ -29,6 +29,7 @@ namespace Backrest.Controllers
         public class ExcelFileModel
         {
             public IFormFile? File { get; set; }
+            public string? name { get; set; }
         }
 
         [HttpPost]
@@ -48,10 +49,9 @@ namespace Backrest.Controllers
                     DataSet resultado = readeruno.AsDataSet();
                     DataTable tablauno = resultado.Tables[0];
                     DateTimeFormatInfo usDtfi = new CultureInfo("en-US", false).DateTimeFormat;
-                    string regexPattern = "[^0-9]";
+
                     foreach (DataRow row in tablauno.Rows)
                     {
-                        DateTime fechaHora;
                         DateTime fecha = Convert.ToDateTime(row[0].ToString(), usDtfi);
                         FilesClass myObject = new FilesClass
                         {
@@ -60,15 +60,15 @@ namespace Backrest.Controllers
                             documento = (row[1]).ToString(),
                             monto = row[4].ToString().Replace(",", ""),
                             oficina = (row[7]).ToString(),
-                            banco = "Produbanco"
+                            banco = model.name
                         };
                         string co = row[1].ToString();
-                        bool existe = _dbcontex.Bancoscon.Any(p => p.codigo == co);
+                        bool existe = _dbcontex.bancoscon.Any(p => p.codigo == co);
                         myObjects.Add(myObject);
                         myObjects.Add(myObject);
                         if (!existe)
                         {
-                            _dbcontex.Bancoscon.Add(myObject);
+                            _dbcontex.bancoscon.Add(myObject);
                             _dbcontex.SaveChanges();
                             num = num + 1;
                         }
@@ -102,32 +102,36 @@ namespace Backrest.Controllers
 
                     foreach (DataRow row in table.Rows)
                     {
-                        DateTime fecha = Convert.ToDateTime(row[0]);
+                        string valorconvertido = (row[6]).ToString();
+                        string fecha = (row[0]).ToString();
+                        // Decimal.Parse(valorconvertido);
+                        // DateTime fecha = Convert.ToDateTime(row[0]);
+                        //DateTime dateValue = DateTime.Parse(row[0].ToString("yyyy-MM-dd HH:mm:ss"));
                         FilesClass myObject = new FilesClass
                         {
-                            fecha = fecha,
-                            codigo = row[2].ToString(),
-                            documento = (row[4]).ToString(),
-                            monto = (row[6]).ToString(),
+                            fecha = Convert.ToDateTime(fecha),
+                            codigo = row[4].ToString(),
+                            documento = (row[2]).ToString(),
+                            monto = valorconvertido,
                             oficina = (row[5]).ToString(),
-                            banco = "Pichincha"
+                            banco = model.name
                         };
-                        //_dbcontex.Bancoscon.Add(myObject);
+                        myObjects.Add(myObject);
+                        //  num = num + 1;
+                        //_dbcontex.bancoscon.Add(myObject);
                         //   _dbcontex.SaveChanges();
                         myObjects.Add(myObject);
-                        bool existe = _dbcontex.Bancoscon.Any(
-                            p => p.codigo == row[2].ToString() 
-                        );
+                        bool existe = _dbcontex.bancoscon.Any(p => p.codigo == row[4].ToString());
                         // myObjects.Add(myObject);
 
                         if (!existe)
                         {
-                            _dbcontex.Bancoscon.Add(myObject);
+                            _dbcontex.bancoscon.Add(myObject);
                             _dbcontex.SaveChanges();
                             num = num + 1;
                         }
                     }
-                    return StatusCode(StatusCodes.Status200OK, myObjects);
+                    return StatusCode(StatusCodes.Status200OK, new { myObjects, num });
                 }
             }
             catch (Exception ex)
@@ -167,9 +171,8 @@ namespace Backrest.Controllers
                                     Regex.Replace(row[10].ToString(), regexPattern, "").Length - 2
                                 ),
                             documento = (row[10]).ToString(),
-                            monto = row[5].ToString().Replace(",", ""),
                             oficina = (row[4]).ToString(),
-                            banco = "Pacifico"
+                            banco = model.name
                         };
                         string co = Regex
                             .Replace(row[10].ToString(), regexPattern, "")
@@ -177,20 +180,81 @@ namespace Backrest.Controllers
                                 0,
                                 Regex.Replace(row[10].ToString(), regexPattern, "").Length - 2
                             );
-                        bool existe = _dbcontex.Bancoscon.Any(
-                            p => p.codigo == co && p.fecha == fecha
-                        );
+                        bool existe = _dbcontex.bancoscon.Any(p => p.codigo == co);
                         // myObjects.Add(myObject);
                         myObjects.Add(myObject);
                         if (!existe)
                         {
-                            _dbcontex.Bancoscon.Add(myObject);
+                            _dbcontex.bancoscon.Add(myObject);
                             _dbcontex.SaveChanges();
                             num = num + 1;
                         }
                     }
 
                     return StatusCode(StatusCodes.Status200OK, new { myObjects });
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status402PaymentRequired, ex.Message);
+            }
+        }
+
+        [HttpPost]
+        [Route("FileLista")]
+        public IActionResult ReadExcelFileList([FromForm] ExcelFileModel model)
+        {
+            try
+            {
+                Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+                using (var stream = new MemoryStream())
+                {
+                    model.File.CopyTo(stream);
+                    var num = 0;
+                    List<Transacciones> myObjects = new List<Transacciones>();
+                    stream.Position = 0;
+                    IExcelDataReader readeruno = ExcelReaderFactory.CreateReader(stream);
+                    DataSet resultado = readeruno.AsDataSet();
+                    DataTable tablauno = resultado.Tables[0];
+
+                    foreach (DataRow row in tablauno.Rows)
+                    {                       
+                        var indice = tablauno.Rows.IndexOf(row);
+                       
+                        if (indice > 1)
+                        {
+                            Transacciones myObject = new Transacciones
+                            {
+                                cliente = row[1].ToString(),
+                                idtranse = row[0].ToString(),
+                                factura = row[2].ToString(),
+                                legal = row[3].ToString(),
+                                transacciones = row[4].ToString(),
+                                forma_pago = row[5].ToString(),
+                                fecha =  DateTime.Parse(row[6].ToString()),
+                                Operador = row[8].ToString(),
+                                cobrado = row[9].ToString().Replace("$"," "),
+                                comision = row[10].ToString().Replace("$"," "),
+                                neto = row[11].ToString().Replace("$"," "),
+                                cedula = row[12].ToString(),
+                                name = model.name
+                            };
+                            myObjects.Add(myObject);
+                            // myObjects.Add(myObject);
+                            myObjects.Add(myObject);
+                             bool existe = _dbcontex.transacion.Any( p => p.transacciones == row[4].ToString());
+                             
+                             // myObjects.Add(myObject);
+                             if (!existe)
+                             {
+                                 _dbcontex.transacion.Add(myObject);
+                                 _dbcontex.SaveChanges();
+                                 num = num + 1;
+                             }
+                        }
+                    }
+
+                    return StatusCode(StatusCodes.Status200OK, new { myObjects});
                 }
             }
             catch (Exception ex)

@@ -6,3 +6,28 @@ dotnet ef dbcontext scaffold "Server=localhost,1433; Database=Prubatienda; User=
 dotnet add package Microsoft.EntityFrameworkCore.Tools --version 7.0.4
 
 dotnet publish /p:Configuration=Release /p:PublishProfile=FolderProfile
+/*create table bancoscon(
+ id int  primary key AUTO_INCREMENT,
+ fecha  date,
+ codigo varchar(200) UNIQUE,
+ documento varchar(200),
+ monto varchar(100),
+ oficina varchar(200),
+ banco varchar(200)
+);*/
+CREATE TABLE transacion(
+id int PRIMARY KEY AUTO_INCREMENT,
+cliente varchar(200),
+idtranse varchar(200),
+factura varchar(200),
+legal varchar(200),
+transacciones varchar(200) UNIQUE,
+forma_pago varchar(200),
+Operador varchar(200),
+comision varchar(200),
+neto varchar(200),
+fecha date,
+cobrado double,
+cedula varchar(200),    
+name varchar(200)
+);

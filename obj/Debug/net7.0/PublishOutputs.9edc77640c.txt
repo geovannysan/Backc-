@@ -8,6 +8,10 @@ C:\Users\Pc-Tickets\Backrest\bin\Debug\net7.0\publish\Azure.Core.dll
 C:\Users\Pc-Tickets\Backrest\bin\Debug\net7.0\publish\Azure.Identity.dll
 C:\Users\Pc-Tickets\Backrest\bin\Debug\net7.0\publish\ExcelDataReader.dll
 C:\Users\Pc-Tickets\Backrest\bin\Debug\net7.0\publish\ExcelDataReader.DataSet.dll
+C:\Users\Pc-Tickets\Backrest\bin\Debug\net7.0\publish\Google.Protobuf.dll
+C:\Users\Pc-Tickets\Backrest\bin\Debug\net7.0\publish\K4os.Compression.LZ4.dll
+C:\Users\Pc-Tickets\Backrest\bin\Debug\net7.0\publish\K4os.Compression.LZ4.Streams.dll
+C:\Users\Pc-Tickets\Backrest\bin\Debug\net7.0\publish\K4os.Hash.xxHash.dll
 C:\Users\Pc-Tickets\Backrest\bin\Debug\net7.0\publish\Microsoft.AspNetCore.OpenApi.dll
 C:\Users\Pc-Tickets\Backrest\bin\Debug\net7.0\publish\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\Pc-Tickets\Backrest\bin\Debug\net7.0\publish\Microsoft.Data.SqlClient.dll
@@ -26,7 +30,16 @@ C:\Users\Pc-Tickets\Backrest\bin\Debug\net7.0\publish\Microsoft.IdentityModel.To
 C:\Users\Pc-Tickets\Backrest\bin\Debug\net7.0\publish\Microsoft.OpenApi.dll
 C:\Users\Pc-Tickets\Backrest\bin\Debug\net7.0\publish\Microsoft.SqlServer.Server.dll
 C:\Users\Pc-Tickets\Backrest\bin\Debug\net7.0\publish\Microsoft.Win32.SystemEvents.dll
+C:\Users\Pc-Tickets\Backrest\bin\Debug\net7.0\publish\MySql.Data.dll
+C:\Users\Pc-Tickets\Backrest\bin\Debug\net7.0\publish\ZstdNet.dll
+C:\Users\Pc-Tickets\Backrest\bin\Debug\net7.0\publish\comerr64.dll
+C:\Users\Pc-Tickets\Backrest\bin\Debug\net7.0\publish\gssapi64.dll
+C:\Users\Pc-Tickets\Backrest\bin\Debug\net7.0\publish\k5sprt64.dll
+C:\Users\Pc-Tickets\Backrest\bin\Debug\net7.0\publish\krb5_64.dll
+C:\Users\Pc-Tickets\Backrest\bin\Debug\net7.0\publish\krbcc64.dll
+C:\Users\Pc-Tickets\Backrest\bin\Debug\net7.0\publish\MySql.EntityFrameworkCore.dll
 C:\Users\Pc-Tickets\Backrest\bin\Debug\net7.0\publish\Newtonsoft.Json.dll
+C:\Users\Pc-Tickets\Backrest\bin\Debug\net7.0\publish\BouncyCastle.Crypto.dll
 C:\Users\Pc-Tickets\Backrest\bin\Debug\net7.0\publish\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\Pc-Tickets\Backrest\bin\Debug\net7.0\publish\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\Pc-Tickets\Backrest\bin\Debug\net7.0\publish\Swashbuckle.AspNetCore.SwaggerUI.dll

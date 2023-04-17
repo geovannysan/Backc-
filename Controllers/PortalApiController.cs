@@ -17,24 +17,29 @@ namespace Backrest.Controllers
     public class PortalApiController : ControllerBase
     {
         private readonly HttpClient _httpcliente;
+        public class Proceso{
+            public string? cedula{get;set;}
+            public string? operador{get;set;}
+        }
         public string url = "https://portal.comnet.ec/api/v1/";
         Procesos newproces = new Procesos();
+    
         public PortalApiController(HttpClient httpClient)
         {
             _httpcliente = httpClient;
         }
 
-        [HttpGet]
-        [Route("GetClientsDetails/{cedula:int}/{operador:int}")]
-        public async Task<ActionResult> Get(string cedula,string operador)
+        [HttpPost]
+        [Route("GetClientsDetails/")]
+        public async Task<ActionResult> Get([FromBody] Proceso datos)
         {
             try
             {
                 var client = new HttpClient();
                 var request = new HttpRequestMessage(HttpMethod.Post, url + "GetClientsDetails");
                 var contents = new StringContent(
-                    "{\r\n  \"token\": \""+newproces.Obtenertoken(operador)+"\",\r\n  \"cedula\": \""
-                        + cedula
+                    "{\r\n  \"token\": \""+newproces.Obtenertoken(datos.operador)+"\",\r\n  \"cedula\": \""
+                        + datos.cedula
                         + "\"\r\n}",
                     null,
                     "application/json"

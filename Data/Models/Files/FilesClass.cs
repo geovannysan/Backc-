@@ -16,5 +16,6 @@ namespace Backrest.Data.Models.Files
         public string? monto { get; set; }
         public string? oficina { get; set; }
         public string? banco { get; set; }
+        public string? name {get;set;}
     }
 }

@@ -20,11 +20,20 @@ namespace Backrest.Data
             : base(options) { }
 
         public virtual DbSet<Empleado>? Empleado { get; set; } = null;
-        public virtual DbSet<Users>? admin {get;set;}=null;
+        public virtual DbSet<Users>? admin { get; set; } = null;
         public virtual DbSet<Cargos>? Cargos { get; set; } = null;
         public virtual DbSet<FilesClass>? bancoscon { get; set; } = null;
-        public virtual DbSet<Transacciones>?transacion{get;set;}
+        public virtual DbSet<Transacciones>? transacion { get; set; } = null;
+        public virtual DbSet<Repostressum>? Reporte { get; set; } = null;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) { }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Repostressum>(entity =>
+            {
+                entity.HasNoKey();
+            });
+        }
     }
 }

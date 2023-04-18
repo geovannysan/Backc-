@@ -6,14 +6,48 @@ dotnet ef dbcontext scaffold "Server=localhost,1433; Database=Prubatienda; User=
 dotnet add package Microsoft.EntityFrameworkCore.Tools --version 7.0.4
 
 dotnet publish /p:Configuration=Release /p:PublishProfile=FolderProfile
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Reporte`(IN fecha_inicio DATE, IN fecha_fin DATE)
+BEGIN
+    SELECT bancoscon.banco, bancoscon.name,   
+      ROUND(SUM(bancoscon.monto),2) AS total_compras, 
+      CASE WHEN transacion.transacciones IS NOT NULL THEN 'SI' ELSE 'NO' END AS codigo_encontrado ,
+      COUNT(bancoscon.codigo) AS Total 
+    FROM bancoscon
+    INNER JOIN transacion ON bancoscon.codigo = transacion.transacciones
+    WHERE bancoscon.fecha >= fecha_inicio AND bancoscon.fecha <= fecha_fin
+    GROUP BY bancoscon.name
+    UNION
+    SELECT 
+     bancoscon.banco, 
+      bancoscon.name, 
+      ROUND( SUM(bancoscon.monto),2) AS total_monto, 
+     CASE WHEN bancoscon.codigo IS NOT NULL THEN 'NO' ELSE 'SI' END AS codigo_encontrado ,
+     COUNT(bancoscon.codigo) AS Total
+    FROM bancoscon
+    WHERE NOT EXISTS (
+      SELECT *
+      FROM transacion
+      WHERE bancoscon.codigo = transacion.transacciones
+    )
+    AND bancoscon.fecha >= fecha_inicio AND bancoscon.fecha <= fecha_fin
+    GROUP BY bancoscon.banco, bancoscon.name;
+END$$
+DELIMITER ;
+SELECT SUM(bancoscon.monto) as Total, bancoscon.banco as Banco, bancoscon.name as Cuenta
+FROM transacion
+INNER JOIN bancoscon
+ON transacion.transacciones = bancoscon.codigo
+GROUP by bancoscon.banco AND bancoscon.name;
 /*create table bancoscon(
  id int  primary key AUTO_INCREMENT,
- fecha  date,
+ fecha  datetime,
  codigo varchar(200) UNIQUE,
  documento varchar(200),
  monto varchar(100),
  oficina varchar(200),
- banco varchar(200)
+ banco varchar(200),
+ name varchar(200)
 );*/
 CREATE TABLE transacion(
 id int PRIMARY KEY AUTO_INCREMENT,

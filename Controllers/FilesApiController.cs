@@ -56,29 +56,32 @@ namespace Backrest.Controllers
                     {
                         var indice = tablauno.Rows.IndexOf(row);
 
-                        if (indice > 11)
+                        if (indice > 9)
                         {
+                            string s =row[1].ToString().TrimStart(new Char[] { '0' } ); 
                         DateTime fecha = Convert.ToDateTime(row[0].ToString(), usDtfi);
                         FilesClass myObject = new FilesClass
                         {
                             fecha = fecha,
-                            codigo = row[1].ToString(),
+                            codigo = s,
                             documento = (row[1]).ToString(),
                             monto = row[4].ToString().Replace(",", ""),
                             oficina = (row[7]).ToString(),
                             banco = "Produbanco",
                             name = model.name
                         };
-                        string co = row[1].ToString();
+                        string co =s;
                         bool existe = _dbcontex.bancoscon.Any(p => p.codigo == co);
                        // myObjects.Add(myObject);
                        
                         if (!existe)
                         {
-                             myObjects.Add(myObject);
+                           //  myObjects.Add(myObject);
                             _dbcontex.bancoscon.Add(myObject);
-                            _dbcontex.SaveChanges();
-                            num = num + 1;
+                           _dbcontex.SaveChanges();
+                           num = num + 1;
+                        }else{
+                            myObjects.Add(myObject);
                         }
                         }
                     }

@@ -31,6 +31,7 @@ namespace Backrest.Controllers
             public IFormFile? File { get; set; }
             public string? name { get; set; }
         }
+
         /*
         ok guarda
         */
@@ -58,34 +59,32 @@ namespace Backrest.Controllers
 
                         if (indice > 9)
                         {
-                            string s =row[1].ToString().TrimStart(new Char[] { '0' } ); 
-                        DateTime fecha = Convert.ToDateTime(row[0].ToString(), usDtfi);
-                        FilesClass myObject = new FilesClass
-                        {
-                            fecha = fecha,
-                            codigo = s,
-                            documento = (row[1]).ToString(),
-                            monto = row[4].ToString().Replace(",", ""),
-                            oficina = (row[7]).ToString(),
-                            banco = "Produbanco",
-                            name = model.name
-                        };
-                        string co =s;
-                        bool existe = _dbcontex.bancoscon.Any(p => p.codigo == co);
-                       // myObjects.Add(myObject);
-                       
-                        if (!existe)
-                        {
-                           //  myObjects.Add(myObject);
-                            _dbcontex.bancoscon.Add(myObject);
-                           _dbcontex.SaveChanges();
-                           num = num + 1;
-                        }else{
+                            string s = row[1].ToString().TrimStart(new Char[] { '0' });
+                            DateTime fecha = Convert.ToDateTime(row[0].ToString(), usDtfi);
+                            FilesClass myObject = new FilesClass
+                            {
+                                fecha = fecha,
+                                codigo = s,
+                                documento = (row[1]).ToString(),
+                                monto = row[4].ToString().Replace(",", ""),
+                                oficina = (row[7]).ToString(),
+                                banco = "Produbanco",
+                                name = model.name
+                            };
+                            string co = s;
+                            bool existe = _dbcontex.bancoscon.Any(p => p.codigo == co);
+                            // myObjects.Add(myObject);
                             myObjects.Add(myObject);
-                        }
+                            if (!existe)
+                            {
+                                //  myObjects.Add(myObject);
+                                _dbcontex.bancoscon.Add(myObject);
+                                _dbcontex.SaveChanges();
+                                num = num + 1;
+                            }
                         }
                     }
-                    return StatusCode(StatusCodes.Status200OK, new { num,myObjects });
+                    return StatusCode(StatusCodes.Status200OK, new { num, myObjects });
                 }
             }
             catch (Exception ex)
@@ -93,6 +92,7 @@ namespace Backrest.Controllers
                 return StatusCode(StatusCodes.Status402PaymentRequired, ex.Message);
             }
         }
+
         /*
         ya guarda
         */
@@ -115,32 +115,34 @@ namespace Backrest.Controllers
 
                     foreach (DataRow row in table.Rows)
                     {
-                          var indice = table.Rows.IndexOf(row);
+                        var indice = table.Rows.IndexOf(row);
 
                         if (indice > 0)
                         {
-                        string valorconvertido = (row[6]).ToString().Replace(","," ");
-                        string fecha = (row[0]).ToString();
+                            string valorconvertido = (row[6]).ToString().Replace(",", " ");
+                            string fecha = (row[0]).ToString();
 
-                        FilesClass myObject = new FilesClass
-                        {
-                            fecha = Convert.ToDateTime(fecha),
-                            codigo = row[4].ToString(),
-                            documento = (row[2]).ToString(),
-                            monto = valorconvertido,
-                            oficina = (row[5]).ToString(),
-                            banco = "Pichincha",
-                            name = model.name
-                        };
-                        myObjects.Add(myObject);
-                        //myObjects.Add(myObject);
-                        bool existe = _dbcontex.bancoscon.Any(p => p.codigo == row[4].ToString());
-                        if (!existe)
-                        {
-                            _dbcontex.bancoscon.Add(myObject);
-                            _dbcontex.SaveChanges();
-                            num = num + 1;
-                        }
+                            FilesClass myObject = new FilesClass
+                            {
+                                fecha = Convert.ToDateTime(fecha),
+                                codigo = row[4].ToString(),
+                                documento = (row[2]).ToString(),
+                                monto = valorconvertido,
+                                oficina = (row[5]).ToString(),
+                                banco = "Pichincha",
+                                name = model.name
+                            };
+                            myObjects.Add(myObject);
+                            //myObjects.Add(myObject);
+                            bool existe = _dbcontex.bancoscon.Any(
+                                p => p.codigo == row[4].ToString()
+                            );
+                            if (!existe)
+                            {
+                                _dbcontex.bancoscon.Add(myObject);
+                                _dbcontex.SaveChanges();
+                                num = num + 1;
+                            }
                         }
                     }
                     return StatusCode(StatusCodes.Status200OK, new { myObjects, num });
@@ -151,6 +153,7 @@ namespace Backrest.Controllers
                 return StatusCode(StatusCodes.Status402PaymentRequired, ex.Message);
             }
         }
+
         /*ya guarda*/
 
         [HttpPost]
@@ -172,44 +175,46 @@ namespace Backrest.Controllers
                     string regexPattern = "[^0-9]";
                     foreach (DataRow row in tablauno.Rows)
                     {
-                      
-                         var indice = tablauno.Rows.IndexOf(row);
+                        var indice = tablauno.Rows.IndexOf(row);
 
                         if (indice > 0)
                         {
-                              DateTime fecha = Convert.ToDateTime(row[1]);
-                        FilesClass myObject = new FilesClass
-                        {
-                            fecha = fecha,
-                            codigo = Regex
+                            DateTime fecha = Convert.ToDateTime(row[1]);
+                            FilesClass myObject = new FilesClass
+                            {
+                                fecha = fecha,
+                                codigo = Regex
+                                    .Replace(row[11].ToString(), regexPattern, "")
+                                    .Substring(
+                                        0,
+                                        Regex.Replace(row[11].ToString(), regexPattern, "").Length
+                                            - 2
+                                    ),
+                                documento = (row[11]).ToString(),
+                                oficina = (row[8]).ToString(),
+                                monto = (row[6].ToString()),
+                                banco = "Pacifico",
+                                name = model.name,
+                            };
+                            string co = Regex
                                 .Replace(row[11].ToString(), regexPattern, "")
                                 .Substring(
-                                    0,Regex.Replace(row[11].ToString(), regexPattern, "").Length - 2),
-                            documento = (row[11]).ToString(),
-                            oficina = (row[8]).ToString(),
-                            monto= (row[6].ToString()),
-                            banco = "Pacifico",
-                            name = model.name,
-                        };
-                        string co = Regex
-                            .Replace(row[11].ToString(), regexPattern, "")
-                            .Substring(
-                                0,
-                                Regex.Replace(row[11].ToString(), regexPattern, "").Length - 2
-                            );
-                        bool existe = _dbcontex.bancoscon.Any(p => p.codigo == co);
-                        // myObjects.Add(myObject);
-                        myObjects.Add(myObject);
-                       if (!existe)
-                        {
-                            _dbcontex.bancoscon.Add(myObject);
-                            _dbcontex.SaveChanges();
-                            num = num + 1;
-                        }
+                                    0,
+                                    Regex.Replace(row[11].ToString(), regexPattern, "").Length - 2
+                                );
+                            bool existe = _dbcontex.bancoscon.Any(p => p.codigo == co);
+                           
+                            myObjects.Add(myObject);
+                            if (!existe)
+                            {
+                                _dbcontex.bancoscon.Add(myObject);
+                                _dbcontex.SaveChanges();
+                                num = num + 1;
+                            }
                         }
                     }
 
-                    return StatusCode(StatusCodes.Status200OK, new { myObjects });
+                    return StatusCode(StatusCodes.Status200OK, new { myObjects ,num});
                 }
             }
             catch (Exception ex)
@@ -258,13 +263,9 @@ namespace Backrest.Controllers
                                 name = model.name
                             };
                             myObjects.Add(myObject);
-                            // myObjects.Add(myObject);
-                            myObjects.Add(myObject);
                             bool existe = _dbcontex.transacion.Any(
                                 p => p.transacciones == row[4].ToString()
                             );
-
-                            // myObjects.Add(myObject);
                             if (!existe)
                             {
                                 _dbcontex.transacion.Add(myObject);
@@ -274,7 +275,7 @@ namespace Backrest.Controllers
                         }
                     }
 
-                    return StatusCode(StatusCodes.Status200OK, new { myObjects });
+                    return StatusCode(StatusCodes.Status200OK, new { myObjects ,num});
                 }
             }
             catch (Exception ex)

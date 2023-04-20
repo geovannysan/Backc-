@@ -25,6 +25,7 @@ namespace Backrest.Data
         public virtual DbSet<FilesClass>? bancoscon { get; set; } = null;
         public virtual DbSet<Transacciones>? transacion { get; set; } = null;
         public virtual DbSet<Repostressum>? Reporte { get; set; } = null;
+        
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) { }
 

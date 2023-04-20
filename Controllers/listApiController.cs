@@ -20,6 +20,7 @@ namespace Backrest.Controllers
         {
             [Required]
             public string? fecha_inicio { get; set; }
+
             [Required]
             public string? fecha_fin { get; set; }
         }
@@ -36,16 +37,39 @@ namespace Backrest.Controllers
             List<Repostressum> lista = new List<Repostressum>();
             try
             {
-                lista = _dbcontext.Reporte.FromSqlInterpolated($"CALL Reporte({datos.fecha_inicio}, {datos.fecha_fin})").ToList();
+                lista = _dbcontext.Reporte
+                    .FromSqlInterpolated($"CALL Reporte({datos.fecha_inicio}, {datos.fecha_fin})")
+                    .ToList();
                 //lista = _dbContext._dbcontext.Empleado.Includes(c=> c.Cargos).ToList();
-                return StatusCode(StatusCodes.Status200OK, new { mesaje = "ok", response = lista });
+                return StatusCode(StatusCodes.Status200OK, new { mesaje = true, response = lista });
             }
             catch (Exception ex)
             {
                 return StatusCode(
-                    StatusCodes.Status200OK,
+                    StatusCodes.Status400BadRequest,
                     new { mesaje = ex.Message, response = lista }
                 );
+            }
+        }
+
+        [HttpPost]
+        [Route("Transaciones")]
+        public ActionResult Transacion([FromBody] Fechas datos)
+        {
+            List<Transacciones> lista = new List<Transacciones>();
+
+            try
+            {
+                var ini = datos.fecha_inicio;
+                var fin = datos.fecha_fin;
+                lista = _dbcontext.transacion
+                    .FromSqlInterpolated($"CALL Reportelis({ini}, {fin})")
+                    .ToList();
+                return StatusCode(StatusCodes.Status200OK, new { mensaje = true, lista });
+            }
+            catch (System.Exception)
+            {
+                throw;
             }
         }
     }

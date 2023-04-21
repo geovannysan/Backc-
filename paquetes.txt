@@ -65,3 +65,6 @@ cobrado double,
 cedula varchar(200),    
 name varchar(200)
 );
+
+mysql
+boleteria

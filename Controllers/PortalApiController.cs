@@ -54,8 +54,7 @@ namespace Backrest.Controllers
                 }
                 return StatusCode(
                     StatusCodes.Status200OK,
-                    new { mensaje = "No se completo la consulta" }
-                );
+                    new { mensaje = "No se completo la consulta" });
             }
             catch (Exception ex)
             {

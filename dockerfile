@@ -11,5 +11,11 @@ RUN dotnet publish -c Release -o out
 # Build runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:7.0
 WORKDIR /App
+
 COPY --from=build-env /App/out .
+
+EXPOSE 81
+# docker build -t counternet -f Dockerfile .
+# docker run --name counternet -p 3545:80 -d counternet
+
 ENTRYPOINT ["dotnet", "Backrest.dll"]

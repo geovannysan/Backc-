@@ -16,6 +16,8 @@ namespace Backrest.Controllers
     {
         private readonly Data.DataContext _dbcontext;
 
+        private readonly HttpClient _httpcliente;
+
         public class Fechas
         {
             [Required]
@@ -25,9 +27,10 @@ namespace Backrest.Controllers
             public string? fecha_fin { get; set; }
         }
 
-        public listApiController(Data.DataContext logger)
+        public listApiController(Data.DataContext logger, HttpClient httpClient)
         {
             _dbcontext = logger;
+            _httpcliente = httpClient;
         }
 
         [HttpPost]
@@ -68,6 +71,29 @@ namespace Backrest.Controllers
                 return StatusCode(StatusCodes.Status200OK, new { mensaje = true, lista });
             }
             catch (System.Exception)
+            {
+                throw;
+            }
+        }
+
+        [HttpGet]
+        [Route("GetLocalidad")]
+        public async Task<ActionResult> Getls()
+        {
+            try {
+                var client = new HttpClient();
+                var request = new HttpRequestMessage(HttpMethod.Get,"https://server1.ticketfacil.ec/ticket2/ajax.pventa.php?api_wts=ticketfacil_api&action=get&typedata=local_concrt&data=1102");
+                var response = await client.SendAsync(request);
+                if(response.IsSuccessStatusCode){
+                    string res = await response.Content.ReadAsStringAsync();
+                    return StatusCode(StatusCodes.Status200OK,res);
+                }
+                return StatusCode(
+                    StatusCodes.Status404NotFound,
+                    new { mensaje = "No se completo la consulta" }
+                );
+             }
+            catch (Exception)
             {
                 throw;
             }

@@ -116,7 +116,6 @@ namespace Backrest.Controllers
                     foreach (DataRow row in table.Rows)
                     {
                         var indice = table.Rows.IndexOf(row);
-
                         if (indice > 0)
                         {
                             string valorconvertido = (row[6]).ToString().Replace(",", " ");

@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Backrest.Data.Models;
 using Backrest.Data.Models.Files;
+using Backrest.Data.Models.Contifico;
 
 namespace Backrest.Data
 {
@@ -25,6 +26,7 @@ namespace Backrest.Data
         public virtual DbSet<FilesClass>? bancoscon { get; set; } = null;
         public virtual DbSet<Transacciones>? transacion { get; set; } = null;
         public virtual DbSet<Repostressum>? Reporte { get; set; } = null;
+        public virtual DbSet<IncrementoClass>? incrementos {get;set;}
         
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) { }

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Backrest.Data.Models.Contifico;
 using Newtonsoft.Json;
+using Microsoft.EntityFrameworkCore;
 
 namespace Backrest.Controllers
 {
@@ -12,64 +13,65 @@ namespace Backrest.Controllers
     [Route("[controller]")]
     public class FactuApiController : ControllerBase
     {
+        private readonly Data.DataContext _dbcontex;
         private readonly HttpClient _httpcliente;
         public string urlcon = "ttps://api.contifico.com/sistema/api/v1/persona/";
         public string urldoc = "https://api.contifico.com/sistema/api/v1/producto/";
 
-        public FactuApiController(HttpClient httpClient)
+        public FactuApiController(HttpClient httpClient,Data.DataContext logger)
         {
+            _dbcontex = logger;
             _httpcliente = httpClient;
         }
 
-        //*falta validar si funciona y como trae la informacion para crear el objeto
-        /*  [HttpPost]
-          [Route("Crearpersona")]
-          public async Task<ActionResult> Get([FromBody] Clientecontifico datos)
-          {
-              try
-              {
-                  var client = new HttpClient();
-                  var request = new HttpRequestMessage(HttpMethod.Post, urlcon);
-                  var contents = new StringContent(
-                      "{\r\n  \"tipo\": \"N\",\r\n  \"personaasociada_id\": null,\r\n  \"nombre_comercial\": \""
-                          + datos.nombre_comercial
-                          + "\",\r\n  \"telefonos\": \""
-                          + datos.telefonos
-                          + "\",\r\n  \"razon_social\": \""
-                          + datos.nombre_comercial
-                          + "\",\r\n  \"direccion\": \""
-                          + datos.direccion
-                          + "\",\r\n  \"porcentaje_descuento\": \"0\",\r\n  \"es_cliente\": true,\r\n  \"origen\": \"Panel de Facturacion\",\r\n  \"email\": \""
-                          + datos.email
-                          + "\",\r\n  \"cedula\": \""
-                          + datos.cedula
-                          + "\",\r\n  \"Provincia\": \"Guayaquil\",\r\n  \"adicional1_cliente\": \"Cliente de Internet\"\r\n}\r\n",
-                      null,
-                      "application/json"
-                  );
-                  request.Headers.Add("Authorization", "eYxkPDD5SDLv0nRB7CIKsDCL6dwHppHwHmHMXIHqH8w");
-                  request.Content = contents;
-                  var response = await client.SendAsync(request);
-                  if (response.IsSuccessStatusCode)
-                  {
-                      string resp = await response.Content.ReadAsStringAsync();
-                      var result = JsonConvert.DeserializeObject(resp);
-                      return StatusCode(StatusCodes.Status200OK, result);
-                  }
-                  else
-                  {
-                      string resp2 = await response.Content.ReadAsStringAsync();
-                      var result = JsonConvert.DeserializeObject<Error>(resp2);
-  
-                      return StatusCode(StatusCodes.Status409Conflict, result);
-                  }
-              }
-              catch (Exception ex)
-              {
-                  return StatusCode(StatusCodes.Status200OK, ex.Message);
-              }
-          }
-              */
+        [HttpPost]
+        [Route("incrementouno")]
+        public async Task<ActionResult> Incremeto(){
+               List<IncrementoClass> lista = new List<IncrementoClass>();
+            try
+            {
+                lista =  _dbcontex.incrementos.FromSqlInterpolated($"Incremento()").ToList();
+                return StatusCode(StatusCodes.Status200OK,new{status=true,result= lista});
+                
+            }
+            catch (System.Exception)
+            {
+                
+                throw;
+            }
+        }
+         [HttpPost]
+        [Route("incrementodos")]
+        public async Task<ActionResult> Incremeto1(){
+               List<IncrementoClass> lista = new List<IncrementoClass>();
+            try
+            {
+                lista =  _dbcontex.incrementos.FromSqlInterpolated($"Incremento1()").ToList();
+                return StatusCode(StatusCodes.Status200OK,new{status=true,result= lista});
+                
+            }
+            catch (System.Exception)
+            {
+                
+                throw;
+            }
+        }
+         [HttpPost]
+        [Route("incrementotres")]
+        public async Task<ActionResult> Incremeto2(){
+               List<IncrementoClass> lista = new List<IncrementoClass>();
+            try
+            {
+                lista =  _dbcontex.incrementos.FromSqlInterpolated($"Incremento3()").ToList();
+                return StatusCode(StatusCodes.Status200OK,new{status=true,result= lista});
+                
+            }
+            catch (System.Exception)
+            {
+                
+                throw;
+            }
+        }
         /*crea producto contifico ok */
         [HttpPost]
         [Route("Crearpro")]

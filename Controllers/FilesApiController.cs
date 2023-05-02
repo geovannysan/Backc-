@@ -252,7 +252,7 @@ namespace Backrest.Controllers
                                 factura = row[2].ToString(),
                                 legal = row[3].ToString(),
                                 transacciones = row[4].ToString(),
-                                forma_pago = row[5].ToString(),
+                                forma_pago = row[5].ToString().Replace("SpeedMan ","CALL ") ,
                                 fecha = DateTime.Parse(row[6].ToString()),
                                 Operador = row[8].ToString(),
                                 cobrado = row[9].ToString().Replace("$", " "),

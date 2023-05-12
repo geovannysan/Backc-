@@ -68,3 +68,29 @@ name varchar(200)
 
 mysql
 boleteria
+
+
+DELIMITER $$
+CREATE DEFINER=`root`@`%` PROCEDURE `Incremento`()
+BEGIN
+   UPDATE incrementos SET contadores = contadores+1 WHERE id=1;
+   SELECT *  FROM incrementos WHERE id ='1';
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Incremento1`()
+BEGIN
+   UPDATE incrementos SET contadores = contadores+1 FROM incrementos WHERE id='2') WHERE id='2';
+   SELECT * FROM incrementos WHERE id ='2';
+END$$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Incremento3`()
+BEGIN
+   UPDATE incrementos SET contadores = contadores+1 FROM incrementos WHERE id='3') WHERE id='3';
+   SELECT * FROM incrementos WHERE id ='3';
+END$$
+DELIMITER ;

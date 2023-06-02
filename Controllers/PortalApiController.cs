@@ -9,6 +9,7 @@ using Backrest.Data;
 using Backrest.Data.Models;
 using System.Text.Json.Serialization;
 using Backrest.Data.Models.Pagos;
+using Backrest.Data.Models.microtik;
 
 namespace Backrest.Controllers
 {
@@ -17,13 +18,16 @@ namespace Backrest.Controllers
     public class PortalApiController : ControllerBase
     {
         private readonly HttpClient _httpcliente;
-        public class Proceso{
-            public string? cedula{get;set;}
-            public string? operador{get;set;}
+
+        public class Proceso
+        {
+            public string? cedula { get; set; }
+            public string? operador { get; set; }
         }
+
         public string url = "https://portal.comnet.ec/api/v1/";
         Procesos newproces = new Procesos();
-    
+
         public PortalApiController(HttpClient httpClient)
         {
             _httpcliente = httpClient;
@@ -38,7 +42,9 @@ namespace Backrest.Controllers
                 var client = new HttpClient();
                 var request = new HttpRequestMessage(HttpMethod.Post, url + "GetClientsDetails");
                 var contents = new StringContent(
-                    "{\r\n  \"token\": \""+newproces.Obtenertoken(datos.operador)+"\",\r\n  \"cedula\": \""
+                    "{\r\n  \"token\": \""
+                        + newproces.Obtenertoken(datos.operador)
+                        + "\",\r\n  \"cedula\": \""
                         + datos.cedula
                         + "\"\r\n}",
                     null,
@@ -50,26 +56,31 @@ namespace Backrest.Controllers
                 {
                     string res = await response.Content.ReadAsStringAsync();
                     var result = JsonConvert.DeserializeObject<Clienteportal>(res);
-                    return StatusCode(StatusCodes.Status200OK, result );
+                    return StatusCode(StatusCodes.Status200OK, result);
                 }
                 return StatusCode(
                     StatusCodes.Status200OK,
-                    new { mensaje = "No se completo la consulta" });
+                    new { mensaje = "No se completo la consulta" }
+                );
             }
             catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status403Forbidden, new { mensaje = ex.Message });
             }
         }
+
         //,\r\n \"estado\":1,
         [HttpGet]
         [Route("GetInvoices/{idcliente:int}/{operador:int}")]
-        public async Task<ActionResult> Index(string idcliente,string operador)
+        public async Task<ActionResult> Index(string idcliente, string operador)
         {
             try
             {
                 var client = new HttpClient();
-                var request = new HttpRequestMessage(HttpMethod.Get,"https://portal.comnet.ec/api/v1/GetInvoices");
+                var request = new HttpRequestMessage(
+                    HttpMethod.Get,
+                    "https://portal.comnet.ec/api/v1/GetInvoices"
+                );
                 var contents = new StringContent(
                     "{\r\n  \"token\": \"NXJzUzNRNGljN0JOOWRpK252QXFzdz09\",\r\n  \"idcliente\": \""
                         + idcliente
@@ -85,28 +96,72 @@ namespace Backrest.Controllers
                 {
                     string res = await response.Content.ReadAsStringAsync();
                     var result = JsonConvert.DeserializeObject<Clienteportal>(res);
-                    return StatusCode(StatusCodes.Status200OK,  result);
+                    return StatusCode(StatusCodes.Status200OK, result);
                 }
                 return StatusCode(
                     StatusCodes.Status200OK,
                     new { mensaje = "No se completo la consulta" }
                 );
             }
-           catch (Exception ex)
+            catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status403Forbidden, new { mensaje = ex.Message });
             }
         }
+
+        [HttpPost]
+        [Route("GetInvoices")]
+        public async Task<ActionResult> GetInvoices([FromBody] Apiportal datos)
+        {
+            try
+            {
+                var client = new HttpClient();
+                var request = new HttpRequestMessage(
+                    HttpMethod.Get,
+                    "https://portal.comnet.ec/api/v1/GetInvoices"
+                );
+                var contents = new StringContent(
+                    "{\r\n  \"token\": \"NXJzUzNRNGljN0JOOWRpK252QXFzdz09\",\r\n  \"idcliente\": \""
+                        + datos.idcliente
+                        + "\",\r\n  \"limit\": \""
+                        + datos.limit
+                        + "\",\r\n  \"estado\": \""
+                        + datos.estado
+                        + "\"\r\n}",
+                    null,
+                    "application/json"
+                );
+                request.Content = contents;
+                var response = await client.SendAsync(request);
+                if (response.IsSuccessStatusCode)
+                {
+                    string res = await response.Content.ReadAsStringAsync();
+                    var result = JsonConvert.DeserializeObject<Clienteportal>(res);
+                    return StatusCode(StatusCodes.Status200OK, result);
+                }
+                return StatusCode(
+                    StatusCodes.Status200OK,
+                    new { mensaje = "No se completo la consulta" }
+                );
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status403Forbidden, new { mensaje = ex.Message });
+            }
+        }
+
         [HttpGet]
         [Route("GetInvoice/{idfactura:int}/{operador:int}")]
-        public async Task<ActionResult> Obtener(int idfactura,string operador)
+        public async Task<ActionResult> Obtener(int idfactura, string operador)
         {
             try
             {
                 var client = new HttpClient();
                 var request = new HttpRequestMessage(HttpMethod.Get, url + "GetInvoice");
                 var contents = new StringContent(
-                    "{\r\n  \"token\": \""+newproces.Obtenertoken(operador)+"\",\r\n  \"idfactura\": \""
+                    "{\r\n  \"token\": \""
+                        + newproces.Obtenertoken(operador)
+                        + "\",\r\n  \"idfactura\": \""
                         + idfactura
                         + "\"\r\n}",
                     null,
@@ -118,30 +173,107 @@ namespace Backrest.Controllers
                 {
                     string res = await response.Content.ReadAsStringAsync();
                     var result = JsonConvert.DeserializeObject<Clienteportal>(res);
-                    return StatusCode(StatusCodes.Status200OK, result );
+                    return StatusCode(StatusCodes.Status200OK, result);
                 }
                 return StatusCode(
                     StatusCodes.Status200OK,
                     new { mensaje = "No se completo la consulta" }
                 );
             }
-           catch (Exception ex)
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status403Forbidden, new { mensaje = ex.Message });
+            }
+        }
+
+        [HttpPost]
+        [Route("GetInvoice")]
+        public async Task<ActionResult> GetInvoice([FromBody] Apiportal datos)
+        {
+            try
+            {
+                var client = new HttpClient();
+                var request = new HttpRequestMessage(HttpMethod.Get, url + "GetInvoice");
+                var contents = new StringContent(
+                    "{\r\n  \"token\": \""
+                        + "NXJzUzNRNGljN0JOOWRpK252QXFzdz09"
+                        + "\",\r\n  \"idfactura\": \""
+                        + datos.idfactura
+                        + "\"\r\n}",
+                    null,
+                    "application/json"
+                );
+                request.Content = contents;
+                var response = await client.SendAsync(request);
+                if (response.IsSuccessStatusCode)
+                {
+                    string res = await response.Content.ReadAsStringAsync();
+                    var result = JsonConvert.DeserializeObject<Clienteportal>(res);
+                    return StatusCode(StatusCodes.Status200OK, result);
+                }
+                return StatusCode(
+                    StatusCodes.Status200OK,
+                    new { mensaje = "No se completo la consulta" }
+                );
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status403Forbidden, new { mensaje = ex.Message });
+            }
+        }
+
+        [HttpPost]
+        [Route("ListTicket")]
+        public async Task<ActionResult> ListTicket([FromBody] Apiportal datos ){
+            try
+            {
+                var client = new HttpClient();
+                var request = new HttpRequestMessage(HttpMethod.Get, url + "ListTicket");
+                var contents = new StringContent(
+                    "{\r\n  \"token\": \""
+                        + "NXJzUzNRNGljN0JOOWRpK252QXFzdz09"
+                        + "\",\r\n  \"idcliente\": \""
+                        + datos.idcliente
+                        + "\"\r\n}",
+                    null,
+                    "application/json"
+                );
+                request.Content = contents;
+                var response = await client.SendAsync(request);
+                if (response.IsSuccessStatusCode)
+                {
+                    string res = await response.Content.ReadAsStringAsync();
+                    var result = JsonConvert.DeserializeObject<Infoticket>(res);
+                    return StatusCode(StatusCodes.Status200OK, result);
+                }
+                return StatusCode(
+                    StatusCodes.Status200OK,
+                    new { mensaje = "No se completo la consulta" }
+                );
+            }
+            catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status403Forbidden, new { mensaje = ex.Message });
             }
         }
         /*
-        pagar factura ok 
+        pagar factura ok
         */
         [HttpPost]
         [Route("PagosdelPortal/{operador:int}")]
-        public async Task<ActionResult> Postpago(string operador,[FromBody] Datos datos){
+        public async Task<ActionResult> Postpago(string operador, [FromBody] Datos datos)
+        {
             try
             {
                 var client = new HttpClient();
-                var request = new HttpRequestMessage(HttpMethod.Post,  "https://portal.comnet.ec/api/v1/PaidInvoice");
+                var request = new HttpRequestMessage(
+                    HttpMethod.Post,
+                    "https://portal.comnet.ec/api/v1/PaidInvoice"
+                );
                 var contents = new StringContent(
-                    "{\r\n  \"token\": \""+newproces.Obtenertoken(operador)+"\",\r\n  \"idfactura\": \""
+                    "{\r\n  \"token\": \""
+                        + newproces.Obtenertoken(operador)
+                        + "\",\r\n  \"idfactura\": \""
                         + datos.idfactura
                         + "\",\r\n"
                         + "  \"pasarela\": \""
@@ -159,24 +291,24 @@ namespace Backrest.Controllers
                     null,
                     "application/json"
                 );
-                request.Content= contents;
+                request.Content = contents;
                 var response = await client.SendAsync(request);
-                if(response.IsSuccessStatusCode){
-                   string resp = await response.Content.ReadAsStringAsync();
-                   var result = JsonConvert.DeserializeObject<Clienteportal>(resp);
-                return StatusCode(StatusCodes.Status200OK,result);
+                if (response.IsSuccessStatusCode)
+                {
+                    string resp = await response.Content.ReadAsStringAsync();
+                    var result = JsonConvert.DeserializeObject<Clienteportal>(resp);
+                    return StatusCode(StatusCodes.Status200OK, result);
                 }
-                  string resps = await response.Content.ReadAsStringAsync();
-                   var results = JsonConvert.DeserializeObject<Clienteportal>(resps);
+                string resps = await response.Content.ReadAsStringAsync();
+                var results = JsonConvert.DeserializeObject<Clienteportal>(resps);
                 return StatusCode(StatusCodes.Status200OK, results);
             }
-           catch (Exception ex)
+            catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status403Forbidden, new { mensaje = ex.Message });
             }
         }
-       
-        
+
         //antes de esto poner las rutas
     }
 }

@@ -224,7 +224,8 @@ namespace Backrest.Controllers
 
         [HttpPost]
         [Route("ListTicket")]
-        public async Task<ActionResult> ListTicket([FromBody] Apiportal datos ){
+        public async Task<ActionResult> ListTicket([FromBody] Apiportal datos)
+        {
             try
             {
                 var client = new HttpClient();
@@ -256,6 +257,7 @@ namespace Backrest.Controllers
                 return StatusCode(StatusCodes.Status403Forbidden, new { mensaje = ex.Message });
             }
         }
+
         /*
         pagar factura ok
         */
@@ -309,6 +311,120 @@ namespace Backrest.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("estdoolt/{idolt:int}")]
+        public async Task<ActionResult> Obtenerolt(string idolt)
+        {
+            try
+            {
+                var client = new HttpClient();
+                var request = new HttpRequestMessage(
+                    HttpMethod.Get,
+                    "https://comnet.smartolt.com/api/onu/get_onu_signal/" + idolt
+                );
+                request.Headers.Add("X-Token", "a068dcbce5ab4b3591e57f8d8a4348e9");
+                var response = await client.SendAsync(request);
+                if (response.IsSuccessStatusCode)
+                {
+                    string resp = await response.Content.ReadAsStringAsync();
+                    var result = JsonConvert.DeserializeObject<result>(resp);
+                    return StatusCode(StatusCodes.Status200OK, result);
+                }
+                string resps = await response.Content.ReadAsStringAsync();
+                var results = JsonConvert.DeserializeObject<result>(resps);
+                return StatusCode(StatusCodes.Status200OK, results);
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
+        }
+
+        [HttpGet]
+        [Route("estado/{idolt:int}")]
+        public async Task<ActionResult> ObtenerStuatus(string idolt)
+        {
+            try
+            {
+                var client = new HttpClient();
+                var request = new HttpRequestMessage(
+                    HttpMethod.Get,
+                    "https://comnet.smartolt.com/api/onu/get_onu_status/" + idolt
+                );
+                request.Headers.Add("X-Token", "a068dcbce5ab4b3591e57f8d8a4348e9");
+                var response = await client.SendAsync(request);
+                if (response.IsSuccessStatusCode)
+                {
+                    string resp = await response.Content.ReadAsStringAsync();
+                    var result = JsonConvert.DeserializeObject<result>(resp);
+                    return StatusCode(StatusCodes.Status200OK, result);
+                }
+                string resps = await response.Content.ReadAsStringAsync();
+                var results = JsonConvert.DeserializeObject<result>(resps);
+                return StatusCode(StatusCodes.Status200OK, results);
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
+        }
+       
+       [HttpGet("detalleolt/{idolt:int}")]
+       public async Task<ActionResult> Detalleolt(string idolt)
+        {
+            try
+            {
+                var client = new HttpClient();
+                var request = new HttpRequestMessage(
+                    HttpMethod.Get,
+                    "https://comnet.smartolt.com/api/onu/get_onu_details/" + idolt
+                );
+                request.Headers.Add("X-Token", "a068dcbce5ab4b3591e57f8d8a4348e9");
+                var response = await client.SendAsync(request);
+                if (response.IsSuccessStatusCode)
+                {
+                    string resp = await response.Content.ReadAsStringAsync();
+                    var result = JsonConvert.DeserializeObject<result>(resp);
+                    return StatusCode(StatusCodes.Status200OK, resp);
+                }
+                string resps = await response.Content.ReadAsStringAsync();
+                var results = JsonConvert.DeserializeObject(resps);
+                return StatusCode(StatusCodes.Status200OK, resps);
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
+        }
+       
+       [HttpGet("detalleoltport/{idolt:int}")]
+       public async Task<ActionResult> Detalleoltport(string idolt)
+        {
+            try
+            {
+                var client = new HttpClient();
+                var request = new HttpRequestMessage(
+                    HttpMethod.Get,
+                    "https://comnet.smartolt.com/api/system/get_olt_pon_ports_details/" + idolt
+                );
+                request.Headers.Add("X-Token", "a068dcbce5ab4b3591e57f8d8a4348e9");
+                var response = await client.SendAsync(request);
+                if (response.IsSuccessStatusCode)
+                {
+                    string resp = await response.Content.ReadAsStringAsync();
+                    var result = JsonConvert.DeserializeObject<result>(resp);
+                    return StatusCode(StatusCodes.Status200OK, result);
+                }
+                string resps = await response.Content.ReadAsStringAsync();
+                var results = JsonConvert.DeserializeObject<result>(resps);
+                return StatusCode(StatusCodes.Status200OK, results);
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
+        }
+       
         //antes de esto poner las rutas
     }
 }

@@ -258,6 +258,54 @@ namespace Backrest.Controllers
             }
         }
 
+        [HttpPost("UpdateUser")]
+        public async Task<ActionResult> UpdateUser([FromBody] UpdateUser datos)
+        {
+            try
+            {
+               /* var client = new HttpClient();
+                var request = new HttpRequestMessage(
+                    HttpMethod.Post,
+                    "http://45.224.96.50/api/v1/UpdateUser"
+                );*/
+                var data = new
+                {
+                    token = "NXJzUzNRNGljN0JOOWRpK252QXFzdz09",
+                    idcliente = "294",
+                    datos = new
+                    {
+                        nombre = datos.nombre,
+                        correo = datos.correo,
+                        telefono = datos.telefono,
+                        movil = datos.movil,
+                        cedula = datos.cedula,
+                        codigo = datos.codigo,
+                        direccion_principal = datos.direccion_principal
+                    }
+                };
+                
+               var client = new HttpClient();
+
+                 var json = Newtonsoft.Json.JsonConvert.SerializeObject(data);
+                  var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                var response = await client.PostAsync("http://45.224.96.50/api/v1/UpdateUser",content);
+                if (response.IsSuccessStatusCode)
+                {
+                    string resp = await response.Content.ReadAsStringAsync();
+                    var result = JsonConvert.DeserializeObject<Clienteportal>(resp);
+                    return StatusCode(StatusCodes.Status200OK, result);
+                }
+                string resps = await response.Content.ReadAsStringAsync();
+                var results = JsonConvert.DeserializeObject<Clienteportal>(resps);
+                return StatusCode(StatusCodes.Status200OK, results);
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
+        }
+
         /*
         pagar factura ok
         */
@@ -368,9 +416,9 @@ namespace Backrest.Controllers
                 throw;
             }
         }
-       
-       [HttpGet("detalleolt/{idolt:int}")]
-       public async Task<ActionResult> Detalleolt(string idolt)
+
+        [HttpGet("detalleolt/{idolt:int}")]
+        public async Task<ActionResult> Detalleolt(string idolt)
         {
             try
             {
@@ -396,9 +444,9 @@ namespace Backrest.Controllers
                 throw;
             }
         }
-       
-       [HttpGet("detalleoltport/{idolt:int}")]
-       public async Task<ActionResult> Detalleoltport(string idolt)
+
+        [HttpGet("detalleoltport/{idolt:int}")]
+        public async Task<ActionResult> Detalleoltport(string idolt)
         {
             try
             {
@@ -424,7 +472,7 @@ namespace Backrest.Controllers
                 throw;
             }
         }
-       
+
         //antes de esto poner las rutas
     }
 }

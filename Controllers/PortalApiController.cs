@@ -263,33 +263,36 @@ namespace Backrest.Controllers
         {
             try
             {
-               /* var client = new HttpClient();
-                var request = new HttpRequestMessage(
-                    HttpMethod.Post,
-                    "http://45.224.96.50/api/v1/UpdateUser"
-                );*/
+                /* var client = new HttpClient();
+                 var request = new HttpRequestMessage(
+                     HttpMethod.Post,
+                     "http://45.224.96.50/api/v1/UpdateUser"
+                 );*/
                 var data = new
                 {
                     token = "NXJzUzNRNGljN0JOOWRpK252QXFzdz09",
                     idcliente = "294",
                     datos = new
                     {
-                        nombre = datos.nombre,
-                        correo = datos.correo,
+                        //nombre = datos.nombre,
+                         correo = datos.correo,
                         telefono = datos.telefono,
                         movil = datos.movil,
-                        cedula = datos.cedula,
-                        codigo = datos.codigo,
-                        direccion_principal = datos.direccion_principal
+                        // cedula = datos.cedula,
+                        //codigo = datos.codigo,
+                      //  direccion_principal = datos.direccion_principal
                     }
                 };
-                
-               var client = new HttpClient();
 
-                 var json = Newtonsoft.Json.JsonConvert.SerializeObject(data);
-                  var content = new StringContent(json, Encoding.UTF8, "application/json");
+                var client = new HttpClient();
 
-                var response = await client.PostAsync("http://45.224.96.50/api/v1/UpdateUser",content);
+                var json = Newtonsoft.Json.JsonConvert.SerializeObject(data);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                var response = await client.PostAsync(
+                    "http://45.224.96.50/api/v1/UpdateUser",
+                    content
+                );
                 if (response.IsSuccessStatusCode)
                 {
                     string resp = await response.Content.ReadAsStringAsync();

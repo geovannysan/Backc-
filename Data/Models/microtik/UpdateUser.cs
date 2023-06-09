@@ -11,8 +11,8 @@ namespace Backrest.Data.Models.microtik
         [Required]
         public string? idcliente { get; set; }
 
-        [Required]
-        public string? nombre { get; set; }
+      //  [Required]
+       // public string? nombre { get; set; }
 
         [Required]
         public string? correo { get; set; }
@@ -23,13 +23,13 @@ namespace Backrest.Data.Models.microtik
         [Required]
         public string? movil { get; set; }
 
-        [Required]
-        public string? cedula { get; set; }
+        //[Required]
+       // public string? cedula { get; set; }
 
-        [Required]
-        public string? codigo { get; set; }
+       // [Required]
+        //public string? codigo { get; set; }
 
-        [Required]
-        public string? direccion_principal { get; set; }
+       // [Required]
+       // public string? direccion_principal { get; set; }
     }
 }

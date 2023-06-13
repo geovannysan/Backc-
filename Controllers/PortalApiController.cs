@@ -10,6 +10,7 @@ using Backrest.Data.Models;
 using System.Text.Json.Serialization;
 using Backrest.Data.Models.Pagos;
 using Backrest.Data.Models.microtik;
+using Newtonsoft.Json.Linq;
 
 namespace Backrest.Controllers
 {
@@ -275,12 +276,12 @@ namespace Backrest.Controllers
                     datos = new
                     {
                         //nombre = datos.nombre,
-                         correo = datos.correo,
+                        correo = datos.correo,
                         telefono = datos.telefono,
                         movil = datos.movil,
                         // cedula = datos.cedula,
                         //codigo = datos.codigo,
-                      //  direccion_principal = datos.direccion_principal
+                        //  direccion_principal = datos.direccion_principal
                     }
                 };
 
@@ -309,6 +310,59 @@ namespace Backrest.Controllers
             }
         }
 
+        public class Infonu
+        {
+            public string? info { get; set; }
+        }
+
+        [HttpPost("Devices")]
+        public async Task<ActionResult> Devices([FromBody] Infonu info)
+        {
+            try
+            {
+                var client = new HttpClient();
+                var request = new HttpRequestMessage(
+                    HttpMethod.Get,
+                    "http://45.224.96.51:2334/devices/?query={\"_id\": \""
+                        + info.info
+                        + "\"}&projection=InternetGatewayDevice.LANDevice.1.Hosts.Host"
+                );
+                var response = await client.SendAsync(request);
+                response.EnsureSuccessStatusCode();
+                //Console.WriteLine(await response.Content.ReadAsStringAsync());
+                string resps = await response.Content.ReadAsStringAsync();
+
+                return StatusCode(StatusCodes.Status200OK, resps);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status403Forbidden, new { mensaje = ex.Message });
+            }
+        }
+
+        [HttpPost("ssi")]
+        public async Task<ActionResult> SSi([FromBody] Infonu info ){
+             try
+            {
+                var client = new HttpClient();
+                var request = new HttpRequestMessage(
+                    HttpMethod.Get,
+                    "http://45.224.96.51:2334/devices/?query={\"_id\": \""
+                        + info.info
+                        + "\"}&projection=InternetGatewayDevice.LANDevice.1.WLANConfiguration.1.SSID"
+                );
+                var response = await client.SendAsync(request);
+                response.EnsureSuccessStatusCode();
+                //Console.WriteLine(await response.Content.ReadAsStringAsync());
+                string resps = await response.Content.ReadAsStringAsync();
+
+                return StatusCode(StatusCodes.Status200OK, resps);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status403Forbidden, new { mensaje = ex.Message });
+            }
+        }
         /*
         pagar factura ok
         */

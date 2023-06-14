@@ -1,3 +1,4 @@
 .env
+/bin/Release
 /bin
 pull.bat

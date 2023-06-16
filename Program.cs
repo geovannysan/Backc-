@@ -14,10 +14,10 @@ var configuration = new ConfigurationBuilder()
     .Build();
 var connectionString = builder.Configuration.GetConnectionString("Dataconnetion");
 connectionString = connectionString.Replace("{DB_HOST}", Environment.GetEnvironmentVariable("DB_HOST"))
-    .Replace("{DB_PORT}", Environment.GetEnvironmentVariable("DB_PORT"))
+    .Replace("{PORT_DB}", Environment.GetEnvironmentVariable("PORT_DB"))
     .Replace("{DB_NAME}", Environment.GetEnvironmentVariable("DB_NAME"))    
-    .Replace("{DB_USER}", Environment.GetEnvironmentVariable("DB_USER"))
-    .Replace("{DB_PASS}", Environment.GetEnvironmentVariable("DB_PASS"));
+    .Replace("{USER_DB}", Environment.GetEnvironmentVariable("USER_DB"))
+    .Replace("{PASSWORD}", Environment.GetEnvironmentVariable("PASSWORD"));
 
 // Add services to the container.
 builder.Services.AddHttpClient();

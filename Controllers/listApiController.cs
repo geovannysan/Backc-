@@ -71,7 +71,7 @@ namespace Backrest.Controllers
             }
             catch (System.Exception)
             {
-                throw;
+                return StatusCode(StatusCodes.Status500InternalServerError, "no seconecto raro" );
             }
         }
 

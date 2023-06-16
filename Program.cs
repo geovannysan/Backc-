@@ -12,12 +12,13 @@ Env.Load(); // carga las variables de entorno desde el archivo .env
 var configuration = new ConfigurationBuilder()
     .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
     .Build();
+   
 var connectionString = builder.Configuration.GetConnectionString("Dataconnetion");
-connectionString = connectionString.Replace("{DB_HOST}", Environment.GetEnvironmentVariable("DB_HOST"))
+ /*connectionString = connectionString.Replace("{DB_HOST}", Environment.GetEnvironmentVariable("DB_HOST"))
     .Replace("{PORT_DB}", Environment.GetEnvironmentVariable("PORT_DB"))
     .Replace("{DB_NAME}", Environment.GetEnvironmentVariable("DB_NAME"))    
     .Replace("{USER_DB}", Environment.GetEnvironmentVariable("USER_DB"))
-    .Replace("{PASSWORD}", Environment.GetEnvironmentVariable("PASSWORD"));
+    .Replace("{PASSWORD}", Environment.GetEnvironmentVariable("PASSWORD"));*/
 
 // Add services to the container.
 builder.Services.AddHttpClient();

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Backrest.Data.Models.Files;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using Backrest.Data.Models;
 
 namespace Backrest.Controllers
 {
@@ -59,14 +60,14 @@ namespace Backrest.Controllers
         [Route("Transaciones")]
         public ActionResult Transacion([FromBody] Fechas datos)
         {
-            List<Transacciones> lista = new List<Transacciones>();
+            List<Cuentacon> lista = new List<Cuentacon>();
 
             try
             {
                 var ini = datos.fecha_inicio;
                 var fin = datos.fecha_fin;
-                lista = _dbcontext.transacion
-                    .FromSqlInterpolated($"CALL Reportelis({ini}, {fin})")
+                lista = _dbcontext.cuentacon
+                    .FromSqlInterpolated($"SELECT * FROM `incrementos`")
                     .ToList();
                 return StatusCode(StatusCodes.Status200OK, new { mensaje = true, lista });
             }

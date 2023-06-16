@@ -27,6 +27,7 @@ namespace Backrest.Data
         public virtual DbSet<Transacciones>? transacion { get; set; } = null;
         public virtual DbSet<Repostressum>? Reporte { get; set; } = null;
         public virtual DbSet<IncrementoClass>? incrementos {get;set;}
+        public virtual DbSet<Cuentacon>?cuentacon{get;set;}
         
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) { }
@@ -37,6 +38,7 @@ namespace Backrest.Data
             {
                 entity.HasNoKey();
             });
+         
         }
     }
 }

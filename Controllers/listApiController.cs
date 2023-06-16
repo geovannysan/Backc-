@@ -38,12 +38,10 @@ namespace Backrest.Controllers
         [Route("Reporte")]
         public ActionResult Lista([FromBody] Fechas datos)
         {
-            List<Repostressum> lista = new List<Repostressum>();
+          //  List<Repostressum> lista = new List<Repostressum>();
             try
             {
-                lista = _dbcontext.Reporte
-                    .FromSqlInterpolated($"CALL Reporte({datos.fecha_inicio}, {datos.fecha_fin})")
-                    .ToList();
+                var lista = _dbcontext.incrementos.ToList();
                 //lista = _dbContext._dbcontext.Empleado.Includes(c=> c.Cargos).ToList();
                 return StatusCode(StatusCodes.Status200OK, new { mesaje = true, response = lista });
             }
@@ -51,7 +49,7 @@ namespace Backrest.Controllers
             {
                 return StatusCode(
                     StatusCodes.Status400BadRequest,
-                    new { mesaje = ex.Message, response = lista }
+                    new { mesaje = ex.Message, response = ex.Message }
                 );
             }
         }

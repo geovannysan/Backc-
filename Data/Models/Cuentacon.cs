@@ -8,6 +8,6 @@ namespace Backrest.Data.Models
     public class Cuentacon
     {
         public string?  Id  {get;set;}
-        public string? contadores{get;set;}
+        public string? username{get;set;}
     }
 }

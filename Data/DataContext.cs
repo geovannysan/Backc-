@@ -18,7 +18,44 @@ namespace Backrest.Data
         public DataContext() { }
 
         public DataContext(DbContextOptions<DataContext> options)
-            : base(options) { }
+            : base(options)
+        {
+            // Aquí definimos la instrucción SQL para crear el procedimiento almacenado
+
+            string sql =
+                @"
+                 
+              CREATE PROCEDURE `Incremento`()
+              BEGIN
+              UPDATE incrementos SET contadores = contadores+1 WHERE id=1;
+              SELECT *  FROM incrementos WHERE id ='1';
+              END             
+          ";
+            string sql1 =
+                @"
+            
+                CREATE PROCEDURE `Incremento1`()
+              BEGIN
+              UPDATE incrementos SET contadores = contadores+1 WHERE id=2;
+              SELECT *  FROM incrementos WHERE id ='2';
+              END
+             
+          ";
+            string sql2 =
+                @"              
+             
+                CREATE PROCEDURE `Incremento3`()
+              BEGIN
+              UPDATE incrementos SET contadores = contadores+1 WHERE id=3;
+              SELECT *  FROM incrementos WHERE id ='3';
+              END
+          ";
+
+            // Ejecutamos la instrucción SQL para crear el procedimiento almacenado
+            this.Database.ExecuteSqlRaw(sql2);
+            this.Database.ExecuteSqlRaw(sql1);
+            //this.Database.ExecuteSqlRaw(sql2);
+        }
 
         public virtual DbSet<Empleado>? Empleado { get; set; } = null;
         public virtual DbSet<Users>? admins { get; set; } = null;
@@ -26,9 +63,8 @@ namespace Backrest.Data
         public virtual DbSet<FilesClass>? bancoscon { get; set; } = null;
         public virtual DbSet<Transacciones>? transacion { get; set; } = null;
         public virtual DbSet<Repostressum>? Reporte { get; set; } = null;
-        public virtual DbSet<IncrementoClass>? incrementos {get;set;}
-        public virtual DbSet<Cuentacon>?admin{get;set;}
-        
+        public virtual DbSet<IncrementoClass>? incrementos { get; set; }
+        public virtual DbSet<Cuentacon>? admin { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) { }
 
@@ -38,7 +74,6 @@ namespace Backrest.Data
             {
                 entity.HasNoKey();
             });
-         
         }
     }
 }

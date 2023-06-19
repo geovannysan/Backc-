@@ -35,7 +35,7 @@ namespace Backrest.Controllers
         }
 
         [HttpPost]
-        [Route("GetClientsDetails/")]
+        [Route("GetClientsDetails")]
         public async Task<ActionResult> Get([FromBody] Proceso datos)
         {
             try
@@ -70,6 +70,116 @@ namespace Backrest.Controllers
             }
         }
 
+        [HttpPost]
+        [Route("GetClientsDetailsdos")]
+        public async Task<ActionResult> Getd([FromBody] Proceso datos)
+        {
+            try
+            {
+                var client = new HttpClient();
+                var request = new HttpRequestMessage(HttpMethod.Post, url + "GetClientsDetails");
+                var contents = new StringContent(
+                    "{\r\n  \"token\": \""
+                        + "NXJzUzNRNGljN0JOOWRpK252QXFzdz09"
+                        + "\",\r\n  \"cedula\": \""
+                        + datos.cedula
+                        + "\"\r\n}",
+                    null,
+                    "application/json"
+                );
+                request.Content = contents;
+                var response = await client.SendAsync(request);
+                if (response.IsSuccessStatusCode)
+                {
+                    string res = await response.Content.ReadAsStringAsync();
+                    var result = JsonConvert.DeserializeObject<Clienteportal>(res);
+                    if (result.estado == "exito")
+                    {
+                        var fact = result.datos.Find(e => e.estado == "ACTIVO");
+                        var clients = new HttpClient();
+                        var requestdos = new HttpRequestMessage(
+                            HttpMethod.Get,
+                            "https://portal.comnet.ec/api/v1/GetInvoices"
+                        );
+                        var contentsdos = new StringContent(
+                            "{\r\n  \"token\": \"NXJzUzNRNGljN0JOOWRpK252QXFzdz09\",\r\n  \"idcliente\": \""
+                                + fact.id
+                                + "\",\r\n  \"limit\": \""
+                                + 1
+                                + "\"\r\n}",
+                            null,
+                            "application/json"
+                        );
+                        requestdos.Content = contentsdos;
+                        var responses = await clients.SendAsync(requestdos);
+                        if (responses.IsSuccessStatusCode)
+                        {
+                            string resdos = await responses.Content.ReadAsStringAsync();
+                            var resultdos = JsonConvert.DeserializeObject<Clienteportal>(resdos);
+                            if (resultdos.estado == "exito")
+                            {
+                                var clientres = new HttpClient();
+                                var requesttres = new HttpRequestMessage(
+                                    HttpMethod.Get,
+                                    url + "GetInvoice"
+                                );
+                                var contentstres = new StringContent(
+                                    "{\r\n  \"token\": \""
+                                        + "NXJzUzNRNGljN0JOOWRpK252QXFzdz09"
+                                        + "\",\r\n  \"idfactura\": \""
+                                        + resultdos.facturas[0].id
+                                        + "\"\r\n}",
+                                    null,
+                                    "application/json"
+                                );
+                                requesttres.Content = contentstres;
+                                var responsetres = await clientres.SendAsync(requesttres);
+                                if (responsetres.IsSuccessStatusCode)
+                                {
+                                    string restres = await responsetres.Content.ReadAsStringAsync();
+                                    var resulttres = JsonConvert.DeserializeObject<Clienteportal>(
+                                        restres
+                                    );
+                                    return StatusCode(
+                                        StatusCodes.Status200OK,
+                                        new
+                                        {
+                                            // fact.id,
+                                            // resultdos,
+                                            resulttres,
+                                            fact.facturacion
+                                        }
+                                    );
+                                }
+                                return StatusCode(
+                                    StatusCodes.Status200OK,
+                                    new
+                                    {
+                                        // fact.id,
+                                        // resultdos,
+                                        fact.facturacion
+                                    }
+                                );
+                            }
+                        }
+                        return StatusCode(
+                            StatusCodes.Status200OK,
+                            new { mensaje = "No se completo la consulta" }
+                        );
+                    }
+                    return StatusCode(StatusCodes.Status200OK, result);
+                }
+                return StatusCode(
+                    StatusCodes.Status200OK,
+                    new { mensaje = "No se completo la consulta" }
+                );
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status403Forbidden, new { mensaje = ex.Message });
+            }
+        }
+
         //,\r\n \"estado\":1,
         [HttpGet]
         [Route("GetInvoices/{idcliente:int}/{operador:int}")]
@@ -86,7 +196,7 @@ namespace Backrest.Controllers
                     "{\r\n  \"token\": \"NXJzUzNRNGljN0JOOWRpK252QXFzdz09\",\r\n  \"idcliente\": \""
                         + idcliente
                         + "\",\r\n  \"limit\": \""
-                        + 2
+                        + 1
                         + "\",\r\n  \"estado\": \"1\"\r\n}",
                     null,
                     "application/json"
@@ -341,8 +451,9 @@ namespace Backrest.Controllers
         }
 
         [HttpPost("ssi")]
-        public async Task<ActionResult> SSi([FromBody] Infonu info ){
-             try
+        public async Task<ActionResult> SSi([FromBody] Infonu info)
+        {
+            try
             {
                 var client = new HttpClient();
                 var request = new HttpRequestMessage(
@@ -363,6 +474,7 @@ namespace Backrest.Controllers
                 return StatusCode(StatusCodes.Status403Forbidden, new { mensaje = ex.Message });
             }
         }
+
         /*
         pagar factura ok
         */

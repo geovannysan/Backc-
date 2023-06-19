@@ -144,10 +144,12 @@ namespace Backrest.Controllers
                                         StatusCodes.Status200OK,
                                         new
                                         {
+                                            resulttres.estado,
                                             // fact.id,
                                             // resultdos,
-                                            resulttres,
+                                            resulttres.items,
                                             fact.facturacion
+
                                         }
                                     );
                                 }

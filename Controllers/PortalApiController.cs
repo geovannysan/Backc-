@@ -371,6 +371,43 @@ namespace Backrest.Controllers
             }
         }
 
+        
+        [HttpGet]
+        [Route("Listequipo")]
+        public async Task<ActionResult> Ticket()
+        {
+            try
+            {
+                var client = new HttpClient();
+                var request = new HttpRequestMessage(HttpMethod.Get, url + "GetRouters");
+                var contents = new StringContent(
+                    "{\r\n  \"token\": \""
+                        + "NXJzUzNRNGljN0JOOWRpK252QXFzdz09"
+                        + "\",\r\n  \"id\": \""
+                        +" -1"
+                        + "\"\r\n}",
+                    null,
+                    "application/json"
+                );
+                request.Content = contents;
+                var response = await client.SendAsync(request);
+                if (response.IsSuccessStatusCode)
+                {
+                    string res = await response.Content.ReadAsStringAsync();
+                    var result = JsonConvert.DeserializeObject<Clienteportal>(res);
+                    return StatusCode(StatusCodes.Status200OK, result);
+                }
+                return StatusCode(
+                    StatusCodes.Status200OK,
+                    new { mensaje = "No se completo la consulta" }
+                );
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status403Forbidden, new { mensaje = ex.Message });
+            }
+        }
+
         [HttpPost("UpdateUser")]
         public async Task<ActionResult> UpdateUser([FromBody] UpdateUser datos)
         {

@@ -17,6 +17,7 @@ namespace Backrest.Data.Models
         public string? mensaje { get; set; }
         public string? idregistro { get; set; }
         public List<Instalaciones>? instalaciones { get; set; }
+        public List<Router>?routers{get;set;}
         
        
        

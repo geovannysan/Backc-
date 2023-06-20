@@ -149,7 +149,6 @@ namespace Backrest.Controllers
                                             // resultdos,
                                             resulttres.items,
                                             fact.facturacion
-
                                         }
                                     );
                                 }
@@ -182,7 +181,6 @@ namespace Backrest.Controllers
             }
         }
 
-        //,\r\n \"estado\":1,
         [HttpGet]
         [Route("GetInvoices/{idcliente:int}/{operador:int}")]
         public async Task<ActionResult> Index(string idcliente, string operador)
@@ -371,10 +369,9 @@ namespace Backrest.Controllers
             }
         }
 
-        
         [HttpGet]
-        [Route("Listequipo")]
-        public async Task<ActionResult> Ticket()
+        [Route("Listequipo/{id}")]
+        public async Task<ActionResult> Ticket(int id)
         {
             try
             {
@@ -384,7 +381,7 @@ namespace Backrest.Controllers
                     "{\r\n  \"token\": \""
                         + "NXJzUzNRNGljN0JOOWRpK252QXFzdz09"
                         + "\",\r\n  \"id\": \""
-                        +" -1"
+                        + id
                         + "\"\r\n}",
                     null,
                     "application/json"

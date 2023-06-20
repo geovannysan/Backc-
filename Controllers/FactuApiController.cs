@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Backrest.Data.Models.Contifico;
 using Newtonsoft.Json;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Data.SqlClient;
+using MySql.Data.MySqlClient;
 
 namespace Backrest.Controllers
 {
@@ -18,7 +20,7 @@ namespace Backrest.Controllers
         public string urlcon = "ttps://api.contifico.com/sistema/api/v1/persona/";
         public string urldoc = "https://api.contifico.com/sistema/api/v1/producto/";
 
-        public FactuApiController(HttpClient httpClient,Data.DataContext logger)
+        public FactuApiController(HttpClient httpClient, Data.DataContext logger)
         {
             _dbcontex = logger;
             _httpcliente = httpClient;
@@ -26,52 +28,101 @@ namespace Backrest.Controllers
 
         [HttpPost]
         [Route("incrementouno")]
-        public async Task<ActionResult> Incremeto(){
-               List<IncrementoClass> lista = new List<IncrementoClass>();
+        public async Task<ActionResult> Incremeto()
+        {
+            List<IncrementoClass> lista = new List<IncrementoClass>();
             try
             {
-                lista =  _dbcontex.incrementos.FromSqlInterpolated($"Incremento()").ToList();
-                return StatusCode(StatusCodes.Status200OK,new{status=true,result= lista});
-                
+                lista = _dbcontex.incrementos.FromSqlInterpolated($"Incremento()").ToList();
+                return StatusCode(StatusCodes.Status200OK, new { status = true, result = lista });
             }
             catch (System.Exception)
             {
-                
                 throw;
             }
         }
-         [HttpPost]
+
+        [HttpPost]
         [Route("incrementodos")]
-        public async Task<ActionResult> Incremeto1(){
-               List<IncrementoClass> lista = new List<IncrementoClass>();
+        public async Task<ActionResult> Incremeto1()
+        {
+            List<IncrementoClass> lista = new List<IncrementoClass>();
             try
             {
-                lista =  _dbcontex.incrementos.FromSqlInterpolated($"Incremento1()").ToList();
-                return StatusCode(StatusCodes.Status200OK,new{status=true,result= lista});
-                
+                lista = _dbcontex.incrementos.FromSqlInterpolated($"Incremento1()").ToList();
+                return StatusCode(StatusCodes.Status200OK, new { status = true, result = lista });
             }
             catch (System.Exception)
             {
-                
                 throw;
             }
         }
-         [HttpPost]
+
+        [HttpPost]
         [Route("incrementotres")]
-        public async Task<ActionResult> Incremeto2(){
-               List<IncrementoClass> lista = new List<IncrementoClass>();
+        public async Task<ActionResult> Incremeto2()
+        {
+            List<IncrementoClass> lista = new List<IncrementoClass>();
             try
             {
-                lista =  _dbcontex.incrementos.FromSqlInterpolated($"Incremento3()").ToList();
-                return StatusCode(StatusCodes.Status200OK,new{status=true,result= lista});
-                
+                lista = _dbcontex.incrementos.FromSqlInterpolated($"Incremento3()").ToList();
+                return StatusCode(StatusCodes.Status200OK, new { status = true, result = lista });
             }
             catch (System.Exception)
             {
-                
                 throw;
             }
         }
+
+        [HttpGet]
+        [Route("listar")]
+        public async Task<ActionResult> lista()
+        {
+            //List<IncrementoClass> lista = new List<IncrementoClass>();
+            try
+            {
+                var lista = _dbcontex.incrementos.ToList();
+                return StatusCode(StatusCodes.Status200OK, new { status = true, result = lista });
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
+        }
+
+        public class Datoscon
+        {
+            public int contador { get; set; }
+        }
+
+        [HttpPut]
+        [Route("listar/{id}")]
+        public async Task<ActionResult> lista2(int id, [FromBody] Datoscon dato)
+        {
+            //List<IncrementoClass> lista = new List<IncrementoClass>();
+            try
+            {
+                string consulta =
+                    "UPDATE incrementos SET contadores = @nuevoContador WHERE id = @id";
+                var parametros = new[]
+                {
+                    new MySqlParameter("@nuevoContador", dato.contador),
+                    new MySqlParameter("@id", id)
+                };
+
+                int filasAfectadas = _dbcontex.Database.ExecuteSqlRaw(consulta, parametros);
+                var lista = _dbcontex.incrementos.Find(id);
+                return StatusCode(
+                    StatusCodes.Status302Found,
+                    new { status = true, filasAfectadas,lista }
+                );
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
+        }
+
         /*crea producto contifico ok */
         [HttpPost]
         [Route("Crearpro")]

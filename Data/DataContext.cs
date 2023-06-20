@@ -52,8 +52,8 @@ namespace Backrest.Data
           ";
 
             // Ejecutamos la instrucción SQL para crear el procedimiento almacenado
-            this.Database.ExecuteSqlRaw(sql2);
-            this.Database.ExecuteSqlRaw(sql1);
+            //this.Database.ExecuteSqlRaw(sql2);
+            //this.Database.ExecuteSqlRaw(sql1);
             //this.Database.ExecuteSqlRaw(sql2);
         }
 

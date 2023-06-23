@@ -26,6 +26,8 @@ namespace Backrest.Controllers
             _httpcliente = httpClient;
         }
 
+       
+
         [HttpGet("oltdetal/{id}")]
         public async Task<ActionResult> Get(int id)
         {

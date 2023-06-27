@@ -31,6 +31,61 @@ namespace Backrest.Controllers
             _httpcliente = httpClient;
         }
 
+        public class Infoget
+        {
+            public string? info { get; set; }
+        }
+
+        [HttpPost("Devices")]
+        public async Task<ActionResult> Devices([FromBody] Infoget info)
+        {
+            try
+            {
+                var client = new HttpClient();
+                var request = new HttpRequestMessage(
+                    HttpMethod.Get,
+                    "http://45.224.96.51:2334/devices/?query={\"_id\": \""
+                        + info.info
+                        + "\"}&projection=InternetGatewayDevice.LANDevice.1.Hosts.Host"
+                );
+                var response = await client.SendAsync(request);
+                response.EnsureSuccessStatusCode();
+                //Console.WriteLine(await response.Content.ReadAsStringAsync());
+                string resps = await response.Content.ReadAsStringAsync();
+
+                return StatusCode(StatusCodes.Status200OK, resps);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status403Forbidden, new { mensaje = ex.Message });
+            }
+        }
+
+        [HttpPost("ssi")]
+        public async Task<ActionResult> SSi([FromBody] Infoget info)
+        {
+            try
+            {
+                var client = new HttpClient();
+                var request = new HttpRequestMessage(
+                    HttpMethod.Get,
+                    "http://45.224.96.51:2334/devices/?query={\"_id\": \""
+                        + info.info
+                        + "\"}&projection=InternetGatewayDevice.LANDevice.1.WLANConfiguration.1.SSID"
+                );
+                var response = await client.SendAsync(request);
+                response.EnsureSuccessStatusCode();
+                //Console.WriteLine(await response.Content.ReadAsStringAsync());
+                string resps = await response.Content.ReadAsStringAsync();
+
+                return StatusCode(StatusCodes.Status200OK, resps);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status403Forbidden, new { mensaje = ex.Message });
+            }
+        }
+
         [HttpPost("ssid")]
         public async Task<ActionResult> SSivisible([FromBody] Infonus info)
         {
@@ -56,9 +111,7 @@ namespace Backrest.Controllers
             }
         }
 
-        
-        
-         public class Onu
+        public class Onu
         {
             public string? onu { get; set; }
         }
@@ -92,6 +145,7 @@ namespace Backrest.Controllers
                 throw;
             }
         }
+
         [HttpPost("changessi")]
         public async Task<ActionResult> Ssichange([FromBody] Infonus info)
         {
@@ -124,13 +178,14 @@ namespace Backrest.Controllers
                 //Console.WriteLine(await response.Content.ReadAsStringAsync());
                 string resps = await response.Content.ReadAsStringAsync();
 
-                return StatusCode(StatusCodes.Status200OK,resps);
+                return StatusCode(StatusCodes.Status200OK, resps);
             }
             catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status403Forbidden, new { mensaje = ex.Message });
             }
         }
+
         [HttpPost("passwordssi")]
         public async Task<ActionResult> Ssipassword([FromBody] Infonus info)
         {
@@ -163,13 +218,14 @@ namespace Backrest.Controllers
                 //Console.WriteLine(await response.Content.ReadAsStringAsync());
                 string resps = await response.Content.ReadAsStringAsync();
 
-                return StatusCode(StatusCodes.Status200OK,resps);
+                return StatusCode(StatusCodes.Status200OK, resps);
             }
             catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status403Forbidden, new { mensaje = ex.Message });
             }
         }
+
         [HttpPost("namessi")]
         public async Task<ActionResult> Ssiname([FromBody] Infonus info)
         {
@@ -202,7 +258,7 @@ namespace Backrest.Controllers
                 //Console.WriteLine(await response.Content.ReadAsStringAsync());
                 string resps = await response.Content.ReadAsStringAsync();
 
-                return StatusCode(StatusCodes.Status200OK,resps);
+                return StatusCode(StatusCodes.Status200OK, resps);
             }
             catch (Exception ex)
             {
@@ -218,11 +274,11 @@ namespace Backrest.Controllers
                 var client = new HttpClient();
                 var request = new HttpRequestMessage(
                     HttpMethod.Post,
-                    "http://45.224.96.51:2334/devices/"+info.info+"/tasks?connection_request"
+                    "http://45.224.96.51:2334/devices/" + info.info + "/tasks?connection_request"
                 );
-                 var contents = new StringContent(
+                var contents = new StringContent(
                     "{\r\n  \"name\": \""
-                        +"refreshObject" 
+                        + "refreshObject"
                         + "\",\r\n  \"objectName\": \""
                         + "InternetGatewayDevice.LANDevice.1.WLANConfiguration.1.SSIDAdvertisementEnabled"
                         + "\"\r\n}",

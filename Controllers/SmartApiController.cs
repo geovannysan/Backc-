@@ -84,6 +84,35 @@ namespace Backrest.Controllers
         }
 
         [HttpGet]
+        [Route("get_speed_profiles")]
+        public async Task<ActionResult> Obtenerprofile()
+        {
+            try
+            {
+                var client = new HttpClient();
+                var request = new HttpRequestMessage(
+                    HttpMethod.Get,
+                    "https://comnet.smartolt.com/api/system/get_speed_profiles"
+                );
+                request.Headers.Add("X-Token", "a068dcbce5ab4b3591e57f8d8a4348e9");
+                var response = await client.SendAsync(request);
+                if (response.IsSuccessStatusCode)
+                {
+                    string resp = await response.Content.ReadAsStringAsync();
+                    var result = JsonConvert.DeserializeObject(resp);
+                    return StatusCode(StatusCodes.Status200OK, resp);
+                }
+                string resps = await response.Content.ReadAsStringAsync();
+                var results = JsonConvert.DeserializeObject(resps);
+                return StatusCode(StatusCodes.Status200OK, resps);
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
+        }
+
+        [HttpGet]
         [Route("get_onu_signal/{idolt:int}")]
         public async Task<ActionResult> Obtenerolt(string idolt)
         {

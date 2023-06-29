@@ -63,7 +63,7 @@ namespace Backrest.Controllers
                     // info = _dbcontex.admin.Find(id);
                     //  return StatusCode(StatusCodes.Status200OK, new { info });
                 }
-                return StatusCode(StatusCodes.Status200OK, new { });
+                return StatusCode(StatusCodes.Status200OK, new { succes=false});
             }
             catch (System.Exception)
             {

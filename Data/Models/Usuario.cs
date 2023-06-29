@@ -1,22 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Backrest.Models;
 
 public class Usuario
 {
+    [Key]
     public int Id { get; set; }
 
-    public string Nombre { get; set; } = null!;
-
-    public string Apellido { get; set; } = null!;
-
-    public int MZ { get; set; }
-
-    public int? Villas{ get; set; }
-
-    public int? celular { get; set; }
-
-    public string Correo { get; set; } = null!;
-
+    public string? username { get; set; }
+    public string? cedula { get; set; }
+    public string? password { get; set; }
+    public string? repuestauno { get; set; }
+    public string? respuestados { get; set; }
+    public string? respuestatres { get; set; }
 }

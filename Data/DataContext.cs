@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Backrest.Data.Models;
 using Backrest.Data.Models.Files;
 using Backrest.Data.Models.Contifico;
+using Backrest.Models;
 
 namespace Backrest.Data
 {
@@ -58,15 +59,20 @@ namespace Backrest.Data
         }
 
         public virtual DbSet<Empleado>? Empleado { get; set; } = null;
+
+        //public virtual DbSet<Usuario> Usuarios {get;set;}
         public virtual DbSet<Users>? admins { get; set; } = null;
         public virtual DbSet<Cargos>? Cargos { get; set; } = null;
         public virtual DbSet<FilesClass>? bancoscon { get; set; } = null;
         public virtual DbSet<Transacciones>? transacion { get; set; } = null;
         public virtual DbSet<Repostressum>? Reporte { get; set; } = null;
         public virtual DbSet<IncrementoClass>? incrementos { get; set; }
-        public virtual DbSet<Cuentacon>? admin { get; set; }
+        public virtual DbSet<Usuario>? admin { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) { }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            //optionsBuilder.UseMySQL();
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -74,6 +80,8 @@ namespace Backrest.Data
             {
                 entity.HasNoKey();
             });
+            modelBuilder.Entity<Usuario>().HasIndex(n => n.cedula).IsUnique();
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

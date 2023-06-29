@@ -24,6 +24,8 @@ namespace Backrest.Controllers
         {
             public string? info { get; set; }
             public string? booleas { get; set; }
+           
+            public string? confi {get;set;}
         }
 
         public MovilApiController(HttpClient httpClient)
@@ -202,8 +204,9 @@ namespace Backrest.Controllers
                     parameterValues = new[]
                     {
                         new object[]
+                        //InternetGatewayDevice.LANDevice.1.WLANConfiguration.1.X_TP_PreSharedKey
                         {
-                            "InternetGatewayDevice.LANDevice.1.WLANConfiguration.1.PreSharedKey.1.PreSharedKey",
+                            ""+info.confi,
                             "" + info.booleas,
                             "xsd:string"
                         }

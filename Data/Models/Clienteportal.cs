@@ -13,7 +13,7 @@ namespace Backrest.Data.Models
         public Facturacion? factura { get; set; }
         public List<Items>? items { get; set; }
         public List<Facturacion>? facturas { get; set; }
-        
+        public string? idticket {get;set;}
         public string? mensaje { get; set; }
         public string? idregistro { get; set; }
         public List<Instalaciones>? instalaciones { get; set; }

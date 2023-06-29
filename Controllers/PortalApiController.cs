@@ -80,7 +80,7 @@ namespace Backrest.Controllers
                 var request = new HttpRequestMessage(HttpMethod.Post, url + "GetClientsDetails");
                 var contents = new StringContent(
                     "{\r\n  \"token\": \""
-                        + "NXJzUzNRNGljN0JOOWRpK252QXFzdz09"
+                        + "azZrUHB4UnRMaTZaZkRYUW1YRXFDUT09"
                         + "\",\r\n  \"cedula\": \""
                         + datos.cedula
                         + "\"\r\n}",
@@ -102,7 +102,7 @@ namespace Backrest.Controllers
                             "https://portal.comnet.ec/api/v1/GetInvoices"
                         );
                         var contentsdos = new StringContent(
-                            "{\r\n  \"token\": \"NXJzUzNRNGljN0JOOWRpK252QXFzdz09\",\r\n  \"idcliente\": \""
+                            "{\r\n  \"token\": \"azZrUHB4UnRMaTZaZkRYUW1YRXFDUT09\",\r\n  \"idcliente\": \""
                                 + fact.id
                                 + "\",\r\n  \"limit\": \""
                                 + 1
@@ -125,7 +125,7 @@ namespace Backrest.Controllers
                                 );
                                 var contentstres = new StringContent(
                                     "{\r\n  \"token\": \""
-                                        + "NXJzUzNRNGljN0JOOWRpK252QXFzdz09"
+                                        + "azZrUHB4UnRMaTZaZkRYUW1YRXFDUT09"
                                         + "\",\r\n  \"idfactura\": \""
                                         + resultdos.facturas[0].id
                                         + "\"\r\n}",
@@ -193,7 +193,7 @@ namespace Backrest.Controllers
                     "https://portal.comnet.ec/api/v1/GetInvoices"
                 );
                 var contents = new StringContent(
-                    "{\r\n  \"token\": \"NXJzUzNRNGljN0JOOWRpK252QXFzdz09\",\r\n  \"idcliente\": \""
+                    "{\r\n  \"token\": \"azZrUHB4UnRMaTZaZkRYUW1YRXFDUT09\",\r\n  \"idcliente\": \""
                         + idcliente
                         + "\",\r\n  \"limit\": \""
                         + 1
@@ -232,7 +232,7 @@ namespace Backrest.Controllers
                     "https://portal.comnet.ec/api/v1/GetInvoices"
                 );
                 var contents = new StringContent(
-                    "{\r\n  \"token\": \"NXJzUzNRNGljN0JOOWRpK252QXFzdz09\",\r\n  \"idcliente\": \""
+                    "{\r\n  \"token\": \"azZrUHB4UnRMaTZaZkRYUW1YRXFDUT09\",\r\n  \"idcliente\": \""
                         + datos.idcliente
                         + "\",\r\n  \"limit\": \""
                         + datos.limit
@@ -307,7 +307,7 @@ namespace Backrest.Controllers
                 var request = new HttpRequestMessage(HttpMethod.Get, url + "GetInvoice");
                 var contents = new StringContent(
                     "{\r\n  \"token\": \""
-                        + "NXJzUzNRNGljN0JOOWRpK252QXFzdz09"
+                        + "azZrUHB4UnRMaTZaZkRYUW1YRXFDUT09"
                         + "\",\r\n  \"idfactura\": \""
                         + datos.idfactura
                         + "\"\r\n}",
@@ -343,7 +343,7 @@ namespace Backrest.Controllers
                 var request = new HttpRequestMessage(HttpMethod.Get, url + "ListTicket");
                 var contents = new StringContent(
                     "{\r\n  \"token\": \""
-                        + "NXJzUzNRNGljN0JOOWRpK252QXFzdz09"
+                        + "azZrUHB4UnRMaTZaZkRYUW1YRXFDUT09"
                         + "\",\r\n  \"idcliente\": \""
                         + datos.idcliente
                         + "\"\r\n}",
@@ -379,7 +379,7 @@ namespace Backrest.Controllers
                 var request = new HttpRequestMessage(HttpMethod.Get, url + "GetRouters");
                 var contents = new StringContent(
                     "{\r\n  \"token\": \""
-                        + "NXJzUzNRNGljN0JOOWRpK252QXFzdz09"
+                        + "azZrUHB4UnRMaTZaZkRYUW1YRXFDUT09"
                         + "\",\r\n  \"id\": \""
                         + id
                         + "\"\r\n}",
@@ -417,7 +417,7 @@ namespace Backrest.Controllers
                  );*/
                 var data = new
                 {
-                    token = "NXJzUzNRNGljN0JOOWRpK252QXFzdz09",
+                    token = "azZrUHB4UnRMaTZaZkRYUW1YRXFDUT09",
                     idcliente = "294",
                     datos = new
                     {
@@ -461,56 +461,57 @@ namespace Backrest.Controllers
             public string? info { get; set; }
         }
 
-        [HttpPost("Devices")]
-        public async Task<ActionResult> Devices([FromBody] Infonu info)
-        {
-            try
-            {
-                var client = new HttpClient();
-                var request = new HttpRequestMessage(
-                    HttpMethod.Get,
-                    "http://45.224.96.51:2334/devices/?query={\"_id\": \""
-                        + info.info
-                        + "\"}&projection=InternetGatewayDevice.LANDevice.1.Hosts.Host"
-                );
-                var response = await client.SendAsync(request);
-                response.EnsureSuccessStatusCode();
-                //Console.WriteLine(await response.Content.ReadAsStringAsync());
-                string resps = await response.Content.ReadAsStringAsync();
-
-                return StatusCode(StatusCodes.Status200OK, resps);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status403Forbidden, new { mensaje = ex.Message });
-            }
-        }
-
-        [HttpPost("ssi")]
-        public async Task<ActionResult> SSi([FromBody] Infonu info)
-        {
-            try
-            {
-                var client = new HttpClient();
-                var request = new HttpRequestMessage(
-                    HttpMethod.Get,
-                    "http://45.224.96.51:2334/devices/?query={\"_id\": \""
-                        + info.info
-                        + "\"}&projection=InternetGatewayDevice.LANDevice.1.WLANConfiguration.1.SSID"
-                );
-                var response = await client.SendAsync(request);
-                response.EnsureSuccessStatusCode();
-                //Console.WriteLine(await response.Content.ReadAsStringAsync());
-                string resps = await response.Content.ReadAsStringAsync();
-
-                return StatusCode(StatusCodes.Status200OK, resps);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status403Forbidden, new { mensaje = ex.Message });
-            }
-        }
-
+        /*
+                [HttpPost("Devices")]
+                public async Task<ActionResult> Devices([FromBody] Infonu info)
+                {
+                    try
+                    {
+                        var client = new HttpClient();
+                        var request = new HttpRequestMessage(
+                            HttpMethod.Get,
+                            "http://45.224.96.51:2334/devices/?query={\"_id\": \""
+                                + info.info
+                                + "\"}&projection=InternetGatewayDevice.LANDevice.1.Hosts.Host"
+                        );
+                        var response = await client.SendAsync(request);
+                        response.EnsureSuccessStatusCode();
+                        //Console.WriteLine(await response.Content.ReadAsStringAsync());
+                        string resps = await response.Content.ReadAsStringAsync();
+        
+                        return StatusCode(StatusCodes.Status200OK, resps);
+                    }
+                    catch (Exception ex)
+                    {
+                        return StatusCode(StatusCodes.Status403Forbidden, new { mensaje = ex.Message });
+                    }
+                }
+        
+                [HttpPost("ssi")]
+                public async Task<ActionResult> SSi([FromBody] Infonu info)
+                {
+                    try
+                    {
+                        var client = new HttpClient();
+                        var request = new HttpRequestMessage(
+                            HttpMethod.Get,
+                            "http://45.224.96.51:2334/devices/?query={\"_id\": \""
+                                + info.info
+                                + "\"}&projection=InternetGatewayDevice.LANDevice.1.WLANConfiguration.1.SSID"
+                        );
+                        var response = await client.SendAsync(request);
+                        response.EnsureSuccessStatusCode();
+                        //Console.WriteLine(await response.Content.ReadAsStringAsync());
+                        string resps = await response.Content.ReadAsStringAsync();
+        
+                        return StatusCode(StatusCodes.Status200OK, resps);
+                    }
+                    catch (Exception ex)
+                    {
+                        return StatusCode(StatusCodes.Status403Forbidden, new { mensaje = ex.Message });
+                    }
+                }
+        */
         /*
         pagar factura ok
         */
@@ -563,121 +564,181 @@ namespace Backrest.Controllers
                 return StatusCode(StatusCodes.Status403Forbidden, new { mensaje = ex.Message });
             }
         }
-
-        [HttpGet]
-        [Route("estdoolt/{idolt:int}")]
-        public async Task<ActionResult> Obtenerolt(string idolt)
-        {
+       
+       
+        [HttpPost("CreaTicket")]
+        public async Task<ActionResult> Postticket ([FromBody] Creatickte datos ){
             try
             {
-                var client = new HttpClient();
+                  var client = new HttpClient();
                 var request = new HttpRequestMessage(
-                    HttpMethod.Get,
-                    "https://comnet.smartolt.com/api/onu/get_onu_signal/" + idolt
+                    HttpMethod.Post,
+                    "https://portal.comnet.ec/api/v1/NewTicket"
                 );
-                request.Headers.Add("X-Token", "a068dcbce5ab4b3591e57f8d8a4348e9");
+                 var contents = new StringContent(
+                    "{\r\n  \"token\": \""
+                        + "azZrUHB4UnRMaTZaZkRYUW1YRXFDUT09"
+                        + "\",\r\n  \"idcliente\": \""
+                        + datos.idcliente
+                        + "\",\r\n"
+                        + "  \"asunto\": \""
+                        + datos.asunto
+                        + "\",\r\n"
+                        + "  \"dp\": \""
+                        + "1"
+                        + "\",\r\n"
+                        + "  \"solicitante\": \""
+                        + datos.solicitante
+                        + "\",\r\n"
+                        + "  \"fechavisita\": \""
+                        + datos.fechavisita
+                        + "\",\r\n"
+                        + "  \"turno\": \""
+                        + datos.turno
+                        + "\",\r\n"
+                        + "  \"agendado\": \""
+                        + datos.agendado
+                        + "\",\r\n"
+                        + "  \"contenido\": \""
+                        + datos.contenido
+                        + "\"\r\n}",
+                    null,
+                    "application/json"
+                );
+                request.Content = contents;
                 var response = await client.SendAsync(request);
                 if (response.IsSuccessStatusCode)
                 {
                     string resp = await response.Content.ReadAsStringAsync();
-                    var result = JsonConvert.DeserializeObject<result>(resp);
+                    var result = JsonConvert.DeserializeObject<Clienteportal>(resp);
                     return StatusCode(StatusCodes.Status200OK, result);
                 }
                 string resps = await response.Content.ReadAsStringAsync();
-                var results = JsonConvert.DeserializeObject<result>(resps);
+                var results = JsonConvert.DeserializeObject<Clienteportal>(resps);
                 return StatusCode(StatusCodes.Status200OK, results);
+                
             }
             catch (System.Exception)
             {
+                
                 throw;
             }
         }
-
-        [HttpGet]
-        [Route("estado/{idolt:int}")]
-        public async Task<ActionResult> ObtenerStuatus(string idolt)
-        {
-            try
-            {
-                var client = new HttpClient();
-                var request = new HttpRequestMessage(
-                    HttpMethod.Get,
-                    "https://comnet.smartolt.com/api/onu/get_onu_status/" + idolt
-                );
-                request.Headers.Add("X-Token", "a068dcbce5ab4b3591e57f8d8a4348e9");
-                var response = await client.SendAsync(request);
-                if (response.IsSuccessStatusCode)
+        /*
+                [HttpGet]
+                [Route("estdoolt/{idolt:int}")]
+                public async Task<ActionResult> Obtenerolt(string idolt)
                 {
-                    string resp = await response.Content.ReadAsStringAsync();
-                    var result = JsonConvert.DeserializeObject<result>(resp);
-                    return StatusCode(StatusCodes.Status200OK, result);
+                    try
+                    {
+                        var client = new HttpClient();
+                        var request = new HttpRequestMessage(
+                            HttpMethod.Get,
+                            "https://comnet.smartolt.com/api/onu/get_onu_signal/" + idolt
+                        );
+                        request.Headers.Add("X-Token", "a068dcbce5ab4b3591e57f8d8a4348e9");
+                        var response = await client.SendAsync(request);
+                        if (response.IsSuccessStatusCode)
+                        {
+                            string resp = await response.Content.ReadAsStringAsync();
+                            var result = JsonConvert.DeserializeObject<result>(resp);
+                            return StatusCode(StatusCodes.Status200OK, result);
+                        }
+                        string resps = await response.Content.ReadAsStringAsync();
+                        var results = JsonConvert.DeserializeObject<result>(resps);
+                        return StatusCode(StatusCodes.Status200OK, results);
+                    }
+                    catch (System.Exception)
+                    {
+                        throw;
+                    }
                 }
-                string resps = await response.Content.ReadAsStringAsync();
-                var results = JsonConvert.DeserializeObject<result>(resps);
-                return StatusCode(StatusCodes.Status200OK, results);
-            }
-            catch (System.Exception)
-            {
-                throw;
-            }
-        }
-
-        [HttpGet("detalleolt/{idolt:int}")]
-        public async Task<ActionResult> Detalleolt(string idolt)
-        {
-            try
-            {
-                var client = new HttpClient();
-                var request = new HttpRequestMessage(
-                    HttpMethod.Get,
-                    "https://comnet.smartolt.com/api/onu/get_onu_details/" + idolt
-                );
-                request.Headers.Add("X-Token", "a068dcbce5ab4b3591e57f8d8a4348e9");
-                var response = await client.SendAsync(request);
-                if (response.IsSuccessStatusCode)
+        
+                [HttpGet]
+                [Route("estado/{idolt:int}")]
+                public async Task<ActionResult> ObtenerStuatus(string idolt)
                 {
-                    string resp = await response.Content.ReadAsStringAsync();
-                    var result = JsonConvert.DeserializeObject<result>(resp);
-                    return StatusCode(StatusCodes.Status200OK, resp);
+                    try
+                    {
+                        var client = new HttpClient();
+                        var request = new HttpRequestMessage(
+                            HttpMethod.Get,
+                            "https://comnet.smartolt.com/api/onu/get_onu_status/" + idolt
+                        );
+                        request.Headers.Add("X-Token", "a068dcbce5ab4b3591e57f8d8a4348e9");
+                        var response = await client.SendAsync(request);
+                        if (response.IsSuccessStatusCode)
+                        {
+                            string resp = await response.Content.ReadAsStringAsync();
+                            var result = JsonConvert.DeserializeObject<result>(resp);
+                            return StatusCode(StatusCodes.Status200OK, result);
+                        }
+                        string resps = await response.Content.ReadAsStringAsync();
+                        var results = JsonConvert.DeserializeObject<result>(resps);
+                        return StatusCode(StatusCodes.Status200OK, results);
+                    }
+                    catch (System.Exception)
+                    {
+                        throw;
+                    }
                 }
-                string resps = await response.Content.ReadAsStringAsync();
-                var results = JsonConvert.DeserializeObject(resps);
-                return StatusCode(StatusCodes.Status200OK, resps);
-            }
-            catch (System.Exception)
-            {
-                throw;
-            }
-        }
-
-        [HttpGet("detalleoltport/{idolt:int}")]
-        public async Task<ActionResult> Detalleoltport(string idolt)
-        {
-            try
-            {
-                var client = new HttpClient();
-                var request = new HttpRequestMessage(
-                    HttpMethod.Get,
-                    "https://comnet.smartolt.com/api/system/get_olt_pon_ports_details/" + idolt
-                );
-                request.Headers.Add("X-Token", "a068dcbce5ab4b3591e57f8d8a4348e9");
-                var response = await client.SendAsync(request);
-                if (response.IsSuccessStatusCode)
+        
+                [HttpGet("detalleolt/{idolt:int}")]
+                public async Task<ActionResult> Detalleolt(string idolt)
                 {
-                    string resp = await response.Content.ReadAsStringAsync();
-                    var result = JsonConvert.DeserializeObject<result>(resp);
-                    return StatusCode(StatusCodes.Status200OK, result);
+                    try
+                    {
+                        var client = new HttpClient();
+                        var request = new HttpRequestMessage(
+                            HttpMethod.Get,
+                            "https://comnet.smartolt.com/api/onu/get_onu_details/" + idolt
+                        );
+                        request.Headers.Add("X-Token", "a068dcbce5ab4b3591e57f8d8a4348e9");
+                        var response = await client.SendAsync(request);
+                        if (response.IsSuccessStatusCode)
+                        {
+                            string resp = await response.Content.ReadAsStringAsync();
+                            var result = JsonConvert.DeserializeObject<result>(resp);
+                            return StatusCode(StatusCodes.Status200OK, resp);
+                        }
+                        string resps = await response.Content.ReadAsStringAsync();
+                        var results = JsonConvert.DeserializeObject(resps);
+                        return StatusCode(StatusCodes.Status200OK, resps);
+                    }
+                    catch (System.Exception)
+                    {
+                        throw;
+                    }
                 }
-                string resps = await response.Content.ReadAsStringAsync();
-                var results = JsonConvert.DeserializeObject<result>(resps);
-                return StatusCode(StatusCodes.Status200OK, results);
-            }
-            catch (System.Exception)
-            {
-                throw;
-            }
-        }
-
+        
+                [HttpGet("detalleoltport/{idolt:int}")]
+                public async Task<ActionResult> Detalleoltport(string idolt)
+                {
+                    try
+                    {
+                        var client = new HttpClient();
+                        var request = new HttpRequestMessage(
+                            HttpMethod.Get,
+                            "https://comnet.smartolt.com/api/system/get_olt_pon_ports_details/" + idolt
+                        );
+                        request.Headers.Add("X-Token", "a068dcbce5ab4b3591e57f8d8a4348e9");
+                        var response = await client.SendAsync(request);
+                        if (response.IsSuccessStatusCode)
+                        {
+                            string resp = await response.Content.ReadAsStringAsync();
+                            var result = JsonConvert.DeserializeObject<result>(resp);
+                            return StatusCode(StatusCodes.Status200OK, result);
+                        }
+                        string resps = await response.Content.ReadAsStringAsync();
+                        var results = JsonConvert.DeserializeObject<result>(resps);
+                        return StatusCode(StatusCodes.Status200OK, results);
+                    }
+                    catch (System.Exception)
+                    {
+                        throw;
+                    }
+                }
+        */
         //antes de esto poner las rutas
     }
 }

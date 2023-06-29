@@ -92,3 +92,4 @@ C:\Users\Pc-Tickets\Backrest\obj\Debug\net7.0\Backrest.genruntimeconfig.cache
 C:\Users\Pc-Tickets\Backrest\obj\Debug\net7.0\ref\Backrest.dll
 C:\Users\Pc-Tickets\Backrest\bin\Debug\net7.0\DotNetEnv.dll
 C:\Users\Pc-Tickets\Backrest\bin\Debug\net7.0\Sprache.dll
+C:\Users\Pc-Tickets\Backrest\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

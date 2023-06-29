@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "NH53kkAFfJxYEzXvTwKRL99rhkNrYZzkm7K0GZiI5s1GRH86RwqQJw6wMf16DJRBjkH1PvW7LGgrhuvadqToAQ==",
+  "dgSpecHash": "W/HR9eoPPPxkiFafmxAy1E6vCVKvhVLNxrx4ltZsM+51cFFWXScj5TSp5UFJxZSJYtkwk3C8RrGhYPaVmI/WaQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\Pc-Tickets\\Backrest\\Backrest.csproj",
   "expectedPackageFiles": [
@@ -14,6 +14,7 @@
     "C:\\Users\\Pc-Tickets\\.nuget\\packages\\k4os.compression.lz4\\1.2.6\\k4os.compression.lz4.1.2.6.nupkg.sha512",
     "C:\\Users\\Pc-Tickets\\.nuget\\packages\\k4os.compression.lz4.streams\\1.2.6\\k4os.compression.lz4.streams.1.2.6.nupkg.sha512",
     "C:\\Users\\Pc-Tickets\\.nuget\\packages\\k4os.hash.xxhash\\1.0.6\\k4os.hash.xxhash.1.0.6.nupkg.sha512",
+    "C:\\Users\\Pc-Tickets\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\7.0.8\\microsoft.aspnetcore.authentication.jwtbearer.7.0.8.nupkg.sha512",
     "C:\\Users\\Pc-Tickets\\.nuget\\packages\\microsoft.aspnetcore.openapi\\7.0.3\\microsoft.aspnetcore.openapi.7.0.3.nupkg.sha512",
     "C:\\Users\\Pc-Tickets\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "C:\\Users\\Pc-Tickets\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",

@@ -7,7 +7,7 @@ COPY . ./
 
 RUN dotnet restore
 # Build and publish a release
-RUN dotnet ef migrations add InitialCreate
+ #RUN dotnet ef migrations add InitialCreate
 RUN dotnet ef database update
 RUN dotnet publish -c Release -o out
 

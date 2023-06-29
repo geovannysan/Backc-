@@ -58,16 +58,16 @@ namespace Backrest.Data
             //this.Database.ExecuteSqlRaw(sql2);
         }
 
-        public virtual DbSet<Empleado>? Empleado { get; set; } = null;
+        public  DbSet<Empleado>? Empleado { get; set; } = null;
 
         //public virtual DbSet<Usuario> Usuarios {get;set;}
-        public virtual DbSet<Users>? admins { get; set; } = null;
-        public virtual DbSet<Cargos>? Cargos { get; set; } = null;
-        public virtual DbSet<FilesClass>? bancoscon { get; set; } = null;
-        public virtual DbSet<Transacciones>? transacion { get; set; } = null;
-        public virtual DbSet<Repostressum>? Reporte { get; set; } = null;
-        public virtual DbSet<IncrementoClass>? incrementos { get; set; }
-        public virtual DbSet<Usuario>? admin { get; set; }
+        public  DbSet<Users>? admins { get; set; } = null;
+        public  DbSet<Cargos>? Cargos { get; set; } = null;
+        public  DbSet<FilesClass>? bancoscon { get; set; } = null;
+        public  DbSet<Transacciones>? transacion { get; set; } = null;
+        public  DbSet<Repostressum>? Reporte { get; set; } = null;
+        public  DbSet<IncrementoClass>? incrementos { get; set; }
+        public  DbSet<Usuario>? admin { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

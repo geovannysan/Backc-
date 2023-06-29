@@ -7,8 +7,36 @@ using MySql.EntityFrameworkCore.Metadata;
 namespace Backrest.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class UPdateData : Migration
     {
+        
+        /// <inheritdoc />
+        protected override void Down(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.DropTable(
+                name: "admin");
+
+            migrationBuilder.DropTable(
+                name: "admins");
+
+            migrationBuilder.DropTable(
+                name: "bancoscon");
+
+            migrationBuilder.DropTable(
+                name: "Empleado");
+
+           /* migrationBuilder.DropTable(
+                name: "incrementos");*/
+
+            migrationBuilder.DropTable(
+                name: "Reporte");
+
+            migrationBuilder.DropTable(
+                name: "transacion");
+
+            migrationBuilder.DropTable(
+                name: "Cargos");
+        }
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -82,7 +110,7 @@ namespace Backrest.Migrations
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
 
-            migrationBuilder.CreateTable(
+           /* migrationBuilder.CreateTable(
                 name: "incrementos",
                 columns: table => new
                 {
@@ -94,7 +122,7 @@ namespace Backrest.Migrations
                 {
                     table.PrimaryKey("PK_incrementos", x => x.id);
                 })
-                .Annotation("MySQL:Charset", "utf8mb4");
+                .Annotation("MySQL:Charset", "utf8mb4");*/
 
             migrationBuilder.CreateTable(
                 name: "Reporte",
@@ -173,32 +201,5 @@ namespace Backrest.Migrations
                 column: "CargosId");
         }
 
-        /// <inheritdoc />
-        protected override void Down(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.DropTable(
-                name: "admin");
-
-            migrationBuilder.DropTable(
-                name: "admins");
-
-            migrationBuilder.DropTable(
-                name: "bancoscon");
-
-            migrationBuilder.DropTable(
-                name: "Empleado");
-
-            migrationBuilder.DropTable(
-                name: "incrementos");
-
-            migrationBuilder.DropTable(
-                name: "Reporte");
-
-            migrationBuilder.DropTable(
-                name: "transacion");
-
-            migrationBuilder.DropTable(
-                name: "Cargos");
-        }
     }
 }

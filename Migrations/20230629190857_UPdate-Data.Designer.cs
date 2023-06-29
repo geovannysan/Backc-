@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backrest.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230629171210_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20230629190857_UPdate-Data")]
+    partial class UPdateData
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -36,7 +36,7 @@ namespace Backrest.Migrations
                     b.ToTable("Cargos");
                 });
 
-            modelBuilder.Entity("Backrest.Data.Models.Contifico.IncrementoClass", b =>
+         /*   modelBuilder.Entity("Backrest.Data.Models.Contifico.IncrementoClass", b =>
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd()
@@ -48,7 +48,7 @@ namespace Backrest.Migrations
                     b.HasKey("id");
 
                     b.ToTable("incrementos");
-                });
+                });*/
 
             modelBuilder.Entity("Backrest.Data.Models.Empleado", b =>
                 {

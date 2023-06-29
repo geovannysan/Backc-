@@ -33,7 +33,7 @@ namespace Backrest.Migrations
                     b.ToTable("Cargos");
                 });
 
-            modelBuilder.Entity("Backrest.Data.Models.Contifico.IncrementoClass", b =>
+           /* modelBuilder.Entity("Backrest.Data.Models.Contifico.IncrementoClass", b =>
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd()
@@ -45,7 +45,7 @@ namespace Backrest.Migrations
                     b.HasKey("id");
 
                     b.ToTable("incrementos");
-                });
+                });*/
 
             modelBuilder.Entity("Backrest.Data.Models.Empleado", b =>
                 {

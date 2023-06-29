@@ -12,11 +12,12 @@ Env.Load(); // carga las variables de entorno desde el archivo .env
 var configuration = new ConfigurationBuilder()
     .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
     .Build();
-   
+
 var connectionString = builder.Configuration.GetConnectionString("Dataconnetion");
- connectionString = connectionString.Replace("{HOST_DB}", Environment.GetEnvironmentVariable("HOST_DB"))
+connectionString = connectionString
+    .Replace("{HOST_DB}", Environment.GetEnvironmentVariable("HOST_DB"))
     .Replace("{PORT_DB}", Environment.GetEnvironmentVariable("PORT_DB"))
-    .Replace("{DB_NAME}", Environment.GetEnvironmentVariable("DB_NAME"))    
+    .Replace("{DB_NAME}", Environment.GetEnvironmentVariable("DB_NAME"))
     .Replace("{USER_DB}", Environment.GetEnvironmentVariable("USER_DB"))
     .Replace("{PASSWORD}", Environment.GetEnvironmentVariable("PASSWORD"));
 
@@ -28,12 +29,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-//conecion sql
-builder.Services.AddDbContext<DataContext>(
-    opt => opt.UseMySQL(connectionString)
-);
+//conexión SQL
+builder.Services.AddDbContext<DataContext>(opt => opt.UseMySQL(connectionString));
 
-//eliminar referencias ciclicas
+//eliminar referencias cíclicas
 builder.Services
     .AddControllers()
     .AddJsonOptions(opt =>
@@ -53,14 +52,21 @@ builder.Services.AddCors(opt =>
         }
     );
 });
+
 var app = builder.Build();
 
-/*/ Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+using (var scope = app.Services.CreateScope())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}*/
+    var dbContext = scope.ServiceProvider.GetRequiredService<DataContext>();
+    //dbContext.Database.EnsureCreated();
+    dbContext.Database.Migrate();
+
+    // Crea todas las tablas correspondientes a los modelos si no existen en la base de datos
+
+    // Resto de la lógica de tu aplicación
+}
+
+// Configure the HTTP request pipeline.
 app.UseSwagger();
 app.UseSwaggerUI();
 app.UseCors(reglas);

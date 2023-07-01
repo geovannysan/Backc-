@@ -61,9 +61,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
     {
         ValidateIssuerSigningKey= true,
         IssuerSigningKey = symmetricSecurityKey,
-        ValidateIssuer = true,
+        ValidateIssuer = false,
         ValidIssuer= "",
-        ValidateAudience=true,
+        ValidateAudience=false,
         ValidAudience="",
         ClockSkew=TimeSpan.Zero
     };
@@ -74,7 +74,7 @@ using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<DataContext>();
     //dbContext.Database.EnsureCreated();
-    dbContext.Database.Migrate();
+        dbContext.Database.Migrate();
 
     // Crea todas las tablas correspondientes a los modelos si no existen en la base de datos
 

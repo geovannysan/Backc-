@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using Backrest.Data;
 using Backrest.Data.Models;
 using Backrest.Models;
+using Backrest.Data.Models.Pagos;
 
 namespace Backrest.Controllers
 {
@@ -17,11 +18,13 @@ namespace Backrest.Controllers
     {
         private readonly Data.DataContext _dbcontex;
         private readonly HttpClient _httpcliente;
+        private readonly PasswordHeader passworHeader;
 
         public usersController(Data.DataContext logger, HttpClient httpClient)
         {
             _httpcliente = httpClient;
             _dbcontex = logger;
+            passworHeader = new PasswordHeader();
         }
 
         public class Datosf
@@ -30,24 +33,33 @@ namespace Backrest.Controllers
             public string? password { get; set; }
         }
 
-        [HttpPost("getuser/{id}")]
-        public async Task<ActionResult> Listuser([FromBody] Datosf f, int id)
+        [HttpPost("Login")]
+        public async Task<ActionResult> Listuser([FromBody] Datosf f)
         {
             try
             {
                 bool existe = _dbcontex.admin.Any(p => p.cedula == f.cedula);
-                if (existe)
+                if (!existe)
+                {
+                    return StatusCode(
+                        StatusCodes.Status200OK,
+                        new { statue = false, mensaje = "Usuario no Registrado " }
+                    );
+                }
+                var users = _dbcontex.admin.Where(p => p.cedula == f.cedula).ToList();
+                bool isPasswordValid = passworHeader.Verificarpws(f.password, users[0].password);
+                if (isPasswordValid)
                 {
                     var client = new HttpClient();
                     var request = new HttpRequestMessage(
                         HttpMethod.Post,
-                        "url" + "GetClientsDetails"
+                        "https://portal.comnet.ec/api/v1/GetClientsDetails"
                     );
                     var contents = new StringContent(
                         "{\r\n  \"token\": \""
-                            + "newproces.Obtenertoken(datos.operador)"
+                            + "azZrUHB4UnRMaTZaZkRYUW1YRXFDUT09"
                             + "\",\r\n  \"cedula\": \""
-                            + f.cedula
+                            + users[0].cedula
                             + "\"\r\n}",
                         null,
                         "application/json"
@@ -58,12 +70,23 @@ namespace Backrest.Controllers
                     {
                         string res = await response.Content.ReadAsStringAsync();
                         var result = JsonConvert.DeserializeObject<Clienteportal>(res);
-                        return StatusCode(StatusCodes.Status200OK, result);
+                        var token = JwtHelper.GenerateToken(res);
+                        if (result.estado == "exito")
+                        {
+                            return StatusCode(
+                                StatusCodes.Status200OK,
+                                new { result.estado, token }
+                            );
+                        }
+                        return StatusCode(StatusCodes.Status200OK, new { result });
                     }
                     // info = _dbcontex.admin.Find(id);
                     //  return StatusCode(StatusCodes.Status200OK, new { info });
                 }
-                return StatusCode(StatusCodes.Status200OK, new { succes=false});
+                return StatusCode(
+                    StatusCodes.Status200OK,
+                    new { succes = false, mensaje = "Acceso denegado" }
+                );
             }
             catch (System.Exception)
             {
@@ -76,15 +99,26 @@ namespace Backrest.Controllers
         {
             try
             {
+                string hashedPassword = passworHeader.HasPasword(datos.password);
                 bool existe = _dbcontex.admin.Any(p => p.cedula == datos.cedula);
                 if (!existe)
                 {
-                    _dbcontex.admin.Add(datos);
+                    Usuario guarda = new Usuario()
+                    {
+                        username = datos.username,
+                        cedula = datos.cedula,
+                        password = hashedPassword,
+                        imag = "" + datos.imag,
+                        repuestauno = datos.repuestauno,
+                        respuestados = datos.respuestados,
+                        respuestatres = datos.respuestatres,
+                    };
+                    _dbcontex.admin.Add(guarda);
 
                     _dbcontex.SaveChanges();
-                    return StatusCode(StatusCodes.Status200OK, new { success = true, datos });
+                    return StatusCode(StatusCodes.Status200OK, new { success = true, guarda });
                 }
-                return StatusCode(StatusCodes.Status200OK, new { succes=false});
+                return StatusCode(StatusCodes.Status200OK, new { succes = false });
             }
             catch (System.Exception)
             {

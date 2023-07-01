@@ -8,6 +8,7 @@ using Backrest.Data.Models.Files;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using Backrest.Data.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Backrest.Controllers
 {
@@ -38,7 +39,7 @@ namespace Backrest.Controllers
         [Route("Reporte")]
         public ActionResult Lista([FromBody] Fechas datos)
         {
-          //  List<Repostressum> lista = new List<Repostressum>();
+            //  List<Repostressum> lista = new List<Repostressum>();
             try
             {
                 var lista = _dbcontext.incrementos.ToList();
@@ -64,32 +65,38 @@ namespace Backrest.Controllers
             {
                 var ini = datos.fecha_inicio;
                 var fin = datos.fecha_fin;
-               var lista = _dbcontext.admin.ToList();
+                var lista = _dbcontext.admin.ToList();
                 return StatusCode(StatusCodes.Status200OK, new { mensaje = true, lista });
             }
             catch (System.Exception)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "no seconecto raro" );
+                return StatusCode(StatusCodes.Status500InternalServerError, "no seconecto raro");
             }
         }
 
         [HttpGet]
         [Route("GetLocalidad")]
+        [Authorize]
         public async Task<ActionResult> Getls()
         {
-            try {
+            try
+            {
                 var client = new HttpClient();
-                var request = new HttpRequestMessage(HttpMethod.Get,"https://server1.ticketfacil.ec/ticket2/ajax.pventa.php?api_wts=ticketfacil_api&action=get&typedata=local_concrt&data=1102");
+                var request = new HttpRequestMessage(
+                    HttpMethod.Get,
+                    "https://server1.ticketfacil.ec/ticket2/ajax.pventa.php?api_wts=ticketfacil_api&action=get&typedata=local_concrt&data=1102"
+                );
                 var response = await client.SendAsync(request);
-                if(response.IsSuccessStatusCode){
+                if (response.IsSuccessStatusCode)
+                {
                     string res = await response.Content.ReadAsStringAsync();
-                    return StatusCode(StatusCodes.Status200OK,res);
+                    return StatusCode(StatusCodes.Status200OK, res);
                 }
                 return StatusCode(
                     StatusCodes.Status404NotFound,
                     new { mensaje = "No se completo la consulta" }
                 );
-             }
+            }
             catch (Exception)
             {
                 throw;

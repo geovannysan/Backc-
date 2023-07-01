@@ -7,11 +7,10 @@ using MySql.EntityFrameworkCore.Metadata;
 namespace Backrest.Migrations
 {
     /// <inheritdoc />
-    public partial class UPdateData : Migration
+    public partial class InitialCreate : Migration
     {
-        
         /// <inheritdoc />
-        protected override void Down(MigrationBuilder migrationBuilder)
+         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
                 name: "admin");
@@ -37,7 +36,6 @@ namespace Backrest.Migrations
             migrationBuilder.DropTable(
                 name: "Cargos");
         }
-        /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterDatabase()
@@ -52,6 +50,7 @@ namespace Backrest.Migrations
                     username = table.Column<string>(type: "longtext", nullable: true),
                     cedula = table.Column<string>(type: "varchar(255)", nullable: true),
                     password = table.Column<string>(type: "longtext", nullable: true),
+                    imag = table.Column<string>(type: "longtext", nullable: true),
                     repuestauno = table.Column<string>(type: "longtext", nullable: true),
                     respuestados = table.Column<string>(type: "longtext", nullable: true),
                     respuestatres = table.Column<string>(type: "longtext", nullable: true)
@@ -110,7 +109,7 @@ namespace Backrest.Migrations
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
 
-           /* migrationBuilder.CreateTable(
+            /*migrationBuilder.CreateTable(
                 name: "incrementos",
                 columns: table => new
                 {
@@ -201,5 +200,7 @@ namespace Backrest.Migrations
                 column: "CargosId");
         }
 
+        /// <inheritdoc />
+       
     }
 }

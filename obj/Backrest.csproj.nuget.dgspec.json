@@ -1,20 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Pc-Tickets\\Backrest\\Backrest.csproj": {}
+    "C:\\Users\\kaku\\Backrest\\Backrest.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Pc-Tickets\\Backrest\\Backrest.csproj": {
+    "C:\\Users\\kaku\\Backrest\\Backrest.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Pc-Tickets\\Backrest\\Backrest.csproj",
+        "projectUniqueName": "C:\\Users\\kaku\\Backrest\\Backrest.csproj",
         "projectName": "Backrest",
-        "projectPath": "C:\\Users\\Pc-Tickets\\Backrest\\Backrest.csproj",
-        "packagesPath": "C:\\Users\\Pc-Tickets\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Pc-Tickets\\Backrest\\obj\\",
+        "projectPath": "C:\\Users\\kaku\\Backrest\\Backrest.csproj",
+        "packagesPath": "C:\\Users\\kaku\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\kaku\\Backrest\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Pc-Tickets\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\kaku\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -87,6 +90,10 @@
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.4.0, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[6.31.0, )"
             }
           },
           "imports": [
@@ -108,7 +115,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
         }
       }
     }

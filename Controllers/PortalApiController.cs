@@ -196,7 +196,7 @@ namespace Backrest.Controllers
                     "{\r\n  \"token\": \"azZrUHB4UnRMaTZaZkRYUW1YRXFDUT09\",\r\n  \"idcliente\": \""
                         + idcliente
                         + "\",\r\n  \"limit\": \""
-                        + 1
+                        + 2
                         + "\",\r\n  \"estado\": \"1\"\r\n}",
                     null,
                     "application/json"

@@ -69,7 +69,7 @@ namespace Backrest.Controllers
             }
         }
 
-        [HttpDelete("eliminaritem")]
+        [HttpPut("eliminaritem")]
         public ActionResult Delete(int id)
         {
             connectionHelper.OpenConnection();

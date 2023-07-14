@@ -14,7 +14,7 @@ namespace Backrest.Migrations
         {
             migrationBuilder.DropTable(name: "admin");
 
-            migrationBuilder.DropTable(name: "admins");
+           migrationBuilder.DropTable(name: "admins");
 
             migrationBuilder.DropTable(name: "bancoscon");
 
@@ -34,7 +34,7 @@ namespace Backrest.Migrations
         {
             migrationBuilder.AlterDatabase().Annotation("MySQL:Charset", "utf8mb4");
 
-            migrationBuilder.DropTable(name: "admin");
+           migrationBuilder.DropTable(name: "admin");
 
             migrationBuilder.DropTable(name: "admins");
 

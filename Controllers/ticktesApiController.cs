@@ -91,5 +91,27 @@ namespace Backrest.Controllers
                 connectionHelper.CloseConnection();
             }
         }
+        [HttpDelete("eliminaritem")]
+        public ActionResult Deletes(int id)
+        {
+            connectionHelper.OpenConnection();
+
+            try
+            {
+              //string query1 =  $"UPDATE localidades_items  SET estado = 'disponible', cedula=''  WHERE id = {id};";
+                string query = $"DELETE FROM localidades_items WHERE id = {id};";
+                MySqlCommand command = new MySqlCommand(query, connectionHelper.GetConnection());
+                int rowsAffected = command.ExecuteNonQuery();
+                return StatusCode(StatusCodes.Status200OK, rowsAffected);
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                connectionHelper.CloseConnection();
+            }
+        }
     }
 }

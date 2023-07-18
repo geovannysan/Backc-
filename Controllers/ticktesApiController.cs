@@ -76,7 +76,7 @@ namespace Backrest.Controllers
 
             try
             {
-              string query1 =  $"UPDATE localidades_items  SET estado = 'disponible', cedula=''  WHERE id = {id};";
+              string query1 =  $"UPDATE localidades_items  SET estado = 'ocupado', cedula='1724201841'  WHERE id = {id};";
                 //string query = $"DELETE FROM localidades_items WHERE id = {id};";
                 MySqlCommand command = new MySqlCommand(query1, connectionHelper.GetConnection());
                 int rowsAffected = command.ExecuteNonQuery();

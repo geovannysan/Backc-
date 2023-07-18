@@ -68,7 +68,7 @@ namespace Backrest.Controllers
                 connectionHelper.CloseConnection();
             }
         }
-
+        //NO CANJEADO
         [HttpPut("eliminaritem")]
         public ActionResult Delete(int id)
         {
@@ -77,6 +77,28 @@ namespace Backrest.Controllers
             try
             {
               string query1 =  $"UPDATE localidades_items  SET estado = 'ocupado', cedula='1724201841'  WHERE id = {id};";
+                //string query = $"DELETE FROM localidades_items WHERE id = {id};";
+                MySqlCommand command = new MySqlCommand(query1, connectionHelper.GetConnection());
+                int rowsAffected = command.ExecuteNonQuery();
+                return StatusCode(StatusCodes.Status200OK, rowsAffected);
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                connectionHelper.CloseConnection();
+            }
+        }
+        [HttpPut("estado")]
+        public ActionResult actuia(int id)
+        {
+            connectionHelper.OpenConnection();
+
+            try
+            {
+              string query1 =  $"UPDATE ticket_usuarios  SET estado = 'CANJEADO'  WHERE id = {id};";
                 //string query = $"DELETE FROM localidades_items WHERE id = {id};";
                 MySqlCommand command = new MySqlCommand(query1, connectionHelper.GetConnection());
                 int rowsAffected = command.ExecuteNonQuery();

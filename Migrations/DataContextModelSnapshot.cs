@@ -215,9 +215,6 @@ namespace Backrest.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("campo")
-                        .HasColumnType("longtext");
-
                     b.Property<string>("cedula")
                         .HasColumnType("varchar(255)");
 

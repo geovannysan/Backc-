@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backrest.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230719204045_intento")]
-    partial class intento
+    [Migration("20230719212049_comnet")]
+    partial class comnet
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -217,9 +217,6 @@ namespace Backrest.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    b.Property<string>("campo")
-                        .HasColumnType("longtext");
 
                     b.Property<string>("cedula")
                         .HasColumnType("varchar(255)");

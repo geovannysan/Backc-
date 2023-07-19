@@ -41,7 +41,7 @@ namespace Backrest.Migrations
                 name: "Cargos");
         }
          protected override void Up(MigrationBuilder migrationBuilder)
-        {/*
+        {
             migrationBuilder.AlterDatabase()
                 .Annotation("MySQL:Charset", "utf8mb4");
 
@@ -213,7 +213,7 @@ namespace Backrest.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Empleado_CargosId",
                 table: "Empleado",
-                column: "CargosId");*/
+                column: "CargosId");
         }
 
        

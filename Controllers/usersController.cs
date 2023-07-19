@@ -9,6 +9,7 @@ using Backrest.Data;
 using Backrest.Data.Models;
 using Backrest.Models;
 using Backrest.Data.Models.Pagos;
+using Microsoft.EntityFrameworkCore;
 
 namespace Backrest.Controllers
 {
@@ -31,6 +32,24 @@ namespace Backrest.Controllers
         {
             public string? cedula { get; set; }
             public string? password { get; set; }
+        }
+        [HttpGet]
+        public async Task<ActionResult>lista(){
+             // List<object> results = new List<object>();
+                 string consulta =
+                    "$SELECT * FROM __efmigrationshistory ";
+              
+
+               var results = _dbcontex.Database.ExecuteSqlRaw("$SELECT * FROM __efmigrationshistory");
+               
+                 //string consulta ="UPDATE incrementos SET contadores = @nuevoContador WHERE id = @id";
+              
+
+                        return StatusCode(
+                        StatusCodes.Status200OK,
+                        new { statue = false, results }
+                    );
+                
         }
 
         [HttpPost("Login")]

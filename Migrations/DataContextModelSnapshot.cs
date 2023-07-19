@@ -30,7 +30,21 @@ namespace Backrest.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Cargos", (string)null);
+                    b.ToTable("Cargos");
+                });
+
+            modelBuilder.Entity("Backrest.Data.Models.Contifico.IncrementoClass", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("contadores")
+                        .HasColumnType("int");
+
+                    b.HasKey("id");
+
+                    b.ToTable("incrementos");
                 });
 
             modelBuilder.Entity("Backrest.Data.Models.Empleado", b =>
@@ -61,7 +75,7 @@ namespace Backrest.Migrations
 
                     b.HasIndex("CargosId");
 
-                    b.ToTable("Empleado", (string)null);
+                    b.ToTable("Empleado");
                 });
 
             modelBuilder.Entity("Backrest.Data.Models.Files.FilesClass", b =>
@@ -93,7 +107,7 @@ namespace Backrest.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("bancoscon", (string)null);
+                    b.ToTable("bancoscon");
                 });
 
             modelBuilder.Entity("Backrest.Data.Models.Files.Repostressum", b =>
@@ -113,7 +127,7 @@ namespace Backrest.Migrations
                     b.Property<string>("total_compras")
                         .HasColumnType("longtext");
 
-                    b.ToTable("Reporte", (string)null);
+                    b.ToTable("Reporte");
                 });
 
             modelBuilder.Entity("Backrest.Data.Models.Files.Transacciones", b =>
@@ -163,7 +177,7 @@ namespace Backrest.Migrations
 
                     b.HasKey("id");
 
-                    b.ToTable("transacion", (string)null);
+                    b.ToTable("transacion");
                 });
 
             modelBuilder.Entity("Backrest.Data.Models.Files.Users", b =>
@@ -181,7 +195,18 @@ namespace Backrest.Migrations
 
                     b.HasKey("id");
 
-                    b.ToTable("admins", (string)null);
+                    b.ToTable("admins");
+                });
+
+            modelBuilder.Entity("Backrest.Data.Models.migratio", b =>
+                {
+                    b.Property<string>("MigrationId")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("ProductVersion")
+                        .HasColumnType("longtext");
+
+                    b.ToTable("__efmigrationshistory");
                 });
 
             modelBuilder.Entity("Backrest.Models.Usuario", b =>
@@ -189,6 +214,9 @@ namespace Backrest.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    b.Property<string>("campo")
+                        .HasColumnType("longtext");
 
                     b.Property<string>("cedula")
                         .HasColumnType("varchar(255)");
@@ -216,7 +244,7 @@ namespace Backrest.Migrations
                     b.HasIndex("cedula")
                         .IsUnique();
 
-                    b.ToTable("admin", (string)null);
+                    b.ToTable("admin");
                 });
 
             modelBuilder.Entity("Backrest.Data.Models.Empleado", b =>

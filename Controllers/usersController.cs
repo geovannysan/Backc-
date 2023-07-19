@@ -38,16 +38,32 @@ namespace Backrest.Controllers
         public async Task<ActionResult> lista()
         {
             // List<object> results = new List<object>();
-            string consulta = "$SELECT * FROM __efmigrationshistory ";
+            string consulta = "SELECT * FROM __efmigrationshistory";
+            List<dynamic> resultados = new List<dynamic>();
 
-            //var results = _dbcontex.Database.ExecuteSqlRaw("SELECT * FROM __efmigrationshistory");
-            //string consulta = "SELECT * FROM TableName";
-            List<migratio> resultados = _dbcontex.migratios.FromSqlRaw("SELECT * FROM __efmigrationshistory")
-                                                       .ToList();
-            //string consulta ="UPDATE incrementos SET contadores = @nuevoContador WHERE id = @id";
+            using (var command = _dbcontex.Database.GetDbConnection().CreateCommand())
+            {
+                command.CommandText = consulta;
+                _dbcontex.Database.OpenConnection();
 
+                using (var result = command.ExecuteReader())
+                {
+                    while (result.Read())
+                    {
+                        var item = new
+                        {
+                            MigrationId = result.GetString(0),
+                            ProductVersion = result.GetString(1)
+                        };
 
-            return StatusCode(StatusCodes.Status200OK, new { statue = false, resultados });
+                        resultados.Add(item);
+                    }
+                    return StatusCode(
+                        StatusCodes.Status200OK,
+                        new { statue = false, mensaje = resultados}
+                    );
+                }
+            }
         }
 
         [HttpPost("Login")]

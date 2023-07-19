@@ -68,7 +68,7 @@ namespace Backrest.Data
         public DbSet<Transacciones>? transacion { get; set; } = null;
         public DbSet<Repostressum>? Reporte { get; set; } = null;
         public DbSet<IncrementoClass>? incrementos { get; set; }
-        public DbSet<migratio>? migratios {get;set;}
+        public DbSet<migratio>? __efmigrationshistory {get;set;}
         
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

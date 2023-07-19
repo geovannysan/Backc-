@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backrest.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230712213641_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20230719204045_intento")]
+    partial class intento
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -36,7 +36,7 @@ namespace Backrest.Migrations
                     b.ToTable("Cargos");
                 });
 
-           /* modelBuilder.Entity("Backrest.Data.Models.Contifico.IncrementoClass", b =>
+            modelBuilder.Entity("Backrest.Data.Models.Contifico.IncrementoClass", b =>
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd()
@@ -49,7 +49,7 @@ namespace Backrest.Migrations
 
                     b.ToTable("incrementos");
                 });
-*/
+
             modelBuilder.Entity("Backrest.Data.Models.Empleado", b =>
                 {
                     b.Property<int>("Id")
@@ -201,11 +201,25 @@ namespace Backrest.Migrations
                     b.ToTable("admins");
                 });
 
+            modelBuilder.Entity("Backrest.Data.Models.migratio", b =>
+                {
+                    b.Property<string>("MigrationId")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("ProductVersion")
+                        .HasColumnType("longtext");
+
+                    b.ToTable("__efmigrationshistory");
+                });
+
             modelBuilder.Entity("Backrest.Models.Usuario", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    b.Property<string>("campo")
+                        .HasColumnType("longtext");
 
                     b.Property<string>("cedula")
                         .HasColumnType("varchar(255)");

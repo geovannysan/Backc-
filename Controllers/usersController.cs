@@ -33,14 +33,14 @@ namespace Backrest.Controllers
             public string? cedula { get; set; }
             public string? password { get; set; }
         }
-        [HttpGet]
+        [HttpGet("migrate")]
         public async Task<ActionResult>lista(){
              // List<object> results = new List<object>();
                  string consulta =
                     "$SELECT * FROM __efmigrationshistory ";
               
 
-               var results = _dbcontex.Database.ExecuteSqlRaw("$SELECT * FROM __efmigrationshistory");
+               var results = _dbcontex.Database.ExecuteSqlRaw("SELECT * FROM __efmigrationshistory");
                
                  //string consulta ="UPDATE incrementos SET contadores = @nuevoContador WHERE id = @id";
               

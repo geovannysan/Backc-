@@ -82,6 +82,10 @@ namespace Backrest.Data
             {
                 entity.HasNoKey();
             });
+             modelBuilder.Entity<migratio>(entity =>
+            {
+                entity.HasNoKey();
+            });
             modelBuilder.Entity<Usuario>().HasIndex(n => n.cedula).IsUnique();
             base.OnModelCreating(modelBuilder);
         }

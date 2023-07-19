@@ -7,7 +7,8 @@ namespace Backrest.Data.Models
 {
     public class migratio
     {
-        public string? MigrationId {get;set;}
-        public string? ProductVersion {get;set;}
+        
+        public string? migrationId {get;set;}
+        public string? productVersion {get;set;}
     }
 }

@@ -30,21 +30,7 @@ namespace Backrest.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Cargos");
-                });
-
-            modelBuilder.Entity("Backrest.Data.Models.Contifico.IncrementoClass", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int>("contadores")
-                        .HasColumnType("int");
-
-                    b.HasKey("id");
-
-                    b.ToTable("incrementos");
+                    b.ToTable("Cargos", (string)null);
                 });
 
             modelBuilder.Entity("Backrest.Data.Models.Empleado", b =>
@@ -75,7 +61,7 @@ namespace Backrest.Migrations
 
                     b.HasIndex("CargosId");
 
-                    b.ToTable("Empleado");
+                    b.ToTable("Empleado", (string)null);
                 });
 
             modelBuilder.Entity("Backrest.Data.Models.Files.FilesClass", b =>
@@ -107,7 +93,7 @@ namespace Backrest.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("bancoscon");
+                    b.ToTable("bancoscon", (string)null);
                 });
 
             modelBuilder.Entity("Backrest.Data.Models.Files.Repostressum", b =>
@@ -127,7 +113,7 @@ namespace Backrest.Migrations
                     b.Property<string>("total_compras")
                         .HasColumnType("longtext");
 
-                    b.ToTable("Reporte");
+                    b.ToTable("Reporte", (string)null);
                 });
 
             modelBuilder.Entity("Backrest.Data.Models.Files.Transacciones", b =>
@@ -177,7 +163,7 @@ namespace Backrest.Migrations
 
                     b.HasKey("id");
 
-                    b.ToTable("transacion");
+                    b.ToTable("transacion", (string)null);
                 });
 
             modelBuilder.Entity("Backrest.Data.Models.Files.Users", b =>
@@ -195,7 +181,7 @@ namespace Backrest.Migrations
 
                     b.HasKey("id");
 
-                    b.ToTable("admins");
+                    b.ToTable("admins", (string)null);
                 });
 
             modelBuilder.Entity("Backrest.Models.Usuario", b =>
@@ -230,7 +216,7 @@ namespace Backrest.Migrations
                     b.HasIndex("cedula")
                         .IsUnique();
 
-                    b.ToTable("admin");
+                    b.ToTable("admin", (string)null);
                 });
 
             modelBuilder.Entity("Backrest.Data.Models.Empleado", b =>

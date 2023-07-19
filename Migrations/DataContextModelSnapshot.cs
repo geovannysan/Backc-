@@ -241,7 +241,7 @@ namespace Backrest.Migrations
                     b.HasIndex("cedula")
                         .IsUnique();
 
-                    b.ToTable("admin");
+                    b.ToTable("Usuario");
                 });
 
             modelBuilder.Entity("Backrest.Data.Models.Empleado", b =>

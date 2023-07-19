@@ -33,23 +33,21 @@ namespace Backrest.Controllers
             public string? cedula { get; set; }
             public string? password { get; set; }
         }
+
         [HttpGet("migrate")]
-        public async Task<ActionResult>lista(){
-             // List<object> results = new List<object>();
-                 string consulta =
-                    "$SELECT * FROM __efmigrationshistory ";
-              
+        public async Task<ActionResult> lista()
+        {
+            // List<object> results = new List<object>();
+            string consulta = "$SELECT * FROM __efmigrationshistory ";
 
-               var results = _dbcontex.Database.ExecuteSqlRaw("SELECT * FROM __efmigrationshistory");
-               
-                 //string consulta ="UPDATE incrementos SET contadores = @nuevoContador WHERE id = @id";
-              
+            //var results = _dbcontex.Database.ExecuteSqlRaw("SELECT * FROM __efmigrationshistory");
+            //string consulta = "SELECT * FROM TableName";
+            List<migratio> resultados = _dbcontex.migratios.FromSqlRaw("SELECT * FROM __efmigrationshistory")
+                                                       .ToList();
+            //string consulta ="UPDATE incrementos SET contadores = @nuevoContador WHERE id = @id";
 
-                        return StatusCode(
-                        StatusCodes.Status200OK,
-                        new { statue = false, results }
-                    );
-                
+
+            return StatusCode(StatusCodes.Status200OK, new { statue = false, resultados });
         }
 
         [HttpPost("Login")]

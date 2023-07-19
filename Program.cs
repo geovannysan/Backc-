@@ -77,8 +77,8 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<DataContext>();
-    dbContext.Database.EnsureCreated();
-    dbContext.Database.Migrate();
+   // dbContext.Database.EnsureCreated();
+    //dbContext.Database.Migrate();
 
     // Crea todas las tablas correspondientes a los modelos si no existen en la base de datos
 

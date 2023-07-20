@@ -8,6 +8,7 @@ using System.Text.Json.Serialization;
 using MySql.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+
 var builder = WebApplication.CreateBuilder(args);
 Env.Load(); // carga las variables de entorno desde el archivo .env
 
@@ -56,8 +57,9 @@ builder.Services.AddCors(opt =>
 });
 /*var secrekey = Environment.GetEnvironmentVariable("SECREKEY");
 var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secrekey));
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options=>{
-    options.TokenValidationParameters = new TokenValidationParameters
+builder.Services
+    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
     {
         ValidateIssuerSigningKey= true,
         IssuerSigningKey = symmetricSecurityKey,

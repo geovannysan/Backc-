@@ -3,6 +3,7 @@ using System;
 using Backrest.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backrest.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20230719212049_comnet")]
+    partial class comnet
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -31,38 +34,6 @@ namespace Backrest.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Cargos");
-                });
-
-            modelBuilder.Entity("Backrest.Data.Models.Clientes", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<string>("cedula")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("imag")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("password")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("repuestauno")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("respuestados")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("respuestatres")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("username")
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("clientes");
                 });
 
             modelBuilder.Entity("Backrest.Data.Models.Contifico.IncrementoClass", b =>

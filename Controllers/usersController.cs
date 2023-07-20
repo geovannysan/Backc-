@@ -71,7 +71,7 @@ namespace Backrest.Controllers
         {
             try
             {
-                bool existe = _dbcontex.admin.Any(p => p.cedula == f.cedula);
+                bool existe = _dbcontex.Comnetusers.Any(p => p.cedula == f.cedula);
                 if (!existe)
                 {
                     return StatusCode(
@@ -79,7 +79,7 @@ namespace Backrest.Controllers
                         new { statue = false, mensaje = "Usuario no Registrado " }
                     );
                 }
-                var users = _dbcontex.admin.Where(p => p.cedula == f.cedula).ToList();
+                var users = _dbcontex.Comnetusers.Where(p => p.cedula == f.cedula).ToList();
                 bool isPasswordValid = passworHeader.Verificarpws(f.password, users[0].password);
                 if (isPasswordValid)
                 {
@@ -133,10 +133,10 @@ namespace Backrest.Controllers
             try
             {
                 string hashedPassword = passworHeader.HasPasword(datos.password);
-                bool existe = _dbcontex.admin.Any(p => p.cedula == datos.cedula);
+                bool existe = _dbcontex.Comnetusers.Any(p => p.cedula == datos.cedula);
                 if (!existe)
                 {
-                    Usuario guarda = new Usuario()
+                    Comnetuser guarda = new Comnetuser()
                     {
                         username = datos.username,
                         cedula = datos.cedula,
@@ -146,7 +146,7 @@ namespace Backrest.Controllers
                         respuestados = datos.respuestados,
                         respuestatres = datos.respuestatres,
                     };
-                    _dbcontex.admin.Add(guarda);
+                    _dbcontex.Comnetusers.Add(guarda);
 
                     _dbcontex.SaveChanges();
                     return StatusCode(StatusCodes.Status200OK, new { success = true, guarda });

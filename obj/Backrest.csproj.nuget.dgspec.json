@@ -1,23 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\kaku\\Backrest\\Backrest.csproj": {}
+    "C:\\Users\\Pc-Tickets\\Backrest\\Backrest.csproj": {}
   },
   "projects": {
-    "C:\\Users\\kaku\\Backrest\\Backrest.csproj": {
+    "C:\\Users\\Pc-Tickets\\Backrest\\Backrest.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\kaku\\Backrest\\Backrest.csproj",
+        "projectUniqueName": "C:\\Users\\Pc-Tickets\\Backrest\\Backrest.csproj",
         "projectName": "Backrest",
-        "projectPath": "C:\\Users\\kaku\\Backrest\\Backrest.csproj",
-        "packagesPath": "C:\\Users\\kaku\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\kaku\\Backrest\\obj\\",
+        "projectPath": "C:\\Users\\Pc-Tickets\\Backrest\\Backrest.csproj",
+        "packagesPath": "C:\\Users\\Pc-Tickets\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Pc-Tickets\\Backrest\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\kaku\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Pc-Tickets\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -115,7 +112,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     }

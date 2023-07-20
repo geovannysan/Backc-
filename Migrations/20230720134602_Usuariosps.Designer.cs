@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backrest.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230720091046_Segundamigracion")]
-    partial class Segundamigracion
+    [Migration("20230720134602_Usuariosps")]
+    partial class Usuariosps
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -36,7 +36,7 @@ namespace Backrest.Migrations
                     b.ToTable("Cargos");
                 });
 
-            modelBuilder.Entity("Backrest.Data.Models.Clientes", b =>
+            modelBuilder.Entity("Backrest.Data.Models.Comnetuser", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -65,7 +65,7 @@ namespace Backrest.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("clientes");
+                    b.ToTable("Comnetusers");
                 });
 
             modelBuilder.Entity("Backrest.Data.Models.Contifico.IncrementoClass", b =>
@@ -276,7 +276,7 @@ namespace Backrest.Migrations
                     b.HasIndex("cedula")
                         .IsUnique();
 
-                    b.ToTable("admin");
+                    b.ToTable("Usuario");
                 });
 
             modelBuilder.Entity("Backrest.Data.Models.Empleado", b =>

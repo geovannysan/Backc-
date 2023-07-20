@@ -65,7 +65,7 @@ namespace Backrest.Controllers
             {
                 var ini = datos.fecha_inicio;
                 var fin = datos.fecha_fin;
-                var lista = _dbcontext.admin.ToList();
+                var lista = _dbcontext.Comnetusers.ToList();
                 return StatusCode(StatusCodes.Status200OK, new { mensaje = true, lista });
             }
             catch (System.Exception)

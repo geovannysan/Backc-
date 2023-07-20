@@ -60,16 +60,14 @@ namespace Backrest.Data
 
         public DbSet<Empleado>? Empleado { get; set; } = null;
 
-        public DbSet<Clientes>? clientes { get; set; } = null;
+        public DbSet<Comnetuser>? Comnetusers { get; set; }
         public DbSet<Users>? admins { get; set; } = null;
-        public DbSet<Usuario>? admin { get; set; } = null;
         public DbSet<Cargos>? Cargos { get; set; } = null;
         public DbSet<FilesClass>? bancoscon { get; set; } = null;
         public DbSet<Transacciones>? transacion { get; set; } = null;
         public DbSet<Repostressum>? Reporte { get; set; } = null;
         public DbSet<IncrementoClass>? incrementos { get; set; }
         public DbSet<migratio>? __efmigrationshistory { get; set; }
-
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -83,9 +81,9 @@ namespace Backrest.Data
                 entity.HasNoKey();
             });
             modelBuilder.Entity<migratio>(entity =>
-           {
-               entity.HasNoKey();
-           });
+            {
+                entity.HasNoKey();
+            });
             modelBuilder.Entity<Usuario>().HasIndex(n => n.cedula).IsUnique();
             base.OnModelCreating(modelBuilder);
         }

@@ -76,6 +76,10 @@
               "target": "Package",
               "version": "[7.0.4, )"
             },
+            "Microsoft.IdentityModel.Tokens": {
+              "target": "Package",
+              "version": "[6.32.0, )"
+            },
             "MySql.EntityFrameworkCore": {
               "target": "Package",
               "version": "[7.0.0, )"

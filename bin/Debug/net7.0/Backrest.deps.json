@@ -16,6 +16,7 @@
           "Microsoft.EntityFrameworkCore.Design": "7.0.5",
           "Microsoft.EntityFrameworkCore.SqlServer": "7.0.5",
           "Microsoft.EntityFrameworkCore.Tools": "7.0.4",
+          "Microsoft.IdentityModel.Tokens": "6.32.0",
           "MySql.EntityFrameworkCore": "7.0.0",
           "Newtonsoft.Json": "13.0.3",
           "Swashbuckle.AspNetCore": "6.4.0",
@@ -367,7 +368,7 @@
       "Microsoft.Extensions.Primitives/7.0.0": {},
       "Microsoft.Identity.Client/4.45.0": {
         "dependencies": {
-          "Microsoft.IdentityModel.Abstractions": "6.31.0"
+          "Microsoft.IdentityModel.Abstractions": "6.32.0"
         },
         "runtime": {
           "lib/netcoreapp2.1/Microsoft.Identity.Client.dll": {
@@ -388,17 +389,17 @@
           }
         }
       },
-      "Microsoft.IdentityModel.Abstractions/6.31.0": {
+      "Microsoft.IdentityModel.Abstractions/6.32.0": {
         "runtime": {
           "lib/net6.0/Microsoft.IdentityModel.Abstractions.dll": {
-            "assemblyVersion": "6.31.0.0",
-            "fileVersion": "6.31.0.40607"
+            "assemblyVersion": "6.32.0.0",
+            "fileVersion": "6.32.0.40712"
           }
         }
       },
       "Microsoft.IdentityModel.JsonWebTokens/6.31.0": {
         "dependencies": {
-          "Microsoft.IdentityModel.Tokens": "6.31.0",
+          "Microsoft.IdentityModel.Tokens": "6.32.0",
           "System.Text.Encoding": "4.3.0",
           "System.Text.Encodings.Web": "7.0.0",
           "System.Text.Json": "7.0.0"
@@ -410,21 +411,21 @@
           }
         }
       },
-      "Microsoft.IdentityModel.Logging/6.31.0": {
+      "Microsoft.IdentityModel.Logging/6.32.0": {
         "dependencies": {
-          "Microsoft.IdentityModel.Abstractions": "6.31.0"
+          "Microsoft.IdentityModel.Abstractions": "6.32.0"
         },
         "runtime": {
           "lib/net6.0/Microsoft.IdentityModel.Logging.dll": {
-            "assemblyVersion": "6.31.0.0",
-            "fileVersion": "6.31.0.40607"
+            "assemblyVersion": "6.32.0.0",
+            "fileVersion": "6.32.0.40712"
           }
         }
       },
       "Microsoft.IdentityModel.Protocols/6.21.0": {
         "dependencies": {
-          "Microsoft.IdentityModel.Logging": "6.31.0",
-          "Microsoft.IdentityModel.Tokens": "6.31.0"
+          "Microsoft.IdentityModel.Logging": "6.32.0",
+          "Microsoft.IdentityModel.Tokens": "6.32.0"
         },
         "runtime": {
           "lib/net6.0/Microsoft.IdentityModel.Protocols.dll": {
@@ -445,16 +446,16 @@
           }
         }
       },
-      "Microsoft.IdentityModel.Tokens/6.31.0": {
+      "Microsoft.IdentityModel.Tokens/6.32.0": {
         "dependencies": {
           "Microsoft.CSharp": "4.5.0",
-          "Microsoft.IdentityModel.Logging": "6.31.0",
+          "Microsoft.IdentityModel.Logging": "6.32.0",
           "System.Security.Cryptography.Cng": "5.0.0"
         },
         "runtime": {
           "lib/net6.0/Microsoft.IdentityModel.Tokens.dll": {
-            "assemblyVersion": "6.31.0.0",
-            "fileVersion": "6.31.0.40607"
+            "assemblyVersion": "6.32.0.0",
+            "fileVersion": "6.32.0.40712"
           }
         }
       },
@@ -867,7 +868,7 @@
       "System.IdentityModel.Tokens.Jwt/6.31.0": {
         "dependencies": {
           "Microsoft.IdentityModel.JsonWebTokens": "6.31.0",
-          "Microsoft.IdentityModel.Tokens": "6.31.0"
+          "Microsoft.IdentityModel.Tokens": "6.32.0"
         },
         "runtime": {
           "lib/net6.0/System.IdentityModel.Tokens.Jwt.dll": {
@@ -1701,12 +1702,12 @@
       "path": "microsoft.identity.client.extensions.msal/2.19.3",
       "hashPath": "microsoft.identity.client.extensions.msal.2.19.3.nupkg.sha512"
     },
-    "Microsoft.IdentityModel.Abstractions/6.31.0": {
+    "Microsoft.IdentityModel.Abstractions/6.32.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-SBa2DGEZpMThT3ki6lOK5SwH+fotHddNBKH+pfqrlINnl999BreRS9G0QiLruwfmcTDnFr8xwmNjoGnPQqfZwg==",
-      "path": "microsoft.identitymodel.abstractions/6.31.0",
-      "hashPath": "microsoft.identitymodel.abstractions.6.31.0.nupkg.sha512"
+      "sha512": "sha512-um663JITPLjIEXtSDdKfqUzukOR4fnzAdx9FyO9maQ8WSl0Ds4doe6uu45DpzUciPCOujdkUX524AKkI2krtHw==",
+      "path": "microsoft.identitymodel.abstractions/6.32.0",
+      "hashPath": "microsoft.identitymodel.abstractions.6.32.0.nupkg.sha512"
     },
     "Microsoft.IdentityModel.JsonWebTokens/6.31.0": {
       "type": "package",
@@ -1715,12 +1716,12 @@
       "path": "microsoft.identitymodel.jsonwebtokens/6.31.0",
       "hashPath": "microsoft.identitymodel.jsonwebtokens.6.31.0.nupkg.sha512"
     },
-    "Microsoft.IdentityModel.Logging/6.31.0": {
+    "Microsoft.IdentityModel.Logging/6.32.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-YzW5O27nTXxNgNKm+Pud7hXjUlDa2JshtRG+WftQvQIsBUpFA/WjhxG2uO8YanfXbb/IT9r8Cu/VdYkvZ3+9/g==",
-      "path": "microsoft.identitymodel.logging/6.31.0",
-      "hashPath": "microsoft.identitymodel.logging.6.31.0.nupkg.sha512"
+      "sha512": "sha512-+hHJNxVh7ZINcXcUoR7lnLA5GuOfrdTe8YFUoS8Ph9mkZKgkthNLmajLK+LOXaGwbXN4csHOBW7HSAS8z++o6A==",
+      "path": "microsoft.identitymodel.logging/6.32.0",
+      "hashPath": "microsoft.identitymodel.logging.6.32.0.nupkg.sha512"
     },
     "Microsoft.IdentityModel.Protocols/6.21.0": {
       "type": "package",
@@ -1736,12 +1737,12 @@
       "path": "microsoft.identitymodel.protocols.openidconnect/6.21.0",
       "hashPath": "microsoft.identitymodel.protocols.openidconnect.6.21.0.nupkg.sha512"
     },
-    "Microsoft.IdentityModel.Tokens/6.31.0": {
+    "Microsoft.IdentityModel.Tokens/6.32.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-Q1Ej/OAiqi5b/eB8Ozo5FnQ6vlxjgiomnWWenDi2k7+XqhkA2d5TotGtNXpWcWiGmrotNA/o8p51YesnziA0Sw==",
-      "path": "microsoft.identitymodel.tokens/6.31.0",
-      "hashPath": "microsoft.identitymodel.tokens.6.31.0.nupkg.sha512"
+      "sha512": "sha512-+5/SF2KhDmudpANOKf9LhKoljV05053KAxlp7ITEoTtgMomWcfSwliMooG6IzwAuP4jlOD/f86/YSXCmdjqodQ==",
+      "path": "microsoft.identitymodel.tokens/6.32.0",
+      "hashPath": "microsoft.identitymodel.tokens.6.32.0.nupkg.sha512"
     },
     "Microsoft.NETCore.Platforms/5.0.0": {
       "type": "package",

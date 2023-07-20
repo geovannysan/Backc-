@@ -34,60 +34,98 @@ namespace Backrest.Controllers
             public string? password { get; set; }
         }
 
-        [HttpGet("migrate")]
-        public async Task<ActionResult> lista()
-        {
-            // List<object> results = new List<object>();
-            string consulta = "SELECT * FROM __efmigrationshistory";
-            List<dynamic> resultados = new List<dynamic>();
-
-            using (var command = _dbcontex.Database.GetDbConnection().CreateCommand())
-            {
-                command.CommandText = consulta;
-                _dbcontex.Database.OpenConnection();
-
-                using (var result = command.ExecuteReader())
-                {
-                    while (result.Read())
-                    {
-                        var item = new
-                        {
-                            MigrationId = result.GetString(0),
-                            ProductVersion = result.GetString(1)
-                        };
-
-                        resultados.Add(item);
-                    }
-                    return StatusCode(
-                        StatusCodes.Status200OK,
-                        new { statue = false, mensaje = resultados}
-                    );
-                }
-            }
-        }
-
         [HttpPost("Login")]
         public async Task<ActionResult> Listuser([FromBody] Datosf f)
         {
             try
             {
                 bool existe = _dbcontex.Comnetusers.Any(p => p.cedula == f.cedula);
+                var client = new HttpClient();
+                var request = new HttpRequestMessage(
+                    HttpMethod.Post,"https://portal.comnet.ec/api/v1/GetClientsDetails");
                 if (!existe)
                 {
-                    return StatusCode(
-                        StatusCodes.Status200OK,
-                        new { statue = false, mensaje = "Usuario no Registrado " }
+                    var contents = new StringContent(
+                        "{\r\n  \"token\": \""
+                            + "azZrUHB4UnRMaTZaZkRYUW1YRXFDUT09"
+                            + "\",\r\n  \"cedula\": \""
+                            + f.cedula
+                            + "\"\r\n}",
+                        null,
+                        "application/json"
                     );
+                    request.Content = contents;
+                    var response = await client.SendAsync(request);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string res = await response.Content.ReadAsStringAsync();
+                        var resultas = JsonConvert.DeserializeObject<Clienteportal>(res);
+                        var result = JsonConvert.DeserializeObject<Campodatos>(res);
+                        if (result.estado == "exito")
+                        {
+                            bool PasswordValid = (f.password == result.datos[0].codigo);
+                            bool servicio = (resultas.datos[0].servicios != null);
+                            if (!servicio)
+                            {
+                                return StatusCode(
+                                    StatusCodes.Status200OK,
+                                    new
+                                    {
+                                        succes = false,
+                                        mensaje = "Usted no cuenta con un servicio "
+                                    }
+                                );
+                            }
+                            if (!PasswordValid)
+                            {
+                                return StatusCode(
+                                    StatusCodes.Status200OK,
+                                    new
+                                    {
+                                        succes = false,
+                                        mensaje = "Acceso denegado verifique cédula o password"
+                                    }
+                                );
+                            }
+                            var dato = result.datos[0].codigo;
+                            string hashedPassword = passworHeader.HasPasword(
+                                result.datos[0].codigo
+                            );
+                            Comnetuser guarda = new Comnetuser()
+                            {
+                                username = result.datos[0].nombre,
+                                cedula = result.datos[0].cedula,
+                                password = hashedPassword,
+                                imag = "",
+                                repuestauno = "",
+                                respuestados = "",
+                                respuestatres = "",
+                            };
+                            _dbcontex.Comnetusers.Add(guarda);
+                            _dbcontex.SaveChanges();
+                            return StatusCode(
+                                StatusCodes.Status200OK,
+                                new { result.estado, result.datos }
+                            );
+                        }
+                        else
+                            return StatusCode(
+                                StatusCodes.Status200OK,
+                                new { statue = false, result.mensaje }
+                            );
+                    }
+                    else
+                    {
+                        return StatusCode(
+                            StatusCodes.Status200OK,
+                            new { statue = false, mensaje = "Usuario no tiene servicio registrado" }
+                        );
+                    }
                 }
                 var users = _dbcontex.Comnetusers.Where(p => p.cedula == f.cedula).ToList();
                 bool isPasswordValid = passworHeader.Verificarpws(f.password, users[0].password);
                 if (isPasswordValid)
                 {
-                    var client = new HttpClient();
-                    var request = new HttpRequestMessage(
-                        HttpMethod.Post,
-                        "https://portal.comnet.ec/api/v1/GetClientsDetails"
-                    );
                     var contents = new StringContent(
                         "{\r\n  \"token\": \""
                             + "azZrUHB4UnRMaTZaZkRYUW1YRXFDUT09"
@@ -103,18 +141,15 @@ namespace Backrest.Controllers
                     {
                         string res = await response.Content.ReadAsStringAsync();
                         var result = JsonConvert.DeserializeObject<Clienteportal>(res);
-                        var token = JwtHelper.GenerateToken(res);
                         if (result.estado == "exito")
                         {
                             return StatusCode(
                                 StatusCodes.Status200OK,
-                                new { result.estado, token }
+                                new { result.estado, result.datos }
                             );
                         }
                         return StatusCode(StatusCodes.Status200OK, new { result });
                     }
-                    // info = _dbcontex.admin.Find(id);
-                    //  return StatusCode(StatusCodes.Status200OK, new { info });
                 }
                 return StatusCode(
                     StatusCodes.Status200OK,

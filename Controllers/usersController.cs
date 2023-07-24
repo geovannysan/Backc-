@@ -105,7 +105,7 @@ namespace Backrest.Controllers
                             _dbcontex.SaveChanges();
                             return StatusCode(
                                 StatusCodes.Status200OK,
-                                new { result.estado, result.datos }
+                                new { result.estado, resultas.datos }
                             );
                         }
                         else

@@ -8,6 +8,7 @@ using System.Text.Json.Serialization;
 using MySql.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.Extensions.Caching.Memory;
 
 var builder = WebApplication.CreateBuilder(args);
 Env.Load(); // carga las variables de entorno desde el archivo .env
@@ -55,6 +56,7 @@ builder.Services.AddCors(opt =>
         }
     );
 });
+builder.Services.AddMemoryCache();
 
 /*var secrekey = Environment.GetEnvironmentVariable("SECREKEY");
 var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secrekey));
@@ -84,6 +86,22 @@ var app = builder.Build();
     // Resto de la lógica de tu aplicación
 }
 */
+var cache = app.Services.GetRequiredService<IMemoryCache>();
+app.Use(async (context, next) =>
+{
+    // Limpia la caché aquí antes de continuar con la solicitud
+    // Por ejemplo, puedes limpiar la caché en una ruta o en ciertas condiciones específicas.
+    // Puedes usar cache.Remove("nombre_clave") para eliminar elementos individuales de la caché.
+
+    // En este ejemplo, limpiaremos la caché por completo en cada solicitud.
+    cache.Dispose();
+    cache = new MemoryCache(new MemoryCacheOptions());
+
+    // Llama al siguiente middleware en la pila
+    await next();
+});
+
+
 // Configure the HTTP request pipeline.
 app.UseSwagger();
 app.UseSwaggerUI();

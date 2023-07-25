@@ -16,7 +16,7 @@ FROM mcr.microsoft.com/dotnet/aspnet:7.0
 WORKDIR /App
 
 COPY --from=build-env /App/out .
-ENV ASPNETCORE_URLS http://:443
+ENV ASPNETCORE_URLS http://:4433
 
 # Exponer el puerto 80 del contenedor al host
 

@@ -92,3 +92,4 @@ C:\Users\Pc-Tickets\Backrest\obj\Release\net7.0\refint\Backrest.dll
 C:\Users\Pc-Tickets\Backrest\obj\Release\net7.0\Backrest.pdb
 C:\Users\Pc-Tickets\Backrest\obj\Release\net7.0\Backrest.genruntimeconfig.cache
 C:\Users\Pc-Tickets\Backrest\obj\Release\net7.0\ref\Backrest.dll
+C:\Users\Pc-Tickets\Backrest\bin\Release\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

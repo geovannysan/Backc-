@@ -13,6 +13,7 @@ C:\Users\Pc-Tickets\Backrest\bin\Release\net7.0\publish\Google.Protobuf.dll
 C:\Users\Pc-Tickets\Backrest\bin\Release\net7.0\publish\K4os.Compression.LZ4.dll
 C:\Users\Pc-Tickets\Backrest\bin\Release\net7.0\publish\K4os.Compression.LZ4.Streams.dll
 C:\Users\Pc-Tickets\Backrest\bin\Release\net7.0\publish\K4os.Hash.xxHash.dll
+C:\Users\Pc-Tickets\Backrest\bin\Release\net7.0\publish\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\Pc-Tickets\Backrest\bin\Release\net7.0\publish\Microsoft.AspNetCore.OpenApi.dll
 C:\Users\Pc-Tickets\Backrest\bin\Release\net7.0\publish\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\Pc-Tickets\Backrest\bin\Release\net7.0\publish\Microsoft.Data.SqlClient.dll

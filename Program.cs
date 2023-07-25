@@ -73,7 +73,7 @@ builder.Services
 });*/
 var app = builder.Build();
 
-using (var scope = app.Services.CreateScope())
+/*using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<DataContext>();
     //dbContext.Database.EnsureCreated();
@@ -83,7 +83,7 @@ using (var scope = app.Services.CreateScope())
 
     // Resto de la lógica de tu aplicación
 }
-
+*/
 // Configure the HTTP request pipeline.
 app.UseSwagger();
 app.UseSwaggerUI();

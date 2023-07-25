@@ -17,7 +17,7 @@ WORKDIR /App
 
 COPY --from=build-env /App/out .
 
-EXPOSE 443
+EXPOSE 4433
 # docker build -t counternet -f Dockerfile .
 # docker run --name counternet -p 3545:80 -d counternet
 

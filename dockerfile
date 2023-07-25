@@ -16,6 +16,9 @@ FROM mcr.microsoft.com/dotnet/aspnet:7.0
 WORKDIR /App
 
 COPY --from=build-env /App/out .
+ENV ASPNETCORE_URLS http://*:443
+
+# Exponer el puerto 80 del contenedor al host
 
 EXPOSE 4433
 # docker build -t counternet -f Dockerfile .

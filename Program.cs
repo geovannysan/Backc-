@@ -75,7 +75,7 @@ builder.Services
 });*/
 var app = builder.Build();
 
-/*using (var scope = app.Services.CreateScope())
+using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<DataContext>();
     //dbContext.Database.EnsureCreated();
@@ -85,7 +85,7 @@ var app = builder.Build();
 
     // Resto de la lógica de tu aplicación
 }
-*/
+
 var cache = app.Services.GetRequiredService<IMemoryCache>();
 app.Use(async (context, next) =>
 {

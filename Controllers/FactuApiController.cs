@@ -34,7 +34,8 @@ namespace Backrest.Controllers
             try
             {
                 lista = _dbcontex.incrementos.FromSqlInterpolated($"Incremento()").ToList();
-                return StatusCode(StatusCodes.Status200OK, new { status = true, result = lista });
+                
+                return StatusCode(StatusCodes.Status200OK, new { status = true, result = lista,lista[0].contadores });
             }
             catch (System.Exception)
             {
@@ -197,7 +198,12 @@ namespace Backrest.Controllers
                 {
                     string resp = await response.Content.ReadAsStringAsync();
                     var result = JsonConvert.DeserializeObject<List<ServicioInternet>>(resp);
+                    if(result.Count()>0){
                     return StatusCode(StatusCodes.Status200OK, result);
+                    
+                    }else{
+                         return StatusCode(StatusCodes.Status200OK, result);
+                    }
                 }
                 else
                 {

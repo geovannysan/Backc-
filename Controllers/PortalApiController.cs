@@ -11,6 +11,8 @@ using System.Text.Json.Serialization;
 using Backrest.Data.Models.Pagos;
 using Backrest.Data.Models.microtik;
 using Newtonsoft.Json.Linq;
+using Backrest.Data.Models.Contifico;
+using Microsoft.EntityFrameworkCore;
 
 namespace Backrest.Controllers
 {
@@ -19,6 +21,7 @@ namespace Backrest.Controllers
     public class PortalApiController : ControllerBase
     {
         private readonly HttpClient _httpcliente;
+         private readonly Data.DataContext _dbcontex;
 
         public class Proceso
         {
@@ -29,8 +32,9 @@ namespace Backrest.Controllers
         public string url = "https://portal.comnet.ec/api/v1/";
         Procesos newproces = new Procesos();
 
-        public PortalApiController(HttpClient httpClient)
+        public PortalApiController(HttpClient httpClient, Data.DataContext logger)
         {
+            _dbcontex = logger;
             _httpcliente = httpClient;
         }
 
@@ -61,7 +65,7 @@ namespace Backrest.Controllers
                 }
                 return StatusCode(
                     StatusCodes.Status200OK,
-                    new { mensaje = "No se completo la consulta" }
+                    new { estado= "error" }
                 );
             }
             catch (Exception ex)
@@ -519,6 +523,7 @@ namespace Backrest.Controllers
         [Route("PagosdelPortal/{operador:int}")]
         public async Task<ActionResult> Postpago(string operador, [FromBody] Datos datos)
         {
+            List<IncrementoClass> lista = new List<IncrementoClass>();
             try
             {
                 var client = new HttpClient();
@@ -526,6 +531,10 @@ namespace Backrest.Controllers
                     HttpMethod.Post,
                     "https://portal.comnet.ec/api/v1/PaidInvoice"
                 );
+                 lista = _dbcontex.incrementos.FromSqlInterpolated($"Incremento()").ToList();
+               //"001-001-8561"
+                string numeros=  (lista[0].contadores).ToString();
+                var numero =  "001-001-00000" + numeros.PadLeft(9, '0');
                 var contents = new StringContent(
                     "{\r\n  \"token\": \""
                         + newproces.Obtenertoken(operador)
@@ -539,7 +548,7 @@ namespace Backrest.Controllers
                         + datos.cantidad
                         + "\",\r\n"
                         + "  \"nota\": \""
-                        + datos.nota
+                        + datos.nota +"\n FAC:"+numero
                         + "\",\r\n"
                         + "  \"idtransaccion\": \""
                         + datos.idtransaccion
@@ -547,6 +556,7 @@ namespace Backrest.Controllers
                     null,
                     "application/json"
                 );
+                 
                 request.Content = contents;
                 var response = await client.SendAsync(request);
                 if (response.IsSuccessStatusCode)

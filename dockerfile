@@ -20,7 +20,7 @@ COPY --from=build-env /App/out .
 
 # Exponer el puerto 80 del contenedor al host
 
-EXPOSE 4433
+EXPOSE 80
 # docker build -t counternet -f Dockerfile .
 # docker run --name counternet -p 3545:80 -d counternet
 

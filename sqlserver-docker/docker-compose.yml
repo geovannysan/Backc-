@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sqlserver-prubatienda
+    ports:
+      - "1433:1433"
+    environment:
+      SA_PASSWORD: "mssql1Ipw"
+      ACCEPT_EULA: "Y"
+    networks:
+      - sqlserver-network
+
+networks:
+  sqlserver-network:
+    driver: bridge

@@ -3960,11 +3960,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\Pc-Tickets\\Backc-\\Backrest.csproj",
+      "projectUniqueName": "D:\\Backc-\\Backrest.csproj",
       "projectName": "Backrest",
-      "projectPath": "c:\\Users\\Pc-Tickets\\Backc-\\Backrest.csproj",
+      "projectPath": "D:\\Backc-\\Backrest.csproj",
       "packagesPath": "C:\\Users\\Pc-Tickets\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\Pc-Tickets\\Backc-\\obj\\",
+      "outputPath": "D:\\Backc-\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Pc-Tickets\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -4041,7 +4041,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
       }
     }
   }

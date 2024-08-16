@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "oNi3mUFyYYrK/lnfZCBvQCdoLz8UEpf2jOwL7XcWCLK+cZ2GjV7VqgXP8gnwXNU0jmI2ur6bXWHL82Y7wpxuPg==",
+  "dgSpecHash": "uNMf+7M/w9UUabLLGbQ6ANf36ROKAz/PeM1agICdTp+a59ju2v0VqBpYeG1ufshZl91tWh6jKH8zKEtcGuEpDg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Pc-Tickets\\Backc-\\Backrest.csproj",
+  "projectFilePath": "D:\\Backc-\\Backrest.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Pc-Tickets\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\Pc-Tickets\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
